@@ -5,7 +5,7 @@ const connectDb = () => {
     const myDb = mongoose.connection;
     myDb.on('error', console.error.bind(console, 'Database connection error!'))
     myDb.once('open', () => {
-        console.log('Connection to db successfully opened!');
+        console.log(`Connection to ${myDb.name} db successfully opened!`);
     })
 }
 
