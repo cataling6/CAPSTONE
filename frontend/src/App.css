@@ -36,3 +36,23 @@
     transform: rotate(360deg);
   }
 }
+/*transiction pages*/
+/* Fade in */
+.fade-in-enter {
+  opacity: 0;
+}
+
+.fade-in-enter-active {
+  opacity: 1;
+  transition: opacity 0.5s ease-in-out;
+}
+
+/* Fade out */
+.fade-out-exit {
+  opacity: 1;
+}
+
+.fade-out-exit-active {
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
