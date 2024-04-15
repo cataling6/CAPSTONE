@@ -56,3 +56,24 @@
   opacity: 0;
   transition: opacity 0.5s ease-in-out;
 }
+
+body {
+  color: white;
+  font-size: medium;
+  background-color: #40474f;
+  font-family: "Sedan", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.sedan-regular {
+  font-family: "Sedan", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.sedan-regular-italic {
+  font-family: "Sedan", serif;
+  font-weight: 400;
+  font-style: italic;
+}

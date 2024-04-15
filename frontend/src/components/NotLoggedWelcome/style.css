@@ -1,0 +1,28 @@
+/* .my-box {
+  width: 300px;
+  padding: 20px;
+  text-align: center;
+  transition: transform 0.5s ease;
+}
+
+.my-box:hover {
+  transform: scale(1.2);
+} */
+.my-box {
+  width: 300px;
+  padding: 20px;
+  text-align: center;
+}
+
+.my-box img {
+  height: 150px;
+  object-fit: cover;
+  aspect-ratio: 2/1;
+  border-radius: 10px;
+}
+
+.my-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

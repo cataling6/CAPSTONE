@@ -7,6 +7,8 @@ import { AnimatePresence } from 'framer-motion'
 import NotLoggedWelcome from "./components/NotLoggedWelcome/NotLoggedWelcome";
 import Welcome from "./components/Welcome/Welcome";
 import Mainlayout from "./layout/MainLayout";
+import LoginForm from "./components/Login/LoginForm";
+import Login from "./components/Login/Login";
 
 
 function App() {
@@ -18,8 +20,7 @@ function App() {
         <Routes location={location} key={location.pathname}>
           <Route exact path="/" element={<NotLoggedWelcome />} />
           <Route exact path="/home" element={<Welcome />} />
-
-
+          <Route exact path="/login" element={<Login />} />
         </Routes>
       </AnimatePresence>
     </Mainlayout>
