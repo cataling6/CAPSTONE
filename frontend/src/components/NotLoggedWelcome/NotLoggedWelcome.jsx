@@ -17,7 +17,7 @@ const NotLoggedWelcome = () => {
           <motion.div>
             <div className="d-flex justify-content-end">
               <motion.div initial={{ y: -20, opacity: 0 }} animate={{ y: 30, opacity: 1 }} transition={{ duration: 1.2, ease: [0.9, -0.05, 0.01, 0.99] }}>
-                <label>"Get ready to supercharge your savings journey with me! 🌟 Whether it's budgeting tips, savvy shopping strategies, or financial hacks, I've got you covered. Let's unlock the secrets to saving smarter together!"</label>
+                <span>"Get ready to supercharge your savings journey with me! 🌟 Whether it's budgeting tips, savvy shopping strategies, or financial hacks, I've got you covered. Let's unlock the secrets to saving smarter together!"</span>
               </motion.div>
               <motion.div
                 className="my-box"
@@ -40,7 +40,7 @@ const NotLoggedWelcome = () => {
             </div>
             <div className="d-flex flex-row-reverse ">
               <motion.div className="ps-5" initial={{ y: -20, opacity: 0 }} animate={{ y: 30, opacity: 1 }} transition={{ duration: 1.2, ease: [0.9, -0.05, 0.01, 0.99] }}>
-                <label>"Experience the power of financial freedom! 💸 I'll show you how to trim expenses and watch your savings soar. Let's turn your financial goals into reality, one dollar at a time!"</label>
+                <span>"Experience the power of financial freedom! 💸 I'll show you how to trim expenses and watch your savings soar. Let's turn your financial goals into reality, one dollar at a time!"</span>
               </motion.div>
               <motion.div
                 className="my-box"
@@ -63,7 +63,7 @@ const NotLoggedWelcome = () => {
             </div>
             <div className="d-flex justify-content-end">
               <motion.div initial={{ y: -20, opacity: 0 }} animate={{ y: 30, opacity: 1 }} transition={{ duration: 1.2, ease: [0.9, -0.05, 0.01, 0.99] }}>
-                <label>"Join me to unlock unbeatable savings! 💰 With savvy tips and tricks, I'll help you keep more money in your pocket effortlessly. Let's make saving simple and rewarding!"</label>
+                <span>"Join me to unlock unbeatable savings! 💰 With savvy tips and tricks, I'll help you keep more money in your pocket effortlessly. Let's make saving simple and rewarding!"</span>
               </motion.div>
               <motion.div
                 className="my-box"
