@@ -36,8 +36,8 @@ const LoginForm = ({ toggleForm }) => {
   };
   return (
     <>
-      <div className="container p-5 col-12 col-sm-12 col-md-12 col-lg-12">
-        <div className="form-control col-12 col-sm-12 col-md-12 col-lg-12 gy-2 row">
+      <div className="container p-5 col-12 col-sm-6 col-md-4 col-lg-4">
+        <div className="form-control gy-2 row">
           <form onSubmit={onSubmit}>
             <div className="col-12 col-sm-12 col-md-12 col-lg-12">
               <label>
@@ -57,9 +57,6 @@ const LoginForm = ({ toggleForm }) => {
               </button>
             </div>
           </form>
-          <div className="d-flex justify-content-center">
-            <span>or</span>
-          </div>
 
           <div onClick={() => toggleForm()}>
             {/*eslint-disable-next-line*/}
