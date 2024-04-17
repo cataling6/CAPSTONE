@@ -1,6 +1,8 @@
 import React from "react";
 import { useState } from "react";
 import AxiosClient from "../../modules/AxiosClient/client";
+import { motion } from "framer-motion";
+import "./style.css";
 const LoginForm = ({ toggleForm }) => {
   const client = new AxiosClient();
   const [error, setError] = useState(false);
@@ -36,33 +38,36 @@ const LoginForm = ({ toggleForm }) => {
   };
   return (
     <>
-      <div className="container p-5 col-12 col-sm-6 col-md-4 col-lg-4 d-flex justify-content-center ">
-        <div className="form-control gy-2 row form-container ">
-          <div className="backdrop-filter m-0">
-            <form onSubmit={onSubmit} className="d-flex flex-column  gap-2 mt-5">
-              <div className="col-12 col-sm-12 col-md-12 col-lg-12 form-floating ">
-                <input data-testid="email" className="form-control col-lg-12" type="text" name="email" value={loginForm.email} onChange={onChangeInput} id="usr" placeholder="Email" />
-                <label htmlFor="usr">Email</label>
-              </div>
-              <div className="col-12 col-sm-12 col-md-12 col-lg-12 form-floating ">
-                <input data-testid="password" className="form-control" type="password" name="password" value={loginForm.password} onChange={onChangeInput} id="pwd" placeholder="Password" />
-                <label htmlFor="pwd">Password</label>
-              </div>
-              <div className="">
-                <button className="btn btn-primary col-12 col-sm-12 col-md-12 col-lg-12" data-testid="btnLogin">
-                  Login
-                </button>
-              </div>
-            </form>
-          </div>
-          <div onClick={() => toggleForm()}>
-            {/*eslint-disable-next-line*/}
-            <a href="#" className="text-dark fw-bold ms-1">
-              Registrati ora
-            </a>
-          </div>
+      {/* <motion.div initial={{ y: -20, opacity: 0 }} animate={{ y: 50, opacity: 1 }} transition={{ duration: 1, ease: [0.6, -0.05, 0.01, 0.99] }}> */}
+      <motion.div
+        initial={{ opacity: 0, scale: 0.5 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{
+          duration: 0.8,
+          delay: 0.5,
+          ease: [0, 0.71, 0.2, 1.01],
+        }}
+      >
+        <div className="login-box">
+          <h2>Login</h2>
+          <form>
+            <div className="user-box">
+              <input type="text" name="" required="" />
+              <label>Username</label>
+            </div>
+            <div className="user-box">
+              <input type="password" name="" required="" />
+              <label>Password</label>
+            </div>
+            <div className="d-flex justify-content-between ">
+              <a href="#">Signin</a>
+              <a href="#" onClick={() => toggleForm()}>
+                Signup
+              </a>
+            </div>
+          </form>
         </div>
-      </div>
+      </motion.div>
     </>
   );
 };
