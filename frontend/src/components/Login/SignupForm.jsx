@@ -41,9 +41,9 @@ const SignupForm = ({ toggleForm }) => {
             <EditBox name={"email"} type={"mail"} onChange={onChangeInput} label={"E-mail"} col={12} inputId={"eml"} customClasses={"user-box"} />
             <EditBox name={"password"} type={"password"} onChange={onChangeInput} label={"Password"} col={12} inputId={"pwd"} customClasses={"user-box"} />
             <div className="d-flex justify-content-between ">
-              <a href="#">Submit</a>
+              <a href="#">Create</a>
               <a href="#" onClick={() => toggleForm()}>
-                Register
+                Login
               </a>
             </div>
           </form>

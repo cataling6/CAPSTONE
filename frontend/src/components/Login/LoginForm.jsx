@@ -60,7 +60,7 @@ const LoginForm = ({ toggleForm }) => {
               <label>Password</label>
             </div>
             <div className="d-flex justify-content-between ">
-              <a href="#">Signin</a>
+              <a href="#">Login</a>
               <a href="#" onClick={() => toggleForm()}>
                 Signup
               </a>
