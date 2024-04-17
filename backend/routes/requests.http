@@ -11,3 +11,11 @@ Content-Type: application/json
 }
 ###
 DELETE http://localhost:3030/deleteUser/66201a12166fdd621354f362
+###
+POST http://localhost:3030/login
+Content-Type: application/json
+
+{
+   "email": "radoi.catalin88@gmail.com",
+   "password": "123456"
+}

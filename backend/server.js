@@ -7,7 +7,7 @@ require('dotenv').config();
 
 //routes:::begin
 const usersRoute = require('./routes/users')
-
+const loginROute = require('./routes/login')
 //routes:::end
 //const path = require('path');
 
@@ -20,6 +20,7 @@ app.use(express.json());
 
 //routes:
 app.use('/', usersRoute);
+app.use('/', loginROute);
 
 
 connectionToDb();
