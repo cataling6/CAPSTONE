@@ -1,13 +1,26 @@
-require('dotenv').config();
+//configs:::begin
 const express = require('express');
 const cors = require('cors');
 const connectionToDb = require('./config/db_conn');
+require('dotenv').config();
+//configs:::end
+
+//routes:::begin
+const usersRoute = require('./routes/users')
+
+//routes:::end
 //const path = require('path');
 
 const PORT = 3030;
 const app = express();
 
 app.use(cors());
+app.use(express.json());
+
+
+//routes:
+app.use('/', usersRoute);
+
 
 connectionToDb();
 
