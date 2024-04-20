@@ -14,7 +14,7 @@ const Welcome = () => {
         <Container>
           <Alert show={show} variant="success">
             <Alert.Heading>My Alert</Alert.Heading>
-            <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Cras mattis consectetur purus sit amet fermentum.</p>
+            <p>Welcome to MyFinance App! let's start to add data by clicking on "Add Expenses" in the top left navbar button</p>
             <hr />
             <div className="d-flex justify-content-end">
               <Button onClick={() => setShow(false)} variant="outline-success">

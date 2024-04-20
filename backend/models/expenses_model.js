@@ -22,6 +22,10 @@ const ExpensesSchema = new mongoose.Schema({
         type: String,
         required: false,
         max: 255
+    },
+    opDate: {
+        type: Date,
+        required: true
     }
 }, { timestamps: true, strict: true });
 

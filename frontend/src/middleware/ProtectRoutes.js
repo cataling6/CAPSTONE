@@ -9,8 +9,8 @@ const isAuthorized = () => {
 
 const ProtectRoutes = () => {
     const isAuth = isAuthorized();
+
     return isAuth ? <Outlet /> : <Login />
-    console.log("cazzo fai");
 }
 
 export default ProtectRoutes

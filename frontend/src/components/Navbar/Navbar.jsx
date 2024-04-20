@@ -1,11 +1,15 @@
 import { Navbar, Nav, NavDropdown } from "react-bootstrap";
 import logoImg from "../../assets/imgs/logo.png";
 import { Link, Router } from "react-router-dom";
-
+const { jwtDecode } = require("jwt-decode");
 function MyNavbar() {
   const changePage = () => {
     window.location.href = "/";
   };
+  const token = localStorage.getItem("authorized_user");
+  let decoded = "";
+  if (token) decoded = jwtDecode(token);
+
   return (
     <>
       <Navbar expand="lg" className="bg-body-tertiary ps-1 mb-3 shadow" bg="dark" data-bs-theme="dark">
@@ -18,9 +22,22 @@ function MyNavbar() {
             <Nav.Link as={Link} to="/home">
               Home
             </Nav.Link>
-            <Nav.Link as={Link} to="/login">
-              Try it!
-            </Nav.Link>
+
+            {token ? (
+              <Nav.Link as={Link} to="/expenses">
+                Expenses
+              </Nav.Link>
+            ) : (
+              ""
+            )}
+
+            {!token ? (
+              <Nav.Link as={Link} to="/login">
+                Try it!
+              </Nav.Link>
+            ) : (
+              ""
+            )}
             <NavDropdown title="Dropdown" id="basic-nav-dropdown">
               <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
               <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>

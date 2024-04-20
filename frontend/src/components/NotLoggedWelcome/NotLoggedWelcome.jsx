@@ -9,7 +9,7 @@ import "./style.css";
 const NotLoggedWelcome = () => {
   return (
     <>
-      <motion.main className="main__container" initial={{ y: -20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.5, ease: [0.6, -0.05, 0.01, 0.99] }}>
+      <motion.main className="main__container max-height" initial={{ y: -20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.5, ease: [0.6, -0.05, 0.01, 0.99] }}>
         <Container>
           <motion.h1 className="text-white text-center" initial={{ y: -20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 1.0, ease: [0.9, -0.05, 0.01, 0.99] }}>
             Welcome to MyFinance!
@@ -85,7 +85,7 @@ const NotLoggedWelcome = () => {
               </motion.div>
             </div>
           </motion.div>
-          <div className="d-flex justify-content-center mt-5">
+          <div className="d-flex justify-content-center">
             <Link as={Link} to="/login" className="btn btn-primary">
               Try It Now!
             </Link>

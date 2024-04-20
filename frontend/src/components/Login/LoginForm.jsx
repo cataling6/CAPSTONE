@@ -5,7 +5,9 @@ import AxiosClient from "../../modules/AxiosClient/client";
 import EditBox from "../Editbox/Editbox";
 import Swal from "sweetalert2";
 import "./style.css";
+import { useNavigate } from "react-router-dom";
 const LoginForm = ({ toggleForm }) => {
+  const navigate = useNavigate();
   const client = new AxiosClient();
   const [error, setError] = useState(false);
   const [token, setToken] = useState(false);
@@ -13,7 +15,7 @@ const LoginForm = ({ toggleForm }) => {
     email: "",
     password: "",
   });
-
+  console.log(loginForm);
   const onChangeInput = (e) => {
     const { name, value } = e.target;
     setLoginForm({
@@ -27,13 +29,16 @@ const LoginForm = ({ toggleForm }) => {
     try {
       const res = await client.post("/login", loginForm);
       if (res.token) {
-        localStorage.setItem("auth", JSON.stringify(res.token));
+        console.log(JSON.stringify(res.token));
+        localStorage.setItem("authorized_user", JSON.stringify(res.token));
+
+        navigate("/welcome");
         setToken(res.token);
-        setInterval(() => {
-          window.location.href = "/home";
-        }, 1000);
+
+        setInterval(() => {}, 1000);
       }
     } catch (e) {
+      console.log(e);
       setError(e);
     }
   };
@@ -46,10 +51,9 @@ const LoginForm = ({ toggleForm }) => {
             <EditBox name={"email"} type={"email"} onChange={onChangeInput} label={"E-mail"} col={12} inputId={"eml"} customClasses={"user-box"} />
             <EditBox name={"password"} type={"password"} onChange={onChangeInput} label={"Password"} col={12} inputId={"pwd"} customClasses={"user-box"} />
             <div className="d-flex justify-content-between ">
-              <a href="#">Login</a>
-              <a href="#" onClick={() => toggleForm()}>
-                Signup
-              </a>
+              <a onClick={onSubmit}>Login</a>
+
+              <a onClick={() => toggleForm()}>Signup</a>
             </div>
           </form>
         </div>
