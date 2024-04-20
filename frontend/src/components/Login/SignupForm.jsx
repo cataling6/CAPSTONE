@@ -36,10 +36,10 @@ const SignupForm = ({ toggleForm }) => {
         <div className="login-box">
           <h2>Signup</h2>
           <form>
-            <EditBox name={"firstName"} type={"text"} onChange={onChangeInput} label={"Firstname"} col={12} inputId={"fsn"} customClasses={"user-box"} />
-            <EditBox name={"lastName"} type={"text"} onChange={onChangeInput} label={"Lastname"} col={12} inputId={"lsn"} customClasses={"user-box"} />
-            <EditBox name={"email"} type={"mail"} onChange={onChangeInput} label={"E-mail"} col={12} inputId={"eml"} customClasses={"user-box"} />
-            <EditBox name={"password"} type={"password"} onChange={onChangeInput} label={"Password"} col={12} inputId={"pwd"} customClasses={"user-box"} />
+            <EditBox name={"firstName"} type={"text"} onChange={onChangeInput} label={"Firstname"} col={12} inputId={"fsn"} customClasses={"user-box"} login={true} />
+            <EditBox name={"lastName"} type={"text"} onChange={onChangeInput} label={"Lastname"} col={12} inputId={"lsn"} customClasses={"user-box"} login={true} />
+            <EditBox name={"email"} type={"mail"} onChange={onChangeInput} label={"E-mail"} col={12} inputId={"eml"} customClasses={"user-box"} login={true} />
+            <EditBox name={"password"} type={"password"} onChange={onChangeInput} label={"Password"} col={12} inputId={"pwd"} customClasses={"user-box"} login={true} />
             <div className="d-flex justify-content-between ">
               <a href="#">Create</a>
               <a href="#" onClick={() => toggleForm()}>

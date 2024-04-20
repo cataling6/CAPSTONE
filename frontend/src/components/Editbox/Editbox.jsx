@@ -2,13 +2,21 @@ import React from "react";
 
 const EditBox = (props) => {
   let defaultClass = `form-floating col-lg-${props.col}`;
-  const inputClass = props.customClasses != null ? props.customClasses : "form-control";
-  const typeControl = props.type;
-  console.log(inputClass + "def" + defaultClass);
+
+  let inputClass;
+  let typeControl;
+
+  inputClass = props.customClasses != null ? props.customClasses : "";
+  typeControl = props.type;
+  console.log(inputClass.length);
   return (
     <>
-      <div className={(inputClass !== null) | (inputClass !== "") ? inputClass : defaultClass}>
-        {typeControl === "textarea" ? <textarea className={inputClass} name={props.name} placeholder={props.ph} onChange={props.onChange} value={props.inputData} rows={10} id={props.inputId} /> : <input autoComplete="false" className={inputClass} name={props.name} type={props.type} placeholder={props.ph} onChange={props.onChange} value={props.inputData} id={props.inputId} />}
+      <div className={inputClass.length === 0 ? defaultClass : inputClass}>
+        {typeControl === "textarea" ? (
+          <textarea className={inputClass.length === 0 ? "form-control" : ""} name={props.name} placeholder={props.ph} onChange={props.onChange} value={props.inputData} rows={10} id={props.inputId} />
+        ) : (
+          <input autoComplete="false" className={inputClass.length === 0 ? `form-control mb-${props.mb}` : inputClass} name={props.name} type={props.type} placeholder={props.ph} onChange={props.onChange} value={props.inputData} id={props.inputId} />
+        )}
         <label htmlFor={props.inputId}>{props.label}</label>
       </div>
     </>
