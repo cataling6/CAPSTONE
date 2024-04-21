@@ -8,7 +8,6 @@ const EditBox = (props) => {
 
   inputClass = props.customClasses != null ? props.customClasses : "";
   typeControl = props.type;
-  console.log(inputClass.length);
   return (
     <>
       <div className={inputClass.length === 0 ? defaultClass : inputClass}>

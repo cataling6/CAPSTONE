@@ -4,7 +4,6 @@ import AddExpense from "../AddExpenseModal/AddExpense";
 import EditExpense from "../EditExpense/EditExpense";
 import "./style.css";
 function MyModal({ show, setShow, modalOp }) {
-  console.log(modalOp);
   return (
     <>
       <Modal show={show} onHide={() => setShow(false)} className="main">
