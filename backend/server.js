@@ -7,7 +7,9 @@ require('dotenv').config();
 
 //routes:::begin
 const usersRoute = require('./routes/users')
-const loginROute = require('./routes/login')
+const loginRoute = require('./routes/login')
+const expenseRoute = require('./routes/expenses')
+const categoryRoute = require('./routes/categories')
 //routes:::end
 //const path = require('path');
 
@@ -20,7 +22,9 @@ app.use(express.json());
 
 //routes:
 app.use('/', usersRoute);
-app.use('/', loginROute);
+app.use('/', loginRoute);
+app.use('/expenses/', expenseRoute);
+app.use('/expenses/', categoryRoute);
 
 
 connectionToDb();

@@ -9,8 +9,8 @@ const ExpensesSchema = new mongoose.Schema({
     amount:
     {
         type: Number,
-        required: true,
-        max: 10
+        required: true
+
     },
     category:
     {

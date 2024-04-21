@@ -19,3 +19,34 @@ Content-Type: application/json
    "email": "radoi.catalin88@gmail.com",
    "password": "123456"
 }
+###
+
+POST http://localhost:3030/expenses/addCategory
+Content-Type: application/json
+
+{
+    "categoryName": "fasulla da cancellare",
+    "icon": "fa-solid fa-utensils",
+    "color": "#4586d1"
+
+}
+###
+GET http://localhost:3030/expenses/getCategories
+###
+DELETE http://localhost:3030/expenses/deleteCategory/6624f9dc3fac85accfbba713
+###
+POST http://localhost:3030/expenses/addExpense
+Content-Type: application/json
+
+{
+    "userId": "662017fb3f038f140eac7956",
+    "amount": 32,
+    "category": "6624f51c64f0decd527664fe",
+    "description": "alla cazzo",
+    "opDate": "2024-04-21"
+
+}
+###
+GET http://localhost:3030/expenses/getExpenses
+###
+DELETE http://localhost:3030/expenses/deleteExpense/6624fbd3d2552de3b3ebdfb8
