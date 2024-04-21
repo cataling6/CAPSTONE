@@ -2,7 +2,7 @@ import axios from "axios";
 
 class AxiosClient {
     static baseUrl = `${process.env.REACT_APP_SERVER_BASE_URL}`;
-    static token = JSON.parse(localStorage.getItem('auth'))
+    static token = JSON.parse(localStorage.getItem('authorized_user'))
 
     constructor() {
         this.axiosInstance = axios.create({
@@ -11,7 +11,7 @@ class AxiosClient {
             headers: {
                 Accept: 'application/json',
                 'Content-Type': 'application/json',
-                Authorization: AxiosClient.token
+                "authorization": AxiosClient.token
             }
         })
     }

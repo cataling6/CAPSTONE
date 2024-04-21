@@ -32,6 +32,7 @@ exports.login = async (req, res) => {
             firsName: userLogin.firstName,
             lastName: userLogin.lastName,
             imgProfile: userLogin.imgProfile,
+            userId: userLogin._id,
             role: userLogin.role,
         }, process.env.MY_SECRET_KEY, {
             expiresIn: '24h'

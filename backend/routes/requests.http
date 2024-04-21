@@ -39,11 +39,11 @@ POST http://localhost:3030/expenses/addExpense
 Content-Type: application/json
 
 {
-    "userId": "662017fb3f038f140eac7956",
-    "amount": 32,
-    "category": "6624f51c64f0decd527664fe",
-    "description": "alla cazzo",
-    "opDate": "2024-04-21"
+    "amount": 1257,
+    "category": "6624f46d64f0decd527664fc",
+    "description": "Bolletta gas",
+    "opDate": "2024-04-22",
+    "userId": "662017fb3f038f140eac7956"
 
 }
 ###

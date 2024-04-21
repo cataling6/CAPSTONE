@@ -5,7 +5,7 @@ const { jwtDecode } = require("jwt-decode");
 const Home = () => {
   const userData = localStorage.getItem("authorized_user");
   let decoded = jwtDecode(userData);
-  console.log(decoded);
+
   return (
     <>
       <Container>

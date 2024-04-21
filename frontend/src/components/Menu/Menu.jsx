@@ -11,6 +11,7 @@ const Menu = ({ openAddModal, openModifyModal }) => {
         Modify
       </Button>
       <Button variant="danger">Delete</Button>
+      <Button variant="secondary">Configurations</Button>
     </div>
   );
 };

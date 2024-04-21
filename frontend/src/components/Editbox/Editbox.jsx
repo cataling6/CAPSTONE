@@ -2,7 +2,6 @@ import React from "react";
 
 const EditBox = (props) => {
   let defaultClass = `form-floating col-lg-${props.col}`;
-
   let inputClass;
   let typeControl;
 
