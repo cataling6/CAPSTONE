@@ -10,7 +10,7 @@ const Menu = ({ openAddModal, openModifyModal }) => {
       <Button variant="primary" onClick={openModifyModal}>
         Modify
       </Button>
-      <Button variant="danger">Delete</Button>
+      <Button variant="danger">Satistics</Button>
       <Button variant="secondary">Configurations</Button>
     </div>
   );

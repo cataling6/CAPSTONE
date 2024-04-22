@@ -3,7 +3,7 @@ const expenseModel = require('../models/expenses_model')
 exports.addExpense = async (req, res) => {
     const newExpense = new expenseModel(req.body)
     try {
-        const saveExpense = await newExpense.save();
+        const saved = await newExpense.save();
         res
             .status(201)
             .send({
@@ -12,7 +12,7 @@ exports.addExpense = async (req, res) => {
             })
     } catch (e) {
         console.log(e);
-        res
+        ress
             .status(500)
             .send({
                 statusCode: 500,

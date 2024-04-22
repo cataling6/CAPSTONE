@@ -3,7 +3,7 @@ import Modal from "react-bootstrap/Modal";
 import AddExpense from "../AddExpense/AddExpense";
 import EditExpense from "../EditExpense/EditExpense";
 import "./style.css";
-function MyModal({ show, setShow, modalOp }) {
+function MyModal({ show, setShow, modalOp, updateAfterAdd }) {
   return (
     <>
       <Modal show={show} onHide={() => setShow(false)} className="main">
@@ -12,7 +12,7 @@ function MyModal({ show, setShow, modalOp }) {
         </Modal.Header>
         {modalOp === "add" ? (
           <Modal.Body>
-            <AddExpense setShow={setShow} />
+            <AddExpense setShow={setShow} updateAfterAdd={updateAfterAdd} />
           </Modal.Body>
         ) : (
           <Modal.Body>

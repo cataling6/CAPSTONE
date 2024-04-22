@@ -9,12 +9,17 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 
 const Expenses = () => {
-  const { expenses, getExpenses } = useContext(ExpensesCtx);
+  const { expenses, getExpenses, deleteExpenseById } = useContext(ExpensesCtx);
   const { categories, getCategories } = useContext(CategoryCtx);
   const [showModal, setShowModal] = useState(false);
+  const [update, setUpdate] = useState(false);
   const [modalOp, setModalOp] = useState("");
 
   const openModal = () => setShowModal(true);
+
+  const updateAfterAdd = () => {
+    setUpdate(true);
+  };
 
   const openAddModal = () => {
     setShowModal(true);
@@ -29,11 +34,14 @@ const Expenses = () => {
   const getCategoryById = (categoryId) => {
     return categories.find((category) => category._id === categoryId);
   };
+  const deleteExpense = async (id) => {
+    await deleteExpenseById(id);
+  };
 
   useEffect(() => {
     getExpenses();
     getCategories();
-  }, []);
+  }, [showModal]);
 
   if (!expenses) {
     return <div>Loading...</div>;
@@ -54,7 +62,7 @@ const Expenses = () => {
                   <div className="text-white bold">{category.categoryName.toUpperCase()}</div>
                   <div className="d-flex gap-2 ">
                     <FontAwesomeIcon icon={faPenToSquare} color="white" />
-                    <FontAwesomeIcon icon={faTrashCan} color="white" />
+                    <FontAwesomeIcon icon={faTrashCan} color="white" onClick={() => deleteExpense(expense._id)} />
                   </div>
                 </div>
                 <div className="px-1">
@@ -64,7 +72,7 @@ const Expenses = () => {
                     </p>
                     <p>{expense.opDate.split("T")[0]}</p>
                   </div>
-                  <p>Other info:</p>
+                  <p>Other info: {expense.description}</p>
                 </div>
               </div>
             );

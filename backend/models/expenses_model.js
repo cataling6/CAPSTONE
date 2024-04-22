@@ -15,7 +15,7 @@ const ExpensesSchema = new mongoose.Schema({
     category:
     {
         type: String,
-        required: false,
+        required: true,
         max: 255
     },
     description: {
