@@ -11,10 +11,10 @@ const ExpensesProvider = ({ children }) => {
     const client = new AxiosClient();
 
 
-    const getExpenses = async () => {
+    const getExpenses = async (page) => {
 
         try {
-            const res = await client.get(`${process.env.REACT_APP_SERVER_BASE_URL}/expenses/getExpenses`)
+            const res = await client.get(`${process.env.REACT_APP_SERVER_BASE_URL}/expenses/getExpenses?page=${page}`)
             setExpenses(res)
 
         } catch (e) {

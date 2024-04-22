@@ -23,11 +23,23 @@ exports.addExpense = async (req, res) => {
 }
 
 exports.getExpenses = async (req, res) => {
-    const expenses = await expenseModel.find()
+    const { page = 1, pageSize = 5 } = req.query;
     try {
+        const totalExpensesCount = await expenseModel.countDocuments();
+        const expenses = await expenseModel.find()
+            .limit(Number(pageSize))
+            .skip((page - 1) * pageSize)
+            .sort({ opDate: -1 })
+        const totalPages = Math.ceil(totalExpensesCount / pageSize);
         res
             .status(200)
-            .send(expenses)
+            .json({
+                expenses,
+                totalPages,
+                currentPage: Number(page),
+                totalExpenses: totalExpensesCount
+            })
+
     } catch (e) {
         console.log(e)
         res

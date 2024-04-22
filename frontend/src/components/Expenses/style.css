@@ -1,0 +1,10 @@
+.pagination {
+  position: fixed;
+  bottom: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px; /* Aggiungi uno spazio tra i tasti se desiderato */
+}
