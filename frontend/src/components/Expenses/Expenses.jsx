@@ -8,11 +8,15 @@ import { CategoryCtx } from "../../contexts/category_ctx";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { motion } from "framer-motion";
+import Swal from "sweetalert2";
 import "./style.css";
 const Expenses = () => {
   const { expenses, getExpenses, deleteExpenseById } = useContext(ExpensesCtx);
   const { categories, getCategories } = useContext(CategoryCtx);
   const [showModal, setShowModal] = useState(false);
+  const [deleted, setDeleted] = useState(false);
+  const [elementToBeDeleted, setElementToBeDeleted] = useState();
+  const [error, setError] = useState(false);
   const [modalOp, setModalOp] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -39,14 +43,85 @@ const Expenses = () => {
   const getCategoryById = (categoryId) => {
     return categories.find((category) => category._id === categoryId);
   };
-  const deleteExpense = async (id) => {
-    await deleteExpenseById(id);
+  const deleteExpense = (id) => {
+    setDeleted(true);
+    setElementToBeDeleted(id);
+  };
+
+  const verifyDelete = () => {
+    if (deleted) {
+      const swalWithBootstrapButtons = Swal.mixin({
+        customClass: {
+          confirmButton: "btn btn-success",
+          cancelButton: "btn btn-danger me-2",
+        },
+        buttonsStyling: false,
+      });
+
+      swalWithBootstrapButtons
+        .fire({
+          title: `<b>${elementToBeDeleted.title}</b>`,
+          text: "Vuoi davvero cancellare questa spesa?",
+          icon: "question",
+          showCancelButton: true,
+          confirmButtonText: "Si!",
+          cancelButtonText: "No!",
+          reverseButtons: true,
+          willClose: () => {
+            setDeleted(false);
+          },
+        })
+        .then((result) => {
+          if (result.isConfirmed) {
+            try {
+              deleteExpenseById(elementToBeDeleted);
+            } catch (e) {
+              setError(e);
+              console(e);
+            }
+            swalWithBootstrapButtons.fire({
+              title: "Deleted!",
+              text: "Your expenses has been deleted.",
+              icon: "success",
+            });
+          } else if (result.dismiss === Swal.DismissReason.cancel) {
+            swalWithBootstrapButtons.fire({
+              title: "Cancellazione annullata",
+              text: "",
+              icon: "error",
+            });
+          }
+        });
+    }
+  };
+
+  const verifyError = () => {
+    if (error)
+      new Swal({
+        title: "Errore generico, Ritenta!",
+        text: error.message,
+        icon: "error",
+        showLoaderOnConfirm: true,
+        willClose: () => {
+          setError(false);
+        },
+      });
   };
 
   useEffect(() => {
-    getExpenses(currentPage);
-    getCategories();
-  }, [showModal, currentPage]);
+    try {
+      getCategories();
+      getExpenses(currentPage);
+    } catch (e) {
+      setError(e);
+    }
+    verifyDelete();
+    verifyError();
+  }, [showModal, currentPage, deleted, error]);
+
+  // useEffect(() => {
+  //   verifyDelete();
+  // }, [deleted]);
 
   return (
     <>
@@ -83,7 +158,7 @@ const Expenses = () => {
                 const category = getCategoryById(expense.category);
                 if (!category) return null;
                 return (
-                  <div className="form-control m-0 p-0 border-0 shadow" key={expense._id}>
+                  <div className="form-control m-0 p-0 border-0 shadow bg-gradient bg-light" key={expense._id}>
                     <div className="d-flex justify-content-between rounded-top-1 pt-1 px-1" style={{ backgroundColor: category.color }}>
                       <div className="text-white bold">{category.categoryName.toUpperCase()}</div>
                       <div className="d-flex gap-2 ">

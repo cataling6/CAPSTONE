@@ -12,7 +12,7 @@ function MyNavbar() {
 
   return (
     <>
-      <Navbar expand="lg" className="bg-body-tertiary ps-1 mb-3 shadow" bg="dark" data-bs-theme="dark">
+      <Navbar expand="lg" className="bg-light ps-1 mb-3 shadow" data-bs-theme="light">
         <Navbar.Brand as={Link} to="/">
           <img alt="" src={logoImg} width="30" height="30" className="d-inline-block align-top" /> MyFinance
         </Navbar.Brand>

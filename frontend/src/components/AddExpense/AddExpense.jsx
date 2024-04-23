@@ -5,13 +5,15 @@ import SelectBox from "../SelectBox/SelectBox";
 import { CategoryCtx } from "../../contexts/category_ctx";
 import { ExpensesCtx } from "../../contexts/expenses_ctx";
 import { jwtDecode } from "jwt-decode";
+import Swal from "sweetalert2";
 import "./style.css";
 const AddExpense = ({ setShow }) => {
   const { categories, getCategories } = useContext(CategoryCtx);
   const { addExpense } = useContext(ExpensesCtx);
+  const [error, setError] = useState(null);
   const session = localStorage.getItem("authorized_user");
   const decodedSession = jwtDecode(session);
-  const [formData, setFormData] = useState({});
+  const [formData, setFormData] = useState({ opDate: new Date().toISOString().split("T")[0] }); // mi imposto la data di default a oggi; non saprei come gestirlo visto che se la spesa è inserita con data odierna, questo valore in qualche modo deve essere inserito
 
   const handleOnChangeInput = (e) => {
     const { name, value } = e.target;
@@ -28,15 +30,29 @@ const AddExpense = ({ setShow }) => {
     };
     e.preventDefault();
     try {
-      await addExpense(preparedData);
+      const res = await addExpense(preparedData);
     } catch (e) {
-      console.log(e);
+      setError(e);
     }
+  };
+
+  const verifyError = () => {
+    if (error)
+      new Swal({
+        title: "Errore generico, Ritenta!",
+        text: error.message,
+        icon: "error",
+        showLoaderOnConfirm: true,
+        willClose: () => {
+          setError(false);
+        },
+      });
   };
 
   useEffect(() => {
     getCategories();
-  }, []);
+    verifyError();
+  }, [error]);
 
   return (
     <>

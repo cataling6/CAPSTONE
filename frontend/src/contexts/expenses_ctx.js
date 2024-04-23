@@ -30,7 +30,7 @@ const ExpensesProvider = ({ children }) => {
             getExpenses()
 
         } catch (e) {
-            console.log(e);
+
 
         }
     }

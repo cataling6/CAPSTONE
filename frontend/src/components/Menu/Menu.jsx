@@ -11,6 +11,7 @@ const Menu = ({ openAddModal, openModifyModal }) => {
         Modify
       </Button>
       <Button variant="danger">Satistics</Button>
+      <Button variant="danger">Shared Expenses</Button>
       <Button variant="secondary">Configurations</Button>
     </div>
   );

@@ -44,9 +44,9 @@
 }
 
 body {
-  color: white;
+  color: black;
   font-size: medium;
-  background-color: #40474f;
+  background-color: white;
   font-family: Helvetica Neue, Arial, sans-serif;
   /* font-family: "Sedan", serif; */
   font-weight: 400;

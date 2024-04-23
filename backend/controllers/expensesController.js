@@ -12,7 +12,7 @@ exports.addExpense = async (req, res) => {
             })
     } catch (e) {
         console.log(e);
-        ress
+        res
             .status(500)
             .send({
                 statusCode: 500,
