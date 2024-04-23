@@ -37,13 +37,24 @@ function MyNavbar() {
             <Nav.Link as={Link} to="/home">
               Home
             </Nav.Link>
+            {token && (
+              <>
+                <Nav.Link as={Link} to="/expenses">
+                  Expenses
+                </Nav.Link>
 
-            {token ? (
-              <Nav.Link as={Link} to="/expenses">
-                Expenses
-              </Nav.Link>
-            ) : (
-              ""
+                <Nav.Link as={Link} to="/expenses/statistics">
+                  Statistics
+                </Nav.Link>
+
+                <Nav.Link as={Link} to="/expenses/shared">
+                  Shared Expenses
+                </Nav.Link>
+
+                <Nav.Link as={Link} to="/expenses/configurations">
+                  Configurations
+                </Nav.Link>
+              </>
             )}
 
             {!token ? (
@@ -53,13 +64,13 @@ function MyNavbar() {
             ) : (
               ""
             )}
-            <NavDropdown title="Dropdown" id="basic-nav-dropdown">
+            {/* <NavDropdown title="Dropdown" id="basic-nav-dropdown">
               <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
               <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
               <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
               <NavDropdown.Divider />
               <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
-            </NavDropdown>
+            </NavDropdown> */}
           </Nav>
           {token ? (
             <Dropdown>

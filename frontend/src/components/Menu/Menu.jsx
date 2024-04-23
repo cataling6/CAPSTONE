@@ -11,15 +11,6 @@ const Menu = ({ openAddModal, openModifyModal }) => {
       <Button variant="outline-primary" onClick={openModifyModal}>
         Modify
       </Button>
-      <Link as={Link} to="/expenses/statistics" className="btn btn-outline-primary">
-        Statistics
-      </Link>
-      <Link as={Link} to="/expenses/shared" className="btn btn-outline-primary">
-        Shared Expenses
-      </Link>
-      <Link as={Link} to="/expenses/configurations" className="btn btn-outline-primary">
-        Configurations
-      </Link>
     </div>
   );
 };
