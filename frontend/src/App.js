@@ -11,6 +11,7 @@ import NotFound from "./components/NotFound/NotFound";
 import Home from "./components/Home/Home";
 import Expenses from "./components/Expenses/Expenses";
 import Welcome from "./components/Welcome/Welcome";
+import Configurations from "./components/Configurations/Configurations";
 
 
 
@@ -26,6 +27,7 @@ function App() {
             <Route path="/home" element={<Home />} />
             <Route path="/welcome" element={<Welcome />} />
             <Route path="/expenses" element={<Expenses />} />
+            <Route path="/expenses/configurations" element={<Configurations />} />
             <Route path="*" element={<NotFound />} />
           </Route>
         </Routes>

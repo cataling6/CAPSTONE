@@ -10,9 +10,6 @@ function MyNavbar() {
   const token = localStorage.getItem("authorized_user");
   let decoded = "";
   if (token) decoded = jwtDecode(token);
-  const changePage = () => {
-    window.location.href = "/";
-  };
 
   const handleLogout = () => {
     localStorage.removeItem("authorized_user");
