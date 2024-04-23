@@ -3,15 +3,16 @@ import logoImg from "../../assets/imgs/logo.png";
 import { Link, Router } from "react-router-dom";
 import moment from "moment";
 import "./style.css";
+import { useState } from "react";
 const { jwtDecode } = require("jwt-decode");
 function MyNavbar() {
+  const [oraEsatta, setOraEsatta] = useState(null);
+  const token = localStorage.getItem("authorized_user");
+  let decoded = "";
+  if (token) decoded = jwtDecode(token);
   const changePage = () => {
     window.location.href = "/";
   };
-  const token = localStorage.getItem("authorized_user");
-  let decoded = "";
-
-  if (token) decoded = jwtDecode(token);
 
   const handleLogout = () => {
     localStorage.removeItem("authorized_user");
@@ -19,10 +20,10 @@ function MyNavbar() {
   };
 
   const today = () => {
-    moment.locale("it");
-    let ora = moment().format("LL");
-    const pageElement = document.getElementById("datetimestamp");
-    pageElement.innerHTML = ora;
+    moment.locale("fr");
+    // let ora = moment().format("LLLL");
+    let ora = moment().locale("fr").format("MMMM Do YYYY, h:mm:ss a");
+    setOraEsatta(ora);
   };
 
   if (token) setInterval(today, 1000);
@@ -66,7 +67,7 @@ function MyNavbar() {
           {token ? (
             <Dropdown>
               <label>
-                <span id="datetimestamp"></span> {decoded.firsName} {decoded.lastName}
+                <span>{oraEsatta}</span> {decoded.firsName} {decoded.lastName}
               </label>
               <Dropdown.Toggle style={{ backgroundColor: "transparent", border: "none" }} id="dropdown-basic">
                 <img className="rounded rounded-circle menu-img" src={decoded.imgProfile}></img>
