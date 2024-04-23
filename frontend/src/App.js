@@ -10,6 +10,7 @@ import ProtectRoutes from "./middleware/ProtectRoutes";
 import NotFound from "./components/NotFound/NotFound";
 import Home from "./components/Home/Home";
 import Expenses from "./components/Expenses/Expenses";
+import Welcome from "./components/Welcome/Welcome";
 
 
 
@@ -23,6 +24,7 @@ function App() {
           <Route exact path="/" element={<NotLoggedWelcome />} />
           <Route element={<ProtectRoutes />}>
             <Route path="/home" element={<Home />} />
+            <Route path="/welcome" element={<Welcome />} />
             <Route path="/expenses" element={<Expenses />} />
             <Route path="*" element={<NotFound />} />
           </Route>

@@ -5,16 +5,20 @@ import Button from "react-bootstrap/Button";
 import React from "react";
 import { Container } from "react-bootstrap";
 import { motion } from "framer-motion";
+import { jwtDecode } from "jwt-decode";
 
 const Welcome = () => {
   const [show, setShow] = useState(true);
+  const token = localStorage.getItem("authorized_user");
+  const decoded = jwtDecode(token);
+
   return (
     <motion.main className="main__container" initial={{ y: -20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.7, ease: [0.6, -0.05, 0.01, 0.99] }}>
       <div>
         <Container>
           <Alert show={show} variant="success">
-            <Alert.Heading>My Alert</Alert.Heading>
-            <p>Welcome to MyFinance App! let's start to add data by clicking on "Add Expenses" in the top left navbar button</p>
+            <Alert.Heading>What's up?</Alert.Heading>
+            <p> Hello {decoded.firsName}! Welcome to MyFinance App</p>
             <hr />
             <div className="d-flex justify-content-end">
               <Button onClick={() => setShow(false)} variant="outline-success">

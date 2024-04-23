@@ -1,6 +1,7 @@
-import { Navbar, Nav, NavDropdown } from "react-bootstrap";
+import { Navbar, Nav, NavDropdown, Dropdown } from "react-bootstrap";
 import logoImg from "../../assets/imgs/logo.png";
 import { Link, Router } from "react-router-dom";
+import "./style.css";
 const { jwtDecode } = require("jwt-decode");
 function MyNavbar() {
   const changePage = () => {
@@ -8,7 +9,21 @@ function MyNavbar() {
   };
   const token = localStorage.getItem("authorized_user");
   let decoded = "";
+
   if (token) decoded = jwtDecode(token);
+
+  const handleLogout = () => {
+    localStorage.removeItem("authorized_user");
+    window.location.href = "/";
+  };
+
+  const today = () => {
+    let ora = new Date();
+    const pageElement = document.getElementById("datetimestamp");
+    pageElement.innerHTML = ora.toLocaleString();
+  };
+
+  if (token) setInterval(today, 1000);
 
   return (
     <>
@@ -46,6 +61,32 @@ function MyNavbar() {
               <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
             </NavDropdown>
           </Nav>
+          {token ? (
+            <Dropdown>
+              <label>
+                <span id="datetimestamp"></span> {decoded.firsName} {decoded.lastName}
+              </label>
+              <Dropdown.Toggle style={{ backgroundColor: "transparent", border: "none" }} id="dropdown-basic">
+                <img className="rounded rounded-circle menu-img" src={decoded.imgProfile}></img>
+              </Dropdown.Toggle>
+
+              <Dropdown.Menu style={{ position: "absolute", right: "0", left: "auto" }}>
+                <Dropdown.Item as={Link} to="/profile">
+                  Your Profile
+                </Dropdown.Item>
+                {decoded.role === "admin_user" ? (
+                  <Dropdown.Item as={Link} to="/config/users">
+                    Users Config
+                  </Dropdown.Item>
+                ) : (
+                  ""
+                )}
+                <Dropdown.Item onClick={handleLogout}>Logout</Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
+          ) : (
+            ""
+          )}
         </Navbar.Collapse>
       </Navbar>
     </>

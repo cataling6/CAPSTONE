@@ -4,15 +4,15 @@ import { Button } from "react-bootstrap";
 const Menu = ({ openAddModal, openModifyModal }) => {
   return (
     <div className="d-flex justify-content-around">
-      <Button variant="success" onClick={openAddModal}>
+      <Button variant="outline-primary" onClick={openAddModal}>
         Add
       </Button>
-      <Button variant="primary" onClick={openModifyModal}>
+      <Button variant="outline-primary" onClick={openModifyModal}>
         Modify
       </Button>
-      <Button variant="danger">Satistics</Button>
-      <Button variant="danger">Shared Expenses</Button>
-      <Button variant="secondary">Configurations</Button>
+      <Button variant="outline-primary">Satistics</Button>
+      <Button variant="outline-primary">Shared Expenses</Button>
+      <Button variant="outline-primary">Configurations</Button>
     </div>
   );
 };
