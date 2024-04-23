@@ -1,6 +1,7 @@
 import { Navbar, Nav, NavDropdown, Dropdown } from "react-bootstrap";
 import logoImg from "../../assets/imgs/logo.png";
 import { Link, Router } from "react-router-dom";
+import moment from "moment";
 import "./style.css";
 const { jwtDecode } = require("jwt-decode");
 function MyNavbar() {
@@ -18,9 +19,10 @@ function MyNavbar() {
   };
 
   const today = () => {
-    let ora = new Date();
+    moment.locale("it");
+    let ora = moment().format("LL");
     const pageElement = document.getElementById("datetimestamp");
-    pageElement.innerHTML = ora.toLocaleString();
+    pageElement.innerHTML = ora;
   };
 
   if (token) setInterval(today, 1000);
