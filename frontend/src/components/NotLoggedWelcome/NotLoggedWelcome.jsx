@@ -85,11 +85,11 @@ const NotLoggedWelcome = () => {
               </motion.div>
             </div>
           </motion.div>
-          <div className="d-flex justify-content-center">
+          {/* <div className="d-flex justify-content-center">
             <Link as={Link} to="/login" className="btn btn-primary">
               Try It Now!
             </Link>
-          </div>
+          </div> */}
         </Container>
       </motion.main>
     </>
