@@ -1,12 +1,36 @@
-import React, { useContext, useEffect, useRef } from "react";
-import { Badge, Button, Container } from "react-bootstrap";
+import React, { useContext, useEffect, useRef, useState } from "react";
+import { Button, Container } from "react-bootstrap";
 import EditBox from "../Editbox/Editbox";
 import "./style.css";
 import { CategoryCtx } from "../../contexts/category_ctx";
 
 const Configurations = () => {
-  const { categories, getCategories } = useContext(CategoryCtx);
-  const handleOnChangeInput = () => {};
+  const { categories, getCategories, addCategory } = useContext(CategoryCtx);
+  const [formData, setFormData] = useState({});
+  const [error, setError] = useState(null);
+
+  const handleOnChangeInput = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  const submitNewCategory = async (e) => {
+    e.preventDefault();
+
+    const preparedData = {
+      ...formData,
+    };
+    try {
+      await addCategory(formData);
+    } catch (e) {
+      console.log(e);
+      setError(e);
+    }
+  };
+
   useEffect(() => {
     getCategories();
   }, []);
@@ -32,24 +56,24 @@ const Configurations = () => {
           <div>
             <p>Create new cat</p>
             <div>
-              <form encType="multipart/form-data">
+              <form encType="multipart/form-data" onSubmit={submitNewCategory}>
                 <div className="row">
                   <EditBox name="categoryName" type={"text"} label={"Category Name"} inputId={"cat"} ph={"Category Name"} col={12} mb={2} onChange={handleOnChangeInput} />
                   {/* <EditBox name="color" type={"color"} label={"Category Color"} inputId="catCol" col={12} mb={2} onChange={handleOnChangeInput} /> */}
                   <div className="col-lg-12">
                     <label>Category Color</label>
-                    <input type="color" className="col-lg-12 form-control" />
+                    <input type="color" name="color" className="col-lg-12 form-control" onChange={handleOnChangeInput} />
                   </div>
                 </div>
                 <div className="mt-2 d-flex justify-content-end ">
-                  <Button variant="outline-primary">Save</Button>
+                  <Button type="submit" variant="outline-primary">
+                    Save
+                  </Button>
                 </div>
               </form>
             </div>
           </div>
         </div>
-
-        <h2>Shared Expenses</h2>
       </Container>
     </>
   );

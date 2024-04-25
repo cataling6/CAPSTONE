@@ -6,7 +6,7 @@ import MyModal from "../Modal/Modal";
 import { ExpensesCtx } from "../../contexts/expenses_ctx";
 import { CategoryCtx } from "../../contexts/category_ctx";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPenToSquare, faTrashCan } from "@fortawesome/free-solid-svg-icons";
+import { faPenToSquare, faTrashCan, faShareNodes } from "@fortawesome/free-solid-svg-icons";
 import { motion } from "framer-motion";
 import Swal from "sweetalert2";
 import "./style.css";
@@ -21,7 +21,6 @@ const Expenses = () => {
   const [currentPage, setCurrentPage] = useState(1);
 
   const openModal = () => setShowModal(true);
-
   const openAddModal = () => {
     setShowModal(true);
     setModalOp("add");
@@ -43,12 +42,14 @@ const Expenses = () => {
   const getCategoryById = (categoryId) => {
     return categories.find((category) => category._id === categoryId);
   };
-  const deleteExpense = (id) => {
+  // const deleteExpense = (id) => {
+  //   setDeleted(true);
+  //   setElementToBeDeleted(id);
+  // };
+
+  const verifyDelete = (id) => {
     setDeleted(true);
     setElementToBeDeleted(id);
-  };
-
-  const verifyDelete = () => {
     if (deleted) {
       const swalWithBootstrapButtons = Swal.mixin({
         customClass: {
@@ -60,7 +61,7 @@ const Expenses = () => {
 
       swalWithBootstrapButtons
         .fire({
-          title: `<b>${elementToBeDeleted.title}</b>`,
+          title: `<b>Sto cancellando una spesa</b>`,
           text: "Vuoi davvero cancellare questa spesa?",
           icon: "question",
           showCancelButton: true,
@@ -115,38 +116,34 @@ const Expenses = () => {
     } catch (e) {
       setError(e);
     }
-    verifyDelete();
-    verifyError();
   }, [showModal, currentPage, deleted, error]);
-
-  // useEffect(() => {
-  //   verifyDelete();
-  // }, [deleted]);
 
   return (
     <>
       <Container>
-        <Menu openAddModal={openAddModal} openModifyModal={openModifyModal} />
-        <motion.div
-          className="pagination"
-          animate={{ y: 10, opacity: 1 }}
-          transition={{
-            type: "spring", // Usa una transizione di tipo "spring"
-            damping: 10, // Damping controlla l'ammortizzazione dell'effetto, minore è il valore, maggiore è l'effetto di rimbalzo
-            stiffness: 400, // Stiffness controlla la rigidità dell'effetto, maggiore è il valore, più rapida è l'animazione
-            duration: 1, // Durata dell'animazione in secondi
-          }}
-        >
-          <div className="d-flex justify-content-between align-items-center gap-2 ">
-            <Button onClick={handlePrevPage} disabled={currentPage === 1} size="sm">
-              Pagina precedente
-            </Button>
-            <span>Pagina {currentPage}</span>
-            <Button onClick={handleNextPage} disabled={currentPage === expenses.totalPages} size="sm">
-              Pagina successiva
-            </Button>
-          </div>
-        </motion.div>
+        <div className="d-flex justify-content-between ">
+          <Menu openAddModal={openAddModal} openModifyModal={openModifyModal} />
+          <motion.div
+            className="pagination"
+            animate={{ y: 10, opacity: 1 }}
+            transition={{
+              type: "spring",
+              damping: 10, // Damping controlla l'ammortizzazione dell'effetto, minore è il valore, maggiore è l'effetto di rimbalzo
+              stiffness: 400, // Stiffness controlla la rigidità dell'effetto, maggiore è il valore, più rapida è l'animazione
+              duration: 1, // Durata dell'animazione in secondi
+            }}
+          >
+            <div className="d-flex justify-content-between align-items-center gap-2 ">
+              <Button onClick={handlePrevPage} disabled={currentPage === 1} size="sm">
+                Pagina precedente
+              </Button>
+              <span>Pagina {currentPage}</span>
+              <Button onClick={handleNextPage} disabled={currentPage === expenses.totalPages} size="sm">
+                Pagina successiva
+              </Button>
+            </div>
+          </motion.div>
+        </div>
         <motion.div initial={{ y: -50, opacity: 0 }} animate={{ y: 20, opacity: 1 }} transition={{ duration: 1, ease: [0.6, -0.05, 0.01, 0.99] }}>
           <div className="col-lg-12 d-flex flex-column gap-3">
             {!expenses.expenses ? (
@@ -162,8 +159,9 @@ const Expenses = () => {
                     <div className="d-flex justify-content-between rounded-top-1 pt-1 px-1" style={{ backgroundColor: category.color }}>
                       <div className="text-white bold">{category.categoryName.toUpperCase()}</div>
                       <div className="d-flex gap-2 ">
-                        <FontAwesomeIcon icon={faPenToSquare} color="white" />
-                        <FontAwesomeIcon icon={faTrashCan} color="white" onClick={() => deleteExpense(expense._id)} />
+                        <FontAwesomeIcon icon={faShareNodes} color="white" className="custom-icon" />
+                        <FontAwesomeIcon icon={faPenToSquare} color="white" className="custom-icon" onClick={() => openModifyModal(expense._id)} />
+                        <FontAwesomeIcon icon={faTrashCan} color="white" className="custom-icon" onClick={() => verifyDelete(expense._id)} />
                       </div>
                     </div>
                     <div className="px-1">

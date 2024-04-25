@@ -8,7 +8,7 @@ const CategoryModel = new mongoose.Schema({
     },
     icon: {
         type: String,
-        required: true,
+        required: false,
         max: 255
     },
     color: {

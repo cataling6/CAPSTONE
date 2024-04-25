@@ -8,9 +8,6 @@ const Menu = ({ openAddModal, openModifyModal }) => {
       <Button variant="outline-primary" onClick={openAddModal}>
         Add
       </Button>
-      <Button variant="outline-primary" onClick={openModifyModal}>
-        Modify
-      </Button>
     </div>
   );
 };

@@ -26,8 +26,7 @@ Content-Type: application/json
 
 {
     "categoryName": "fasulla da cancellare",
-    "icon": "fa-solid fa-utensils",
-    "color": "#4586d1"
+        "color": "#4586d1"
 
 }
 ###
