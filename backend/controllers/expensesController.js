@@ -1,5 +1,5 @@
+const moment = require("moment")
 const expenseModel = require('../models/expenses_model')
-
 exports.addExpense = async (req, res) => {
     const newExpense = new expenseModel(req.body)
     try {
@@ -43,18 +43,44 @@ exports.getExpenses = async (req, res) => {
     } catch (e) {
         console.log(e)
         res
-            .status(500),
-            send({
+            .status(500)
+            .send({
                 statusCode: 500,
                 message: "Internal Server Error"
             })
     }
 }
 
+exports.getExpensesByDate = async (req, res) => {
+    const { fromDate, toDate } = req.body;
+
+    if (!fromDate || !toDate) {
+        return res.status(400).json({ message: "Both fromDate and toDate are required." });
+    }
+    try {
+        const expensesByDate = await expenseModel.find({ opDate: { $gte: fromDate, $lte: toDate } })
+        res
+            .status(200)
+            .json({ expensesByDate })
+    } catch (e) {
+        console.log(e)
+        res
+            .status(500)
+            .send({
+                statusCode: 500,
+                message: "Internal Server Error"
+            })
+
+    }
+}
+
 exports.deleteExpense = async (req, res) => {
     const id = req.params.id
-    const delExp = await expenseModel.findByIdAndDelete(id)
     try {
+        const delExp = await expenseModel.findByIdAndDelete(id);
+        if (!delExp) {
+            return res.status(404).json({ statusCode: 404, message: "Expense not found." });
+        }
         res
             .status(200)
             .send({
