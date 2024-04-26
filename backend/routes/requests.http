@@ -48,4 +48,6 @@ Content-Type: application/json
 ###
 GET http://localhost:3030/expenses/getExpenses
 ###
+GET http://localhost:3030/expenses/getExpensesByDate
+###
 DELETE http://localhost:3030/expenses/deleteExpense/6626b0caa72f06cdbf23df7a

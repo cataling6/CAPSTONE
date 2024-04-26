@@ -12,6 +12,7 @@ import Home from "./components/Home/Home";
 import Expenses from "./components/Expenses/Expenses";
 import Welcome from "./components/Welcome/Welcome";
 import Configurations from "./components/Configurations/Configurations";
+import Statistics from "./components/Statistics/Statistics";
 
 
 
@@ -26,6 +27,7 @@ function App() {
           <Route element={<ProtectRoutes />}>
             <Route path="/home" element={<Home />} />
             <Route path="/welcome" element={<Welcome />} />
+            <Route path="/statistics" element={<Statistics />} />
             <Route path="/expenses" element={<Expenses />} />
             <Route path="/expenses/configurations" element={<Configurations />} />
             <Route path="*" element={<NotFound />} />

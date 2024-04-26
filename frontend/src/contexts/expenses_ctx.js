@@ -23,6 +23,14 @@ const ExpensesProvider = ({ children }) => {
 
     }
 
+    const getExpensesByFilter = async () => {
+        try {
+            const res = await client.get(`${process.env.REACT_APP_SERVER_BASE_URL}/statistics/getByDate`)
+        } catch (e) {
+
+        }
+    }
+
     const addExpense = async (formdata) => {
         try {
             formdata.amount = parseFloat(formdata.amount);

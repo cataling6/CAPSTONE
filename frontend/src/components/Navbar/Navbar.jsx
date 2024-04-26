@@ -43,7 +43,7 @@ function MyNavbar() {
                   Expenses
                 </Nav.Link>
 
-                <Nav.Link as={Link} to="/expenses/statistics">
+                <Nav.Link as={Link} to="/statistics">
                   Statistics
                 </Nav.Link>
 
