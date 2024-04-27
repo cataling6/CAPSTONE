@@ -2,7 +2,7 @@ GET http://localhost:3030/expenses/getExpensesByDate
 Content-Type: application/json
 
 {
-    "fromDate": "2024-04-10",
-    "toDate": "2024-04-26"
+    "fromDate": "2024-04-0",
+    "toDate": "2024-04-27"
 }
 ###

@@ -13,7 +13,7 @@ const AddExpense = ({ setShow }) => {
   const [error, setError] = useState(null);
   const session = localStorage.getItem("authorized_user");
   const decodedSession = jwtDecode(session);
-  const [formData, setFormData] = useState({ opDate: new Date().toISOString().split("T")[0] }); // mi imposto la data di default a oggi; non saprei come gestirlo visto che se la spesa è inserita con data odierna, questo valore in qualche modo deve essere inserito
+  const [formData, setFormData] = useState({ opDate: new Date().toISOString() }); // mi imposto la data di default a oggi; non saprei come gestirlo visto che se la spesa è inserita con data odierna, questo valore in qualche modo deve essere inserito
 
   const handleOnChangeInput = (e) => {
     const { name, value } = e.target;
@@ -58,7 +58,7 @@ const AddExpense = ({ setShow }) => {
     <>
       <form encType="multipart/form-data" onSubmit={submitExpense}>
         <div className="row">
-          <EditBox name="amount" type={"number"} label={"Amount"} inputId={"amnt"} ph={"Abount"} col={4} mb={2} onChange={handleOnChangeInput} />
+          <EditBox name="amount" type={"number"} label={"Amount"} inputId={"amnt"} ph={"Amount"} col={4} mb={2} onChange={handleOnChangeInput} />
           <EditBox name="opDate" type={"date"} label={"Date of operation"} inputId={"opDate"} col={8} onChange={handleOnChangeInput} />
           <SelectBox col={12} categories={categories} onChange={handleOnChangeInput} />
           <EditBox name="description" type={"textarea"} label={"Description"} inputId={"desc"} onChange={handleOnChangeInput} />

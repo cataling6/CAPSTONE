@@ -8,6 +8,7 @@ export const ExpensesCtx = createContext()
 
 const ExpensesProvider = ({ children }) => {
     const [expenses, setExpenses] = useState([])
+    const [expensesFiltered, setExpensesFiltered] = useState([])
     const client = new AxiosClient();
 
 
@@ -23,11 +24,18 @@ const ExpensesProvider = ({ children }) => {
 
     }
 
-    const getExpensesByFilter = async () => {
-        try {
-            const res = await client.get(`${process.env.REACT_APP_SERVER_BASE_URL}/statistics/getByDate`)
-        } catch (e) {
+    const getExpensesByDate = async (startDate, endDate) => {
+        const bodyToSend = {
+            "fromDate": startDate,
+            "toDate": endDate
+        }
 
+        try {
+            const res = await client.post(`${process.env.REACT_APP_SERVER_BASE_URL}/expenses/getExpensesByDate`, JSON.stringify(bodyToSend))
+            setExpensesFiltered(res.data)
+            return res.expensesByDate;
+        } catch (e) {
+            console.log(e);
         }
     }
 
@@ -55,7 +63,7 @@ const ExpensesProvider = ({ children }) => {
 
     }, [getExpenses])
     return (
-        <ExpensesCtx.Provider value={{ expenses, getExpenses, addExpense, deleteExpenseById }}>
+        <ExpensesCtx.Provider value={{ expenses, expensesFiltered, getExpenses, addExpense, deleteExpenseById, getExpensesByDate }}>
             {children}
         </ExpensesCtx.Provider>
     )
