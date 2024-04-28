@@ -1,16 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import randomColor from 'randomcolor'
 import { Pie } from "react-chartjs-2"
-import { Chart as ChartJS, Tooltip, Legend, ArcElement } from 'chart.js'
+import { Chart as ChartJS, Title, Tooltip, Legend, ArcElement } from 'chart.js'
 
-ChartJS.register(Tooltip, Legend, ArcElement)
-const MyPie = ({ data }) => {
-    // Raggruppa i dati per categoria e calcola la somma degli importi
+ChartJS.register(Title, Tooltip, Legend, ArcElement)
+const MyPie = ({ data, categoryNames }) => {
 
-    // const categoriesId = ["a", "b"]
-    // const amounts = [1, 2, 3, 4]
-    //const amounts = data.map(({ amount }) => amount);
-    //raggruppo i dati per categoria e calcolo la somma degli importi
+    //mi raggruppo le categorie ed evito che i doppioni vengano viusualizzati; laddove categoia è la stessa, sommo l'ammount 
     const aggregatedData = data.reduce((acc, curr) => {
         const existingCategory = acc.find(item => item.category === curr.category);
         if (existingCategory) {
@@ -22,12 +18,45 @@ const MyPie = ({ data }) => {
     }, []);
 
     const categoriesId = aggregatedData.map(({ category }) => category);
+    //mi genero bg casuali con randomcolor.js
     const backgroundColors = categoriesId.map(() => randomColor());
     const amounts = aggregatedData.map(({ amount }) => amount);
 
-    const options = {}
-    const lineChartdata = {
-        labels: categoriesId,
+    //mi prendo i nomi delle categorie tramite id 
+    const categoriesNames = categoriesId.map(categoryId => {
+        return categoryNames(categoryId)
+    });
+
+    const options = {
+        plugins: {
+            legend: {
+                display: true, // Nascondo la legenda per evitare sovrapposizioni con le labels
+                position: "left",
+
+            },
+            tooltip: {
+                enabled: true // Disabilito il tooltip per evitare sovrapposizioni con le labels
+            },
+            title: {
+                display: true,
+                text: "Il mio titolo del grafico"
+            }
+
+        },
+        layout: {
+            margin: {
+                // Imposto il padding per lasciare spazio alle labels al centro del grafico
+                left: 0,
+                right: 0,
+                top: 0,
+                bottom: 0
+            }
+        },
+
+    }
+
+    const chartData = {
+        labels: categoriesNames,
         datasets: [
             {
                 label: "Total euros",
@@ -37,14 +66,15 @@ const MyPie = ({ data }) => {
             }
         ]
     }
-
-    return (
-        <div style={{ width: "600px", height: "600px" }}>
-
-            <Pie options={options} data={lineChartdata} />
-        </div >
-    );
-
+    if (!data) {
+        return <div>Dati non disponibili</div>;
+    } else {
+        return (
+            <div style={{ width: "500px", height: "400px" }}>
+                <Pie options={options} data={chartData} />
+            </div >
+        );
+    }
 
 
 };
