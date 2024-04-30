@@ -51,6 +51,27 @@ exports.getExpenses = async (req, res) => {
     }
 }
 
+exports.getTotalExpenses = async (req, res) => {
+    try {
+        const totalExpenses = await expenseModel.find();
+        res
+            .status(200)
+            .json({
+                statusCode: 200,
+                totalExpenses
+            })
+    } catch (e) {
+        console.log(e);
+        res
+            .status(500)
+            .send({
+                statusCode: 500,
+                message: "Internal server error"
+            })
+
+    }
+}
+
 exports.getExpensesByDate = async (req, res) => {
     const { fromDate, toDate } = req.body;
 

@@ -9,46 +9,50 @@ import MyLine from "../Charts/Line";
 const moment = require("moment");
 
 const Statistics = () => {
-  const { expenses, getExpensesByDate, getExpenses } = useContext(ExpensesCtx);
+  const { expenses, getExpensesByDate, getExpenses, totalExpenses, getTotalExpenses } = useContext(ExpensesCtx);
   const { categories, getCategories } = useContext(CategoryCtx);
   const [expensesFiltered, setExpensesFiltered] = useState([]);
+  const [deltaDay, setDeltaDay] = useState(-1);
 
   const getCategoryName = (categoryId) => {
     const c = categories.find((category) => category._id === categoryId);
-    return c ? c.categoryName : null;
+    return c ? [c.categoryName, c.color] : null;
   };
 
   const getExpensesFiltered = async (e) => {
-    let deltaDay;
+    let delta;
     const id = e.target.id;
     const toDate = moment();
 
     switch (id) {
       case "today":
-        deltaDay = 0;
+        delta = 0;
 
         break;
       case "week":
-        deltaDay = 7;
+        delta = 7;
 
         break;
       case "month":
-        deltaDay = 30;
+        delta = 30;
 
         break;
       default:
         return;
     }
+    setDeltaDay(delta);
 
-    const fromDate = moment().startOf("day").add(2, "hours").subtract(deltaDay, "days").toISOString();
+    const fromDate = moment().startOf("day").add(2, "hours").subtract(delta, "days").toISOString();
     const res = await getExpensesByDate(fromDate, toDate);
     setExpensesFiltered(res);
   };
 
   useEffect(() => {
-    getCategories();
+    getTotalExpenses();
     getExpenses();
+    getCategories();
   }, [expensesFiltered]);
+
   return (
     <>
       <Container>
@@ -65,9 +69,9 @@ const Statistics = () => {
         </div>
       </Container>
 
-      <Container>
-        <MyPie data={expensesFiltered} categoryNames={getCategoryName} />
-        <MyLine data={expenses} />
+      <Container className="d-flex justify-content-between">
+        <MyPie data={expensesFiltered} categoryData={getCategoryName} deltaDay={deltaDay} />
+        <MyLine data={totalExpenses} />
       </Container>
     </>
   );

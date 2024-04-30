@@ -1,13 +1,21 @@
 import React, { useState } from 'react';
 import randomColor from 'randomcolor'
 import { Line } from "react-chartjs-2"
-import { Chart as ChartJS, Title, CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Legend, ArcElement } from 'chart.js'
+import { Chart as ChartJS, Title, CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Legend, ArcElement, plugins } from 'chart.js'
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, ArcElement)
 const MyLine = ({ data }) => {
-    const options = {};
-    // const expenses = data.map(({ exp }))
-    //const backgroundColors = categoriesId.map(() => randomColor());
+    const options = {
+        plugins: {
+            title: {
+                display: true,
+                text: "Spesa per mese durante l'anno"
+            }
+        }
+    };
+    const { totalExpenses } = data;
+
+
     const monthsLabel =
         [
             "Januray",
@@ -29,13 +37,13 @@ const MyLine = ({ data }) => {
         datasets: [
             {
                 label: "Total euros",
-                data: [1, 2, 3],
+                data: [212, 112, 310],
                 borderColor: "rgb(75,192,192)"
             }
         ]
     }
     return (
-        <div style={{ width: "500px", height: "400px" }}>
+        <div className="d-flex align-content-center flex-wrap " style={{ width: "500px", height: "400px" }}>
             <Line data={chartData} options={options} />
         </div>
     );

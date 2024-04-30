@@ -1,10 +1,16 @@
 import React, { useState } from 'react';
 import randomColor from 'randomcolor'
 import { Pie } from "react-chartjs-2"
-import { Chart as ChartJS, Title, Tooltip, Legend, ArcElement } from 'chart.js'
+import { Chart as ChartJS, Title, Tooltip, Legend, ArcElement, layouts } from 'chart.js'
 
 ChartJS.register(Title, Tooltip, Legend, ArcElement)
-const MyPie = ({ data, categoryNames }) => {
+const MyPie = ({ data, categoryData, deltaDay }) => {
+
+    let chartTitleText = ""
+
+    if (!data || data.length === 0 || !data[0].category) {
+        return <div className='mt-2'>Dati non disponibili</div>;
+    }
 
     //mi raggruppo le categorie ed evito che i doppioni vengano viusualizzati; laddove categoia è la stessa, sommo l'ammount 
     const aggregatedData = data.reduce((acc, curr) => {
@@ -17,20 +23,41 @@ const MyPie = ({ data, categoryNames }) => {
         return acc;
     }, []);
 
+    switch (deltaDay) {
+        case 0:
+            chartTitleText = "Spese giornaliere"
+            break;
+        case 7:
+            chartTitleText = "Spese settimanali"
+            break;
+        case 30:
+            chartTitleText = "Spese mensili"
+            break;
+
+        default:
+            break;
+    }
+
     const categoriesId = aggregatedData.map(({ category }) => category);
+
     //mi genero bg casuali con randomcolor.js
-    const backgroundColors = categoriesId.map(() => randomColor());
+    const backgroundColors = categoriesId.map(({ color }) => color);
     const amounts = aggregatedData.map(({ amount }) => amount);
 
-    //mi prendo i nomi delle categorie tramite id 
-    const categoriesNames = categoriesId.map(categoryId => {
-        return categoryNames(categoryId)
+    //mi prendo i dati categorie tramite id 
+    const categoriesData = categoriesId.map(categoryId => {
+        return categoryData(categoryId)
     });
+
+    //mi prendo i nomi
+    const categoryNames = categoriesData.map(item => item[0])
+    //mi prendo i colori
+    const categoryColors = categoriesData.map(item => item[1])
 
     const options = {
         plugins: {
             legend: {
-                display: true, // Nascondo la legenda per evitare sovrapposizioni con le labels
+                display: true,
                 position: "left",
 
             },
@@ -39,42 +66,32 @@ const MyPie = ({ data, categoryNames }) => {
             },
             title: {
                 display: true,
-                text: "Il mio titolo del grafico"
-            }
+                text: chartTitleText
+            },
 
-        },
-        layout: {
-            margin: {
-                // Imposto il padding per lasciare spazio alle labels al centro del grafico
-                left: 0,
-                right: 0,
-                top: 0,
-                bottom: 0
-            }
         },
 
     }
 
     const chartData = {
-        labels: categoriesNames,
+        labels: categoryNames,
         datasets: [
             {
                 label: "Total euros",
                 data: amounts,
-                backgroundColor: backgroundColors,
-                hoverOffset: 4,
+                backgroundColor: categoryColors,
+                hoverOffset: 10,
             }
         ]
     }
-    if (!data) {
-        return <div>Dati non disponibili</div>;
-    } else {
-        return (
-            <div style={{ width: "500px", height: "400px" }}>
-                <Pie options={options} data={chartData} />
-            </div >
-        );
-    }
+
+    return (
+        <div style={{ width: "600px", height: "400px" }}>
+
+            <Pie options={options} data={chartData} />
+        </div >
+    );
+
 
 
 };
