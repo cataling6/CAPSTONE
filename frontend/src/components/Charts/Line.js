@@ -1,25 +1,26 @@
-import React, { useEffect, useState } from 'react';
-import randomColor from 'randomcolor'
+import React, { useContext, useEffect, useState } from 'react';
 import { Line } from "react-chartjs-2"
 import { Chart as ChartJS, Title, CategoryScale, LinearScale, PointElement, LineElement, Tooltip, Legend, ArcElement, plugins } from 'chart.js'
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend, ArcElement)
-const MyLine = ({ data }) => {
+const MyLine = ({ data, trigger }) => {
+
     const [monthlyExpenses, setMonthlyExpenses] = useState({});
     const [monthlyCategoryExpenses, setMonthlyCategoryExpenses] = useState({});
-    const { totalExpenses } = data;
+
 
     const calculateMonthlyExpenses = () => {
         const monthlyTotal = {};
         const monthlyCategoryTotal = {};
-        if (totalExpenses) {
-            totalExpenses.forEach(expense => {
+
+        if (data) {
+            data.forEach(expense => {
                 const date = new Date(expense.opDate);
                 const month = date.getMonth();
                 const year = date.getFullYear();
                 const key = `${year}-${month + 1}`;
 
-                // Total expenses per month
+                // totalExpenses expenses per month
                 if (!monthlyTotal[key]) {
                     monthlyTotal[key] = 0;
                 }
@@ -34,12 +35,15 @@ const MyLine = ({ data }) => {
                 }
                 monthlyCategoryTotal[key][expense.category] += expense.amount;
             });
-        }
 
-        setMonthlyExpenses(monthlyTotal);
-        setMonthlyCategoryExpenses(monthlyCategoryTotal);
-    };
+            setMonthlyExpenses(monthlyTotal);
+            setMonthlyCategoryExpenses(monthlyCategoryTotal);
 
+        };
+    }
+
+    console.log(monthlyExpenses);
+    console.log(monthlyCategoryExpenses);
     const options = {
         plugins: {
             title: {
@@ -49,11 +53,9 @@ const MyLine = ({ data }) => {
         }
     };
 
-    console.log(monthlyExpenses);
-
     useEffect(() => {
-        calculateMonthlyExpenses()
-    }, [])
+        calculateMonthlyExpenses();
+    }, [trigger])
 
     const monthlyExpensesArray = Object.entries(monthlyExpenses).map(([key, value]) => ({
         label: key,

@@ -9,10 +9,12 @@ import MyLine from "../Charts/Line";
 const moment = require("moment");
 
 const Statistics = () => {
-  const { expenses, getExpensesByDate, getExpenses, totalExpenses, getTotalExpenses } = useContext(ExpensesCtx);
+  const { expenses, getExpensesByDate, getExpenses, getTotalExpenses, totalExpenses } = useContext(ExpensesCtx);
   const { categories, getCategories } = useContext(CategoryCtx);
   const [expensesFiltered, setExpensesFiltered] = useState([]);
+  const [trigger, setTrigger] = useState(false);
   const [deltaDay, setDeltaDay] = useState(-1);
+  const [total, setTotal] = useState([]);
 
   const getCategoryName = (categoryId) => {
     const c = categories.find((category) => category._id === categoryId);
@@ -47,9 +49,14 @@ const Statistics = () => {
     setExpensesFiltered(res);
   };
 
+  const generaAnno = async () => {
+    await getTotalExpenses();
+    setTotal(totalExpenses.totalExpenses);
+    setTrigger((prevTrigger) => !prevTrigger);
+  };
   useEffect(() => {
-    getTotalExpenses();
-    getExpenses();
+    //getTotalExpenses();
+    //getExpenses();
     getCategories();
   }, [expensesFiltered]);
 
@@ -66,12 +73,15 @@ const Statistics = () => {
           <div className="btn btn-outline-primary" onClick={getExpensesFiltered} id="month">
             Ultimi 30 giorni
           </div>
+          <div className="btn btn-outline-primary" onClick={generaAnno} id="month">
+            Genera Anno
+          </div>
         </div>
       </Container>
 
       <Container className="d-flex justify-content-between">
         <MyPie data={expensesFiltered} categoryData={getCategoryName} deltaDay={deltaDay} />
-        <MyLine data={totalExpenses} />
+        <MyLine data={total} trigger={generaAnno} />
       </Container>
     </>
   );
