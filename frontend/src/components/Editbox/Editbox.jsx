@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from "react";
+import "./style.css";
 
 const EditBox = (props) => {
   const [inputValue, setInputValue] = useState(new Date().toISOString().split("T")[0]);
@@ -21,7 +22,7 @@ const EditBox = (props) => {
     <>
       <div className={inputClass.length === 0 ? defaultClass : inputClass}>
         {typeControl === "textarea" ? (
-          <textarea className={inputClass.length === 0 ? "form-control" : ""} name={props.name} placeholder={props.ph} onChange={handleOnChangeInput} value={props.inputData} rows={10} id={props.inputId} />
+          <textarea className={inputClass.length === 0 ? "form-control" : ""} name={props.name} placeholder={props.ph} onChange={handleOnChangeInput} value={props.inputData} rows={40} id={props.inputId} />
         ) : typeControl === "date" ? (
           <input autoComplete="false" className={inputClass.length === 0 ? `form-control mb-${props.mb}` : inputClass} name={props.name} type={props.type} placeholder={props.ph} onChange={handleOnChangeInput} value={inputValue} id={props.inputId} />
         ) : (

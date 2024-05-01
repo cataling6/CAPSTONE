@@ -13,6 +13,10 @@ const SharedExpensesModel = new mongoose.Schema({
     userSharedWithId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "usersModel"
+    },
+    note: {
+        type: String,
+        max: 255
     }
 }, { timestamps: true, strict: true });
 
