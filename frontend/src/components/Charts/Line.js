@@ -59,21 +59,6 @@ const MyLine = ({ data }) => {
         label: key,
         data: value
     }));
-    // const monthsLabel =
-    //     [
-    //         "Januray",
-    //         "February",
-    //         "March",
-    //         "April",
-    //         "May",
-    //         "June",
-    //         "July",
-    //         "August",
-    //         "September",
-    //         "October",
-    //         "November",
-    //         "December"
-    //     ]
 
     const chartData = {
         labels: monthlyExpensesArray.map(item => item.label),
