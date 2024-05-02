@@ -7,12 +7,20 @@ const SharedExpensesModel = new mongoose.Schema({
         max: 255
     },
     expenseId: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: String,
+        required: true,
         ref: "expensesModel"
     },
-    userSharedWithId: {
+    userSharedWithId: [{
         type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        default: [],
         ref: "usersModel"
+
+    }],
+    note: {
+        type: String,
+        max: 255
     }
 }, { timestamps: true, strict: true });
 

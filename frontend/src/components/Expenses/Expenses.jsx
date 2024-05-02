@@ -17,6 +17,7 @@ const Expenses = () => {
   const [deleted, setDeleted] = useState(false);
   const [elementToBeDeleted, setElementToBeDeleted] = useState();
   const [error, setError] = useState(false);
+  const [elementForModal, setElementForModal] = useState();
   const [modalOp, setModalOp] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -31,6 +32,11 @@ const Expenses = () => {
     setModalOp("edit");
   };
 
+  const openShareModal = (expense) => {
+    setElementForModal(expense);
+    setShowModal(true);
+    setModalOp("share");
+  };
   const handleNextPage = () => {
     setCurrentPage(currentPage + 1);
   };
@@ -159,7 +165,7 @@ const Expenses = () => {
                     <div className="d-flex justify-content-between rounded-top-1 pt-1 px-1" style={{ backgroundColor: category.color }}>
                       <div className="text-white bold">{category.categoryName.toUpperCase()}</div>
                       <div className="d-flex gap-2 ">
-                        <FontAwesomeIcon icon={faShareNodes} color="white" className="custom-icon" />
+                        <FontAwesomeIcon icon={faShareNodes} color="white" className="custom-icon" onClick={() => openShareModal(expense)} />
                         <FontAwesomeIcon icon={faPenToSquare} color="white" className="custom-icon" onClick={() => openModifyModal(expense._id)} />
                         <FontAwesomeIcon icon={faTrashCan} color="white" className="custom-icon" onClick={() => verifyDelete(expense._id)} />
                       </div>
@@ -179,7 +185,7 @@ const Expenses = () => {
             )}
           </div>
         </motion.div>
-        <MyModal show={showModal} setShow={setShowModal} modalOp={modalOp} />
+        <MyModal show={showModal} setShow={setShowModal} modalOp={modalOp} element={elementForModal} />
       </Container>
     </>
   );

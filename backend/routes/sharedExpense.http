@@ -1,0 +1,17 @@
+POST http://localhost:3030/sharedExpense/addSharedExpense
+Content-Type: application/json
+
+{
+    "ownerId": "662017fb3f038f140eac7956",
+    "expenseId": "663220b30dca901c61a39aeb",
+    "email": "aaa@gmail.com",
+    "note": "la spesa di ieri"
+}
+###
+
+DELETE  http://localhost:3030/sharedExpense/delSharedExpense
+Content-Type: application/json
+
+{
+    "expenseId": "663220b30dca901c61a39aeb"
+}

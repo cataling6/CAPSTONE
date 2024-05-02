@@ -106,7 +106,7 @@ exports.deleteExpense = async (req, res) => {
             .status(200)
             .send({
                 statusCode: 200,
-                payload: "Expense successfully deleted!"
+                message: "Expense successfully deleted!"
             })
     } catch (e) {
         console.log(e);
