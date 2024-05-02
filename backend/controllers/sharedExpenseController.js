@@ -1,4 +1,3 @@
-import React from 'react';
 const expenseModel = require('../models/expenses_model');
 const sharedExpenseModel = require('../models/sharedExp_model')
 const userModel = require('../models/user_model');
@@ -15,20 +14,40 @@ exports.addSharedExpense = async (req, res) => {
                     message: "Sorry, user not found!"
                 })
         }
-        const expenseToShare = await sharedExpenseModel.findById({ _id: req.body.expenseId })
-        const newSharedExpense = new sharedExpenseModel({
-            ...req.body,
-            expenseId: expenseToShare._id,
-            userSharedWithId: userToBeAdded._id
-        })
+        const expenseToShare = await expenseModel.findById({ _id: req.body.expenseId })
+        const checkExpenseToShare = await sharedExpenseModel.findOne({ expenseId: req.body.expenseId })
+        //questo mi servirà a riga 44 x valutare se spesa già condivisa con utente oppure no
+        const checkUserShared = await sharedExpenseModel.findOne({ userSharedWithId: userToBeAdded._id })
 
-        await newSharedExpense.save()
-        res
-            .status(200)
-            .send({
-                statusCode: 200,
-                message: "Expense successfully shared!"
+        //se la spesa che voglio condividere è gia stata condivisa, aggiungo solo uil nuovo utente con cui condividerla, altrimenti ne aggiungo una nuova
+        if (checkExpenseToShare) {
+            if (!checkUserShared) {
+                await sharedExpenseModel.updateOne({ _id: checkExpenseToShare._id }, { $push: { userSharedWithId: userToBeAdded } })
+            }
+        } else {
+            const newSharedExpense = new sharedExpenseModel({
+                ...req.body,
+                expenseId: expenseToShare._id,
+                userSharedWithId: userToBeAdded
             })
+            await newSharedExpense.save()
+
+        }
+        if (!checkUserShared) {
+            res
+                .status(200)
+                .send({
+                    statusCode: 200,
+                    message: "Expense successfully shared!"
+                })
+        } else {
+            res
+                .status(208)
+                .send({
+                    statusCode: 208,
+                    message: "Expense already shared with the user!"
+                })
+        }
     } catch (e) {
         console.log(e);
         res
@@ -41,9 +60,9 @@ exports.addSharedExpense = async (req, res) => {
 
 }
 
-exports.dellSharedExpense = async (req, res) => {
+exports.deleteSharedExpense = async (req, res) => {
     try {
-        await sharedExpenseModel.findByIdAndDelete({ expenseId: req.body.expenseId })
+        await sharedExpenseModel.findOneAndDelete({ expenseId: req.body.expenseId })
         res
             .status(200)
             .send({

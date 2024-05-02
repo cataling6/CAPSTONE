@@ -4,9 +4,9 @@ POST http://localhost:3030/createUser
 Content-Type: application/json
 
 {
-    "firstName": "Caasdtalin",
-    "lastName": "asd",
-    "email": "radoi.catalin88@gmail.com",
+    "firstName": "bbb",
+    "lastName": "ccc",
+    "email": "ccc@gmail.com",
     "password": "123456"
 }
 ###

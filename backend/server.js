@@ -10,6 +10,7 @@ const usersRoute = require('./routes/users')
 const loginRoute = require('./routes/login')
 const expenseRoute = require('./routes/expenses')
 const categoryRoute = require('./routes/categories')
+const sharedExpenseRoute = require('./routes/sharedExpenses')
 //routes:::end
 //const path = require('path');
 
@@ -24,6 +25,7 @@ app.use(express.json());
 app.use('/', usersRoute);
 app.use('/', loginRoute);
 app.use('/expenses/', expenseRoute);
+app.use('/sharedExpense/', sharedExpenseRoute)
 app.use('/expenses/', categoryRoute);
 
 
