@@ -1,22 +1,24 @@
 import { createContext, useEffect, useState } from "react";
 import AxiosClient from "../modules/AxiosClient/client"
 import React from 'react';
-import { json } from "react-router-dom";
+import { jwtDecode } from "jwt-decode";
 
 
 export const ExpensesCtx = createContext()
 
 const ExpensesProvider = ({ children }) => {
+    const session = JSON.parse(localStorage.getItem("authorized_user"));
+    const decodedSession = jwtDecode(session);
     const [expenses, setExpenses] = useState([])
     const [totalExpenses, setTotalExpenses] = useState([])
     const [expensesFiltered, setExpensesFiltered] = useState([])
     const client = new AxiosClient();
-
+    const userId = decodedSession.userId;
 
     const getExpenses = async (page) => {
 
         try {
-            const res = await client.get(`${process.env.REACT_APP_SERVER_BASE_URL}/expenses/getExpenses?page=${page}`)
+            const res = await client.get(`${process.env.REACT_APP_SERVER_BASE_URL}/expenses/getExpenses/${userId}?page=${page}`)
             setExpenses(res)
 
         } catch (e) {

@@ -80,3 +80,68 @@ exports.deleteSharedExpense = async (req, res) => {
     }
 }
 
+exports.getSharedExpenses = async (req, res) => {
+    try {
+        const sharedExpenses = await sharedExpenseModel.find();
+        res
+            .status(200)
+            .send({
+                statusCode: 200,
+                payload: sharedExpenses
+            })
+    } catch (e) {
+        console.log(e);
+        res
+            .status(500)
+            .send({
+                statusCode: 500,
+                message: "Internal Server Error"
+            })
+
+    }
+}
+
+exports.getMySharedExpenses = async (req, res) => {
+    const userId = req.params.id
+    try {
+        const myShared = await sharedExpenseModel.find({ ownerId: userId })
+        res
+            .status(200)
+            .send({
+                statusCode: 200,
+                payload: myShared
+            })
+    } catch (e) {
+        console.log(e);
+        res
+            .status(500)
+            .send({
+                statusCode: 500,
+                message: "Internal Server Error"
+            })
+
+    }
+}
+
+exports.getSharedExpensesWithMe = async (req, res) => {
+    const userId = req.params.id
+    try {
+        const sharedWithMe = await sharedExpenseModel.findOne({ userSharedWithId: userId })
+        res
+            .status(200)
+            .send({
+                statusCode: 200,
+                payload: sharedWithMe
+            })
+    } catch (e) {
+        console.log(e);
+        res
+            .status(500)
+            .send({
+                statusCode: 500,
+                message: "Internal Server Error"
+            })
+
+
+    }
+}

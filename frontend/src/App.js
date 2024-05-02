@@ -13,6 +13,7 @@ import Expenses from "./components/Expenses/Expenses";
 import Welcome from "./components/Welcome/Welcome";
 import Configurations from "./components/Configurations/Configurations";
 import Statistics from "./components/Statistics/Statistics";
+import SharedExpenses from "./components/SharedExpenses/SharedExpenses";
 
 
 
@@ -30,6 +31,7 @@ function App() {
             <Route path="/statistics" element={<Statistics />} />
             <Route path="/expenses" element={<Expenses />} />
             <Route path="/expenses/configurations" element={<Configurations />} />
+            <Route path="/sharedExpense" element={<SharedExpenses />} />
             <Route path="*" element={<NotFound />} />
           </Route>
         </Routes>

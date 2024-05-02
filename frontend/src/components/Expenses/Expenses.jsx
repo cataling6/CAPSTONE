@@ -10,6 +10,7 @@ import { faPenToSquare, faTrashCan, faShareNodes } from "@fortawesome/free-solid
 import { motion } from "framer-motion";
 import Swal from "sweetalert2";
 import "./style.css";
+
 const Expenses = () => {
   const { expenses, getExpenses, deleteExpenseById } = useContext(ExpensesCtx);
   const { categories, getCategories } = useContext(CategoryCtx);
@@ -144,7 +145,8 @@ const Expenses = () => {
                 Pagina precedente
               </Button>
               <span>Pagina {currentPage}</span>
-              <Button onClick={handleNextPage} disabled={currentPage === expenses.totalPages} size="sm">
+              {console.log(expenses.totalPages)}
+              <Button onClick={handleNextPage} disabled={currentPage >= expenses.totalPages} size="sm">
                 Pagina successiva
               </Button>
             </div>
@@ -153,7 +155,7 @@ const Expenses = () => {
         <motion.div initial={{ y: -50, opacity: 0 }} animate={{ y: 20, opacity: 1 }} transition={{ duration: 1, ease: [0.6, -0.05, 0.01, 0.99] }}>
           <div className="col-lg-12 d-flex flex-column gap-3">
             {!expenses.expenses ? (
-              <div>Loading...</div>
+              <div>No expenses founded!</div>
             ) : expenses.expenses.length === 0 ? (
               <div>No expenses founded!</div>
             ) : (
