@@ -42,8 +42,8 @@ const MyLine = ({ data, trigger }) => {
         };
     }
 
-    console.log(monthlyExpenses);
-    console.log(monthlyCategoryExpenses);
+    // console.log(monthlyExpenses);
+    // console.log(monthlyCategoryExpenses);
     const options = {
         plugins: {
             title: {

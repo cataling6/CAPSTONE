@@ -5,7 +5,7 @@ const expenseController = require('../controllers/expensesController')
 router.post('/addExpense', expenseController.addExpense)
 router.get('/getExpenses/:id', expenseController.getExpenses)
 router.get('/getTotalExpenses', expenseController.getTotalExpenses)
-router.post('/getExpensesByDate', expenseController.getExpensesByDate)
+router.post('/getExpensesByDate/:id', expenseController.getExpensesByDate)
 router.delete('/deleteExpense/:id', expenseController.deleteExpense)
 
 module.exports = router

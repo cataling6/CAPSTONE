@@ -74,13 +74,14 @@ exports.getTotalExpenses = async (req, res) => {
 }
 
 exports.getExpensesByDate = async (req, res) => {
+    const id = req.params.id
     const { fromDate, toDate } = req.body;
 
     if (!fromDate || !toDate) {
         return res.status(400).json({ message: "Both fromDate and toDate are required." });
     }
     try {
-        const expensesByDate = await expenseModel.find({ opDate: { $gte: fromDate, $lte: toDate } })
+        const expensesByDate = await expenseModel.find({ opDate: { $gte: fromDate, $lte: toDate }, userId: id })
         res
             .status(200)
             .json({ expensesByDate })

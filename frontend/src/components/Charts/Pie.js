@@ -1,14 +1,17 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import randomColor from 'randomcolor'
 import { Pie } from "react-chartjs-2"
 import { Chart as ChartJS, Title, Tooltip, Legend, ArcElement, layouts } from 'chart.js'
 
 ChartJS.register(Title, Tooltip, Legend, ArcElement)
 const MyPie = ({ data, categoryData, deltaDay }) => {
+    // const { category } = data
+    console.log(data);
+    console.log(data[0]?.category);
 
     let chartTitleText = ""
 
-    if (!data || data.length === 0 || !data[0].category) {
+    if (!data || data.length === 0 || !data[0]?.category) {
         return <div className='mt-2'>Dati non disponibili</div>;
     }
 
@@ -84,6 +87,7 @@ const MyPie = ({ data, categoryData, deltaDay }) => {
             }
         ]
     }
+
 
     return (
         <div style={{ width: "600px", height: "400px" }}>

@@ -42,7 +42,7 @@ const ExpensesProvider = ({ children }) => {
         }
 
         try {
-            const res = await client.post(`${process.env.REACT_APP_SERVER_BASE_URL}/expenses/getExpensesByDate`, JSON.stringify(bodyToSend))
+            const res = await client.post(`${process.env.REACT_APP_SERVER_BASE_URL}/expenses/getExpensesByDate/${userId}`, JSON.stringify(bodyToSend))
             setExpensesFiltered(res.data)
             return res.expensesByDate;
         } catch (e) {
