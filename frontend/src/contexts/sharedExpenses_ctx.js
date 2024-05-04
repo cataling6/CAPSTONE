@@ -40,11 +40,20 @@ const SharedExpensesProvider = ({ children }) => {
             console.log();
         }
     }
+
+    const delSharedExpense = async (id) => {
+        try {
+            const res = await client.delete(`${process.env.REACT_APP_SERVER_BASE_URL}/sharedExpense/delSharedExpense/${id}`)
+            getMySharedExpenses();
+        } catch (e) {
+            console.error(e);
+        }
+    }
     useEffect(() => {
 
     }, [getMySharedExpenses])
     return (
-        <SharedExpensesCtx.Provider value={{ sharedExpenses, getMySharedExpenses, shareExpenseWith, getSharedExpensesWithMe }}>
+        <SharedExpensesCtx.Provider value={{ sharedExpenses, sharedWithMeExpenses, getMySharedExpenses, shareExpenseWith, getSharedExpensesWithMe, delSharedExpense }}>
             {children}
         </SharedExpensesCtx.Provider>
     )

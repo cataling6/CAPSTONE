@@ -9,17 +9,17 @@ export const ExpensesCtx = createContext()
 const ExpensesProvider = ({ children }) => {
     const session = JSON.parse(localStorage.getItem("authorized_user"));
     const decodedSession = jwtDecode(session);
-    const [expenses, setExpenses] = useState([])
+    const [allUserExpenses, setAllUserExpenses] = useState([])
     const [totalExpenses, setTotalExpenses] = useState([])
     const [expensesFiltered, setExpensesFiltered] = useState([])
     const client = new AxiosClient();
     const userId = decodedSession.userId;
 
-    const getExpenses = async (page) => {
+    const getUserExpenses = async (page) => {
 
         try {
             const res = await client.get(`${process.env.REACT_APP_SERVER_BASE_URL}/expenses/getExpenses/${userId}?page=${page}`)
-            setExpenses(res)
+            setAllUserExpenses(res)
 
         } catch (e) {
             console.log(e);
@@ -54,7 +54,7 @@ const ExpensesProvider = ({ children }) => {
         try {
             formdata.amount = parseFloat(formdata.amount);
             const res = await client.post(`${process.env.REACT_APP_SERVER_BASE_URL}/expenses/addExpense`, formdata)
-            getExpenses()
+            getUserExpenses()
 
         } catch (e) {
             console.log(e);
@@ -65,16 +65,16 @@ const ExpensesProvider = ({ children }) => {
     const deleteExpenseById = async (id) => {
         try {
             await client.delete(`/expenses/deleteExpense/${id}`);
-            getExpenses()
+            getUserExpenses()
         } catch (e) {
             console.log(e);
         }
     }
     useEffect(() => {
 
-    }, [getExpenses])
+    }, [getUserExpenses])
     return (
-        <ExpensesCtx.Provider value={{ expenses, totalExpenses, expensesFiltered, getExpenses, addExpense, deleteExpenseById, getExpensesByDate, getTotalExpenses }}>
+        <ExpensesCtx.Provider value={{ allUserExpenses, totalExpenses, expensesFiltered, getUserExpenses, addExpense, deleteExpenseById, getExpensesByDate, getTotalExpenses }}>
             {children}
         </ExpensesCtx.Provider>
     )

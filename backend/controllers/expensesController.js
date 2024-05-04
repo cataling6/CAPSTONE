@@ -57,10 +57,7 @@ exports.getTotalExpenses = async (req, res) => {
         const totalExpenses = await expenseModel.find();
         res
             .status(200)
-            .json({
-                statusCode: 200,
-                totalExpenses
-            })
+            .send(totalExpenses)
     } catch (e) {
         console.log(e);
         res

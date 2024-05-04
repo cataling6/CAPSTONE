@@ -6,6 +6,6 @@ const sharedExpenseController = require('../controllers/sharedExpenseController'
 router.get('/getMySharedExpenses/:id', sharedExpenseController.getMySharedExpenses)
 router.get('/getSharedExpensesWithMe/:id', sharedExpenseController.getSharedExpensesWithMe)
 router.post('/addSharedExpense', sharedExpenseController.addSharedExpense)
-router.delete('/delSharedExpense', sharedExpenseController.deleteSharedExpense)
+router.delete('/delSharedExpense/:id', sharedExpenseController.deleteSharedExpense)
 
 module.exports = router

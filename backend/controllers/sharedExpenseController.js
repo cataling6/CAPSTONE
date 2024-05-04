@@ -16,6 +16,7 @@ exports.addSharedExpense = async (req, res) => {
         }
         const expenseToShare = await expenseModel.findById({ _id: req.body.expenseId })
         const checkExpenseToShare = await sharedExpenseModel.findOne({ expenseId: req.body.expenseId })
+        console.log(checkExpenseToShare + "riga 19 sharedExpenseController");
         //questo mi servirà a riga 44 x valutare se spesa già condivisa con utente oppure no
         const checkUserShared = await sharedExpenseModel.findOne({ userSharedWithId: userToBeAdded._id })
 
@@ -61,8 +62,9 @@ exports.addSharedExpense = async (req, res) => {
 }
 
 exports.deleteSharedExpense = async (req, res) => {
+    const expenseId = req.params.id
     try {
-        await sharedExpenseModel.findOneAndDelete({ expenseId: req.body.expenseId })
+        await sharedExpenseModel.findOneAndDelete({ expenseId: expenseId })
         res
             .status(200)
             .send({
@@ -126,7 +128,7 @@ exports.getMySharedExpenses = async (req, res) => {
 exports.getSharedExpensesWithMe = async (req, res) => {
     const userId = req.params.id
     try {
-        const sharedWithMe = await sharedExpenseModel.findOne({ userSharedWithId: userId })
+        const sharedWithMe = await sharedExpenseModel.find({ userSharedWithId: userId })
         res
             .status(200)
             .send({

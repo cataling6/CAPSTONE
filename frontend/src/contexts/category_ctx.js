@@ -4,7 +4,6 @@ import React from 'react';
 
 export const CategoryCtx = createContext();
 
-
 const CategoryProvider = ({ children }) => {
     const [categories, setCategories] = useState([])
     const client = new AxiosClient()
