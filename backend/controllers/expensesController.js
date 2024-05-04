@@ -26,7 +26,7 @@ exports.getExpenses = async (req, res) => {
     const user = req.params.id
     const { page = 1, pageSize = 5 } = req.query;
     try {
-        const totalExpensesCount = await expenseModel.countDocuments();
+        const totalExpensesCount = await expenseModel.countDocuments({ userId: user });
         const expenses = await expenseModel.find({ userId: user })
             .limit(Number(pageSize))
             .skip((page - 1) * pageSize)

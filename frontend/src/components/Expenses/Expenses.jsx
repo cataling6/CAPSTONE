@@ -145,7 +145,6 @@ const Expenses = () => {
                 Pagina precedente
               </Button>
               <span>Pagina {currentPage}</span>
-              {console.log(expenses.totalPages)}
               <Button onClick={handleNextPage} disabled={currentPage >= expenses.totalPages} size="sm">
                 Pagina successiva
               </Button>

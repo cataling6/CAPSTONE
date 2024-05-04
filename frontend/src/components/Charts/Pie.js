@@ -1,13 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import randomColor from 'randomcolor'
 import { Pie } from "react-chartjs-2"
 import { Chart as ChartJS, Title, Tooltip, Legend, ArcElement, layouts } from 'chart.js'
 
 ChartJS.register(Title, Tooltip, Legend, ArcElement)
 const MyPie = ({ data, categoryData, deltaDay }) => {
-    // const { category } = data
-    console.log(data);
-    console.log(data[0]?.category);
 
     let chartTitleText = ""
 
