@@ -43,29 +43,26 @@ const SharedWithMe = () => {
           const user = findOwner(s.ownerId);
           const expense = findExpense(s.expenseId);
           const category = expense ? findCategory(expense.category) : null;
-          console.log(category);
-          //const category = findCategory(expense.categor);
+
           return (
             user &&
             category &&
             expense && (
-              <div className="border border-1 rounded rounded-top-2 shadow px-2">
-                <div>
-                  <div className="d-flex flex-column ">
-                    <span className="fs-5" htmlFor="1">
-                      Expense owner:
-                    </span>
-                    <label>
-                      {user.firstName} {user.lastName} - {user.email}
-                    </label>
-                    <hr className="m-1" />
-                  </div>
-                  <div className="d-flex flex-column ">
-                    <h5>Expense details:</h5>
-                    <label>Category: {category.categoryName}</label>
-                    <label>Amount: {expense.amount}€</label>
-                    <label>Date: {moment(expense.opDate).format("LL")}</label>
-                  </div>
+              <div className="border border-1 col-lg-3 rounded rounded-1">
+                <div className="d-flex flex-column ">
+                  <span className="fs-5" htmlFor="1">
+                    Owner:
+                  </span>
+                  <label>
+                    {user.firstName} {user.lastName} <br /> {user.email}
+                  </label>
+                  <hr className="m-1" />
+                </div>
+                <div className="d-flex flex-column ">
+                  <h5>Details:</h5>
+                  <label>Category: {category.categoryName}</label>
+                  <label>Amount: {expense.amount}€</label>
+                  <label>Date: {moment(expense.opDate).format("LL")}</label>
                 </div>
               </div>
             )

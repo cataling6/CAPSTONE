@@ -16,7 +16,7 @@ exports.addSharedExpense = async (req, res) => {
         }
         const expenseToShare = await expenseModel.findById({ _id: req.body.expenseId })
         const checkExpenseToShare = await sharedExpenseModel.findOne({ expenseId: req.body.expenseId })
-        console.log(checkExpenseToShare + "riga 19 sharedExpenseController");
+
         //questo mi servirà a riga 44 x valutare se spesa già condivisa con utente oppure no
         const checkUserShared = await sharedExpenseModel.findOne({ userSharedWithId: userToBeAdded._id })
 

@@ -93,7 +93,7 @@ const MineShared = () => {
   //::: END MAP DATI :::
 
   return (
-    <>
+    <div className=" d-flex flex-column mt-3 mx-3 gap-2">
       {payload && payload.length > 0 ? (
         payload.map((myShared) => {
           //map dati
@@ -101,42 +101,46 @@ const MineShared = () => {
           const cat = expense ? findCategoryByExpId(expense.category) : null;
 
           return (
-            <div className="border border-1  rounded-top-2">
+            <div className="border border-1  rounded-top-2 px-0 shadow ">
               {expense && (
                 <>
-                  <div className="d-flex justify-content-between rounded-top-1 pt-1 px-1 m-0 " style={{ backgroundColor: cat.color, color: "white" }}>
+                  <div className="d-flex justify-content-between rounded-top-1 pt-1 px-2 m-0 " style={{ backgroundColor: cat.color, color: "white" }}>
                     <label>Expense Category: {cat.categoryName}</label>
                     <label>
                       <FontAwesomeIcon icon={faTrashCan} color="white" className="custom-icon" onClick={() => verifyDelete(myShared.expenseId)} />
                     </label>
                   </div>
-                  <p>Amount: {expense.amount}</p>
+                  <div className="px-2">
+                    <p>Amount: {expense.amount}</p>
+                  </div>
                 </>
               )}
-              <p>
-                {myShared &&
-                  myShared.userSharedWithId.map((u) => {
-                    const users = u ? findUsersSharedWitdh(u) : null;
+              <div className="px-2">
+                <p>
+                  {myShared &&
+                    myShared.userSharedWithId.map((u) => {
+                      const users = u ? findUsersSharedWitdh(u) : null;
 
-                    return (
-                      users && (
-                        <div className="d-flex justify-content-between">
-                          <label>
-                            User: {users.firstName} {users.lastName} - {users.email}
-                          </label>
-                          <label>cancella</label>
-                        </div>
-                      )
-                    );
-                  })}
-              </p>
+                      return (
+                        users && (
+                          <div className="d-flex justify-content-between">
+                            <label>
+                              User: {users.firstName} {users.lastName} - {users.email}
+                            </label>
+                            <label>cancella</label>
+                          </div>
+                        )
+                      );
+                    })}
+                </p>
+              </div>
             </div>
           );
         })
       ) : (
         <p>No expenses shared to view</p>
       )}
-    </>
+    </div>
   );
 };
 

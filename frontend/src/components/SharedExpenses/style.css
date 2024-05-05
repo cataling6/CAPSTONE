@@ -1,0 +1,6 @@
+.max-height {
+  height: calc(100vh - 180px);
+  overflow-y: scroll;
+  scrollbar-color: rgb(146, 146, 146) rgb(255, 255, 255);
+  scrollbar-width: thin;
+}
