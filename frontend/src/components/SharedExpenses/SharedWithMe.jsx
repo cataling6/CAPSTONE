@@ -23,18 +23,13 @@ const SharedWithMe = () => {
     getData();
   }, []);
 
-  //console.log(totalExpenses);
   //::: BEGIN MAP DATI :::
   const findOwner = (ownerId) => {
     return users ? users.find((u) => u._id === ownerId) : null;
   };
 
-  console.log(payload);
   const findExpense = (expenseId) => {
-    console.log(allExpensesForShared);
-    // console.log(expenseId);
     const myExpense = allExpensesForShared ? allExpensesForShared.find((e) => e._id === expenseId) : null;
-    // console.log(myExpense);
     return myExpense;
   };
 
@@ -46,12 +41,10 @@ const SharedWithMe = () => {
     <>
       {payload && payload.length > 0 ? (
         payload.map((p) => {
-          console.log(totalExpenses);
-          console.log(p);
           const user = findOwner(p.ownerId);
-          // console.log(s.expenseId);
+
           const expense = findExpense(p.expenseId);
-          console.log(expense);
+
           const category = expense ? findCategory(expense.category) : null;
 
           return (

@@ -6,9 +6,9 @@ ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, T
 const MyLine = ({ data, trigger }) => {
 
     const [monthlyExpenses, setMonthlyExpenses] = useState({});
-    const [monthlyCategoryExpenses, setMonthlyCategoryExpenses] = useState({});
 
-    console.log(data);
+
+
     const calculateMonthlyExpenses = async () => {
         const monthlyTotal = {};
         const monthlyCategoryTotal = {};
@@ -25,18 +25,11 @@ const MyLine = ({ data, trigger }) => {
                 }
                 monthlyTotal[key] += expense.amount;
 
-                // // Total expenses per category per month
-                // if (!monthlyCategoryTotal[key]) {
-                //     monthlyCategoryTotal[key] = {};
-                // }
-                // if (!monthlyCategoryTotal[key][expense.category]) {
-                //     monthlyCategoryTotal[key][expense.category] = 0;
-                // }
-                // monthlyCategoryTotal[key][expense.category] += expense.amount;
+
             });
 
             setMonthlyExpenses(monthlyTotal);
-            // setMonthlyCategoryExpenses(monthlyCategoryTotal);
+
 
         };
     }

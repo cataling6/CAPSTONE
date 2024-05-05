@@ -6,6 +6,7 @@ import { CategoryCtx } from "../../contexts/category_ctx";
 import { ExpensesCtx } from "../../contexts/expenses_ctx";
 import { jwtDecode } from "jwt-decode";
 import Swal from "sweetalert2";
+import { v4 as uuidv4 } from "uuid";
 import "./style.css";
 const AddExpense = ({ setShow }) => {
   const { categories, getCategories } = useContext(CategoryCtx);

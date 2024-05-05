@@ -6,7 +6,7 @@ import MyModal from "../Modal/Modal";
 import { ExpensesCtx } from "../../contexts/expenses_ctx";
 import { CategoryCtx } from "../../contexts/category_ctx";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPenToSquare, faTrashCan, faShareNodes } from "@fortawesome/free-solid-svg-icons";
+import { faTrashCan, faShareNodes } from "@fortawesome/free-solid-svg-icons";
 import { motion } from "framer-motion";
 import Swal from "sweetalert2";
 import { getContrast } from "polished";
@@ -25,7 +25,7 @@ const Expenses = () => {
   const [modalOp, setModalOp] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
 
-  const openModal = () => setShowModal(true);
+  // const openModal = () => setShowModal(true);
 
   const openAddModal = () => {
     setShowModal(true);
@@ -105,7 +105,6 @@ const Expenses = () => {
   };
 
   const launchToast = (myEvent) => {
-    console.log(myEvent);
     if (myEvent.statusCode === 200) {
       toast.success(myEvent.message, {
         position: "top-right",
@@ -161,6 +160,7 @@ const Expenses = () => {
       getUserExpenses(currentPage);
     } catch (e) {
       setError(e);
+      verifyError(e);
     }
   }, [showModal, currentPage, deleted, error]);
 

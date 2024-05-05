@@ -5,6 +5,8 @@ import "./style.css";
 import { CategoryCtx } from "../../contexts/category_ctx";
 import { getContrast } from "polished";
 import Swal from "sweetalert2";
+import { v4 as uuidv4 } from "uuid";
+
 const Configurations = () => {
   const { categories, getCategories, addCategory, deleteCategory } = useContext(CategoryCtx);
   const [formData, setFormData] = useState({});
@@ -94,14 +96,13 @@ const Configurations = () => {
                 <div className="text-dark">No categories have been configured</div>
               ) : (
                 categories.map((cat) => {
-                  console.log(cat);
                   let colorText = "white";
                   const c = getContrast("white", cat.color);
                   if (c < 2) {
                     colorText = "black";
                   }
                   return (
-                    <div>
+                    <div key={uuidv4()}>
                       <span id={cat._id} style={{ backgroundColor: `${cat.color}`, color: colorText }} className="rounded rounded-5 px-2  my-1 border border-1 border-black " onClick={verifyDelete}>
                         {cat.categoryName.toUpperCase()}
                       </span>
