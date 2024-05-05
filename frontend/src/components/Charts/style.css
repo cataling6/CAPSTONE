@@ -1,4 +1,9 @@
-.chart-container canvas {
+.chart-pie canvas {
   width: 400px !important;
+  height: auto !important;
+}
+
+.chart-bar canvas {
+  width: 500px !important;
   height: auto !important;
 }

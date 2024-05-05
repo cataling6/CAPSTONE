@@ -5,6 +5,7 @@ import { CategoryCtx } from "../../contexts/category_ctx";
 import { Container } from "react-bootstrap";
 import MyPie from "../Charts/Pie";
 import MyLine from "../Charts/Line";
+import MyBar from "../Charts/Bar";
 
 const moment = require("moment");
 
@@ -95,6 +96,10 @@ const Statistics = () => {
           <>
             <MyPie data={expensesFiltered ?? []} categoryData={getCategoryName} deltaDay={deltaDay} />
             <MyLine data={total} trigger={generaAnno} />
+
+            {/* <div>
+              <MyBar data={total} trigger={generaAnno} />
+            </div> */}
           </>
         )}
       </Container>

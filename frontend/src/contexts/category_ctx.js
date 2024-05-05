@@ -26,8 +26,18 @@ const CategoryProvider = ({ children }) => {
         }
     }
 
+    const deleteCategory = async (id) => {
+        try {
+            await client.delete(`${process.env.REACT_APP_SERVER_BASE_URL}/expenses/deleteCategory/${id}`)
+            getCategories()
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+
     return (
-        <CategoryCtx.Provider value={{ getCategories, addCategory, categories }}>
+        <CategoryCtx.Provider value={{ getCategories, addCategory, categories, deleteCategory }}>
             {children}
         </CategoryCtx.Provider>
     );

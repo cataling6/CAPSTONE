@@ -105,6 +105,7 @@ const Expenses = () => {
   };
 
   const launchToast = (myEvent) => {
+    console.log(myEvent);
     if (myEvent.statusCode === 200) {
       toast.success(myEvent.message, {
         position: "top-right",
@@ -127,7 +128,7 @@ const Expenses = () => {
         progress: undefined,
         theme: "colored",
       });
-    } else {
+    } else if (myEvent.statusCode === 404) {
       toast.error(myEvent.message, {
         position: "top-right",
         autoClose: 3000,

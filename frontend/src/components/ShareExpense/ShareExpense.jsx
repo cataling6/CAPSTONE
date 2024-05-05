@@ -34,9 +34,10 @@ const ShareExpense = ({ expense, setShow, toast }) => {
     e.preventDefault();
     try {
       const res = await shareExpenseWith(preparedData);
-      console.log(res);
+
       toast(res);
     } catch (e) {
+      console.log(e.response.status);
       setError(e);
     }
   };

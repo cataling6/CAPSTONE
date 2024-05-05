@@ -92,7 +92,7 @@ const MyPie = ({ data, categoryData, deltaDay }) => {
 
 
     return (
-        <div className="chart-container" >
+        <div className="chart-pie" >
             <Pie options={options} data={chartData} />
         </div >
     );

@@ -74,7 +74,7 @@ const ExpensesProvider = ({ children }) => {
 
     const deleteExpenseById = async (id) => {
         try {
-            await client.delete(`/expenses/deleteExpense/${id}`);
+            await client.delete(`${process.env.REACT_APP_SERVER_BASE_URL}/expenses/deleteExpense/${id}`);
             getUserExpenses()
         } catch (e) {
             console.log(e);

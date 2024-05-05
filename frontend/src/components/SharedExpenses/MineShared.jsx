@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import Swal from "sweetalert2";
 import { v4 as uuidv4 } from "uuid";
+import { getContrast } from "polished";
 const MineShared = () => {
   const { sharedExpenses, getMySharedExpenses, delSharedExpense } = useContext(SharedExpensesCtx);
   const { allUserExpenses, getUserExpenses } = useContext(ExpensesCtx);
@@ -97,18 +98,25 @@ const MineShared = () => {
     <div className=" d-flex flex-column mt-3 mx-3 gap-2" key={uuidv4()}>
       {payload && payload.length > 0 ? (
         payload.map((myShared) => {
+          let colorText = "white";
+          let myColor = "white";
           //map dati
-          const expense = findExpenseById(myShared.expenseId);
+          const expense = myShared ? findExpenseById(myShared.expenseId) : null;
           const cat = expense ? findCategoryByExpId(expense.category) : null;
+          myColor = cat ? cat.color : "white";
 
+          const c = getContrast("white", myColor);
+          if (c < 2) {
+            colorText = "black";
+          }
           return (
             <div className="border border-1  rounded-top-2 px-0 shadow " key={uuidv4()}>
-              {expense && (
+              {expense && cat && (
                 <div key={uuidv4()}>
-                  <div className="d-flex justify-content-between rounded-top-1 pt-1 px-2 m-0 " style={{ backgroundColor: cat.color, color: "white" }} key={uuidv4()}>
+                  <div className="d-flex justify-content-between rounded-top-1 pt-1 px-2 m-0 " style={{ backgroundColor: cat.color, color: colorText }} key={uuidv4()}>
                     <label key={uuidv4()}>Expense Category: {cat.categoryName}</label>
                     <label key={uuidv4()}>
-                      <FontAwesomeIcon icon={faTrashCan} color="white" className="custom-icon" onClick={() => verifyDelete(myShared.expenseId)} />
+                      <FontAwesomeIcon icon={faTrashCan} color={colorText} className="custom-icon" onClick={() => verifyDelete(myShared.expenseId)} />
                     </label>
                   </div>
                   <div className="px-2">

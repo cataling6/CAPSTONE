@@ -38,7 +38,7 @@ const SharedExpensesProvider = ({ children }) => {
             getMySharedExpenses()
             return res;
         } catch (e) {
-            console.log();
+            return e.response.data;
         }
     }
 

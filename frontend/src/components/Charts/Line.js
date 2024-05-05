@@ -25,24 +25,23 @@ const MyLine = ({ data, trigger }) => {
                 }
                 monthlyTotal[key] += expense.amount;
 
-                // Total expenses per category per month
-                if (!monthlyCategoryTotal[key]) {
-                    monthlyCategoryTotal[key] = {};
-                }
-                if (!monthlyCategoryTotal[key][expense.category]) {
-                    monthlyCategoryTotal[key][expense.category] = 0;
-                }
-                monthlyCategoryTotal[key][expense.category] += expense.amount;
+                // // Total expenses per category per month
+                // if (!monthlyCategoryTotal[key]) {
+                //     monthlyCategoryTotal[key] = {};
+                // }
+                // if (!monthlyCategoryTotal[key][expense.category]) {
+                //     monthlyCategoryTotal[key][expense.category] = 0;
+                // }
+                // monthlyCategoryTotal[key][expense.category] += expense.amount;
             });
 
             setMonthlyExpenses(monthlyTotal);
-            setMonthlyCategoryExpenses(monthlyCategoryTotal);
+            // setMonthlyCategoryExpenses(monthlyCategoryTotal);
 
         };
     }
 
-    console.log(monthlyExpenses);
-    console.log(monthlyCategoryExpenses);
+
     const options = {
         plugins: {
             title: {
@@ -52,9 +51,6 @@ const MyLine = ({ data, trigger }) => {
         }
     };
 
-    useEffect(() => {
-        calculateMonthlyExpenses();
-    }, [trigger])
 
     const monthlyExpensesArray = Object.entries(monthlyExpenses).map(([key, value]) => ({
         label: key,
@@ -71,6 +67,10 @@ const MyLine = ({ data, trigger }) => {
             }
         ]
     }
+    useEffect(() => {
+        calculateMonthlyExpenses();
+    }, [trigger])
+
     return (
         <div className="d-flex align-content-center flex-wrap " style={{ width: "500px", height: "400px" }}>
             <Line data={chartData} options={options} />
