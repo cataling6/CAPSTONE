@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Button, Container } from "react-bootstrap";
 import EditBox from "../Editbox/Editbox";
 import "./style.css";
@@ -11,8 +11,6 @@ const Configurations = () => {
   const { categories, getCategories, addCategory, deleteCategory } = useContext(CategoryCtx);
   const [formData, setFormData] = useState({});
   const [deleted, setDeleted] = useState(false);
-  const [elementToBeDeleted, setElementToBeDeleted] = useState();
-  const [error, setError] = useState(false);
 
   const handleOnChangeInput = (e) => {
     const { name, value } = e.target;
@@ -25,14 +23,10 @@ const Configurations = () => {
   const submitNewCategory = async (e) => {
     e.preventDefault();
 
-    const preparedData = {
-      ...formData,
-    };
     try {
       await addCategory(formData);
     } catch (e) {
       console.log(e);
-      setError(e);
     }
   };
 
@@ -64,7 +58,6 @@ const Configurations = () => {
           try {
             deleteCategory(myElement);
           } catch (e) {
-            setError(e);
             console(e);
           }
           swalWithBootstrapButtons.fire({
@@ -92,7 +85,7 @@ const Configurations = () => {
           <div className="w-75">
             <p>Actual Cat</p>
             <div className="d-flex gap-1 ">
-              {categories == "" || categories == null ? (
+              {categories === "" || categories === null ? (
                 <div className="text-dark">No categories have been configured</div>
               ) : (
                 categories.map((cat) => {

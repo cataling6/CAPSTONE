@@ -7,8 +7,8 @@ import moment from "moment";
 
 const SharedWithMe = () => {
   const { sharedWithMeExpenses, getSharedExpensesWithMe } = useContext(SharedExpensesCtx);
-  const { totalExpenses, getTotalExpenses, getAllExpensesForShared, allExpensesForShared } = useContext(ExpensesCtx);
-  const { categories, getCategories } = useContext(CategoryCtx);
+  const { getTotalExpenses, getAllExpensesForShared, allExpensesForShared } = useContext(ExpensesCtx);
+  const { categories } = useContext(CategoryCtx);
   const { users, getUsers } = useContext(UsersCtx);
   const { payload } = sharedWithMeExpenses;
 
