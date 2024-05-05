@@ -15,3 +15,6 @@ Content-Type: application/json
 {
     "expenseId": "663220b30dca901c61a39aeb"
 }
+
+###
+GET http://localhost:3030/sharedExpense/getMySharedExpenses/662017fb3f038f140eac7956

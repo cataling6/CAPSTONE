@@ -23,10 +23,11 @@ exports.addExpense = async (req, res) => {
 }
 
 exports.getExpenses = async (req, res) => {
+    const user = req.params.id
     const { page = 1, pageSize = 5 } = req.query;
     try {
-        const totalExpensesCount = await expenseModel.countDocuments();
-        const expenses = await expenseModel.find()
+        const totalExpensesCount = await expenseModel.countDocuments({ userId: user });
+        const expenses = await expenseModel.find({ userId: user })
             .limit(Number(pageSize))
             .skip((page - 1) * pageSize)
             .sort({ opDate: -1 })
@@ -56,10 +57,7 @@ exports.getTotalExpenses = async (req, res) => {
         const totalExpenses = await expenseModel.find();
         res
             .status(200)
-            .json({
-                statusCode: 200,
-                totalExpenses
-            })
+            .send(totalExpenses)
     } catch (e) {
         console.log(e);
         res
@@ -73,13 +71,14 @@ exports.getTotalExpenses = async (req, res) => {
 }
 
 exports.getExpensesByDate = async (req, res) => {
+    const id = req.params.id
     const { fromDate, toDate } = req.body;
 
     if (!fromDate || !toDate) {
         return res.status(400).json({ message: "Both fromDate and toDate are required." });
     }
     try {
-        const expensesByDate = await expenseModel.find({ opDate: { $gte: fromDate, $lte: toDate } })
+        const expensesByDate = await expenseModel.find({ opDate: { $gte: fromDate, $lte: toDate }, userId: id })
         res
             .status(200)
             .json({ expensesByDate })

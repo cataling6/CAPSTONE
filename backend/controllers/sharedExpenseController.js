@@ -16,6 +16,7 @@ exports.addSharedExpense = async (req, res) => {
         }
         const expenseToShare = await expenseModel.findById({ _id: req.body.expenseId })
         const checkExpenseToShare = await sharedExpenseModel.findOne({ expenseId: req.body.expenseId })
+
         //questo mi servirà a riga 44 x valutare se spesa già condivisa con utente oppure no
         const checkUserShared = await sharedExpenseModel.findOne({ userSharedWithId: userToBeAdded._id })
 
@@ -61,8 +62,9 @@ exports.addSharedExpense = async (req, res) => {
 }
 
 exports.deleteSharedExpense = async (req, res) => {
+    const expenseId = req.params.id
     try {
-        await sharedExpenseModel.findOneAndDelete({ expenseId: req.body.expenseId })
+        await sharedExpenseModel.findOneAndDelete({ expenseId: expenseId })
         res
             .status(200)
             .send({
@@ -80,3 +82,68 @@ exports.deleteSharedExpense = async (req, res) => {
     }
 }
 
+exports.getSharedExpenses = async (req, res) => {
+    try {
+        const sharedExpenses = await sharedExpenseModel.find();
+        res
+            .status(200)
+            .send({
+                statusCode: 200,
+                payload: sharedExpenses
+            })
+    } catch (e) {
+        console.log(e);
+        res
+            .status(500)
+            .send({
+                statusCode: 500,
+                message: "Internal Server Error"
+            })
+
+    }
+}
+
+exports.getMySharedExpenses = async (req, res) => {
+    const userId = req.params.id
+    try {
+        const myShared = await sharedExpenseModel.find({ ownerId: userId })
+        res
+            .status(200)
+            .send({
+                statusCode: 200,
+                payload: myShared
+            })
+    } catch (e) {
+        console.log(e);
+        res
+            .status(500)
+            .send({
+                statusCode: 500,
+                message: "Internal Server Error"
+            })
+
+    }
+}
+
+exports.getSharedExpensesWithMe = async (req, res) => {
+    const userId = req.params.id
+    try {
+        const sharedWithMe = await sharedExpenseModel.find({ userSharedWithId: userId })
+        res
+            .status(200)
+            .send({
+                statusCode: 200,
+                payload: sharedWithMe
+            })
+    } catch (e) {
+        console.log(e);
+        res
+            .status(500)
+            .send({
+                statusCode: 500,
+                message: "Internal Server Error"
+            })
+
+
+    }
+}

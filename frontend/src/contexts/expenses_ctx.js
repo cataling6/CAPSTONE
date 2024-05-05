@@ -1,23 +1,25 @@
 import { createContext, useEffect, useState } from "react";
 import AxiosClient from "../modules/AxiosClient/client"
 import React from 'react';
-import { json } from "react-router-dom";
+import { jwtDecode } from "jwt-decode";
 
 
 export const ExpensesCtx = createContext()
 
 const ExpensesProvider = ({ children }) => {
-    const [expenses, setExpenses] = useState([])
+    const session = JSON.parse(localStorage.getItem("authorized_user"));
+    const decodedSession = jwtDecode(session);
+    const [allUserExpenses, setAllUserExpenses] = useState([])
     const [totalExpenses, setTotalExpenses] = useState([])
     const [expensesFiltered, setExpensesFiltered] = useState([])
     const client = new AxiosClient();
+    const userId = decodedSession.userId;
 
-
-    const getExpenses = async (page) => {
+    const getUserExpenses = async (page) => {
 
         try {
-            const res = await client.get(`${process.env.REACT_APP_SERVER_BASE_URL}/expenses/getExpenses?page=${page}`)
-            setExpenses(res)
+            const res = await client.get(`${process.env.REACT_APP_SERVER_BASE_URL}/expenses/getExpenses/${userId}?page=${page}`)
+            setAllUserExpenses(res)
 
         } catch (e) {
             console.log(e);
@@ -40,7 +42,7 @@ const ExpensesProvider = ({ children }) => {
         }
 
         try {
-            const res = await client.post(`${process.env.REACT_APP_SERVER_BASE_URL}/expenses/getExpensesByDate`, JSON.stringify(bodyToSend))
+            const res = await client.post(`${process.env.REACT_APP_SERVER_BASE_URL}/expenses/getExpensesByDate/${userId}`, JSON.stringify(bodyToSend))
             setExpensesFiltered(res.data)
             return res.expensesByDate;
         } catch (e) {
@@ -52,7 +54,7 @@ const ExpensesProvider = ({ children }) => {
         try {
             formdata.amount = parseFloat(formdata.amount);
             const res = await client.post(`${process.env.REACT_APP_SERVER_BASE_URL}/expenses/addExpense`, formdata)
-            getExpenses()
+            getUserExpenses()
 
         } catch (e) {
             console.log(e);
@@ -63,16 +65,16 @@ const ExpensesProvider = ({ children }) => {
     const deleteExpenseById = async (id) => {
         try {
             await client.delete(`/expenses/deleteExpense/${id}`);
-            getExpenses()
+            getUserExpenses()
         } catch (e) {
             console.log(e);
         }
     }
     useEffect(() => {
 
-    }, [getExpenses])
+    }, [getUserExpenses])
     return (
-        <ExpensesCtx.Provider value={{ expenses, totalExpenses, expensesFiltered, getExpenses, addExpense, deleteExpenseById, getExpensesByDate, getTotalExpenses }}>
+        <ExpensesCtx.Provider value={{ allUserExpenses, totalExpenses, expensesFiltered, getUserExpenses, addExpense, deleteExpenseById, getExpensesByDate, getTotalExpenses }}>
             {children}
         </ExpensesCtx.Provider>
     )

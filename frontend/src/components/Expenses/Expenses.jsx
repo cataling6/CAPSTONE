@@ -10,8 +10,9 @@ import { faPenToSquare, faTrashCan, faShareNodes } from "@fortawesome/free-solid
 import { motion } from "framer-motion";
 import Swal from "sweetalert2";
 import "./style.css";
+
 const Expenses = () => {
-  const { expenses, getExpenses, deleteExpenseById } = useContext(ExpensesCtx);
+  const { allUserExpenses, getUserExpenses, deleteExpenseById } = useContext(ExpensesCtx);
   const { categories, getCategories } = useContext(CategoryCtx);
   const [showModal, setShowModal] = useState(false);
   const [deleted, setDeleted] = useState(false);
@@ -22,6 +23,7 @@ const Expenses = () => {
   const [currentPage, setCurrentPage] = useState(1);
 
   const openModal = () => setShowModal(true);
+
   const openAddModal = () => {
     setShowModal(true);
     setModalOp("add");
@@ -48,10 +50,6 @@ const Expenses = () => {
   const getCategoryById = (categoryId) => {
     return categories.find((category) => category._id === categoryId);
   };
-  // const deleteExpense = (id) => {
-  //   setDeleted(true);
-  //   setElementToBeDeleted(id);
-  // };
 
   const verifyDelete = (id) => {
     setDeleted(true);
@@ -118,7 +116,7 @@ const Expenses = () => {
   useEffect(() => {
     try {
       getCategories();
-      getExpenses(currentPage);
+      getUserExpenses(currentPage);
     } catch (e) {
       setError(e);
     }
@@ -144,7 +142,7 @@ const Expenses = () => {
                 Pagina precedente
               </Button>
               <span>Pagina {currentPage}</span>
-              <Button onClick={handleNextPage} disabled={currentPage === expenses.totalPages} size="sm">
+              <Button onClick={handleNextPage} disabled={currentPage >= allUserExpenses.totalPages} size="sm">
                 Pagina successiva
               </Button>
             </div>
@@ -152,12 +150,12 @@ const Expenses = () => {
         </div>
         <motion.div initial={{ y: -50, opacity: 0 }} animate={{ y: 20, opacity: 1 }} transition={{ duration: 1, ease: [0.6, -0.05, 0.01, 0.99] }}>
           <div className="col-lg-12 d-flex flex-column gap-3">
-            {!expenses.expenses ? (
-              <div>Loading...</div>
-            ) : expenses.expenses.length === 0 ? (
+            {!allUserExpenses.expenses ? (
+              <div>No expenses founded!</div>
+            ) : allUserExpenses.expenses.length === 0 ? (
               <div>No expenses founded!</div>
             ) : (
-              expenses.expenses.map((expense) => {
+              allUserExpenses.expenses.map((expense) => {
                 const category = getCategoryById(expense.category);
                 if (!category) return null;
                 return (
