@@ -19,15 +19,26 @@ exports.getUsers = async (req, res) => {
 }
 
 exports.createUser = async (req, res) => {
-    const salt = await bcrypt.genSalt(10);
-    const hashedPwd = await bcrypt.hash(req.body.password, salt)
-    const newUser = new userModel({
-        firstName: req.body.firstName,
-        lastName: req.body.lastName,
-        email: req.body.email,
-        password: hashedPwd
-    });
+
     try {
+        const salt = await bcrypt.genSalt(10);
+        const hashedPwd = await bcrypt.hash(req.body.password, salt)
+        const verifyUser = await userModel.findOne({ email: req.body.email })
+        //verifico prima se esiste già un utente o meno, se si, gli restituisco il messaggi oaltrimenti procedo
+        if (verifyUser) {
+            return res
+                .status(208)
+                .send({
+                    statusCode: 208,
+                    message: "Email already exists in our database! Please use another mail!"
+                })
+        }
+        const newUser = new userModel({
+            firstName: req.body.firstName,
+            lastName: req.body.lastName,
+            email: req.body.email,
+            password: hashedPwd
+        });
         const saveUser = newUser.save()
         res
             .status(201)

@@ -29,7 +29,7 @@ const ExpensesProvider = ({ children }) => {
 
     const getTotalExpenses = async () => {
         try {
-            const res = await client.get(`${process.env.REACT_APP_SERVER_BASE_URL}/expenses/getTotalExpenses`)
+            const res = await client.get(`${process.env.REACT_APP_SERVER_BASE_URL}/expenses/getTotalExpenses/${userId}`)
             setTotalExpenses(res)
         } catch (e) {
             console.log(e);

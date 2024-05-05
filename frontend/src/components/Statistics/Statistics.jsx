@@ -9,7 +9,7 @@ import MyLine from "../Charts/Line";
 const moment = require("moment");
 
 const Statistics = () => {
-  const { getExpensesByDate, getExpenses, getTotalExpenses, totalExpenses } = useContext(ExpensesCtx);
+  const { getExpensesByDate, totalExpenses, allUserExpenses, getTotalExpenses } = useContext(ExpensesCtx);
   const { categories, getCategories } = useContext(CategoryCtx);
   const [expensesFiltered, setExpensesFiltered] = useState([]);
   const [loading, setLoading] = useState(true); // Stato di caricamento -> mi servirà per evitasre che il grafico mi crashi se i dati non sono pronti essendo Async -> mi riferisco a expensesFiltered
@@ -51,17 +51,22 @@ const Statistics = () => {
 
   const generaAnno = async () => {
     await getTotalExpenses();
-    await setTotal(totalExpenses.totalExpenses);
+    setTotal(totalExpenses);
+  };
+
+  const fetchData = async () => {
+    setLoading(true); // Imposta lo stato di caricamento su true prima di effettuare la richiesta
+    await getExpensesFiltered("today");
+    await generaAnno();
+    await getCategories();
+    setLoading(false);
+  };
+  const loadData = async () => {
+    await generaAnno();
+    await fetchData();
   };
   useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true); // Imposta lo stato di caricamento su true prima di effettuare la richiesta
-      await getExpensesFiltered("today");
-      await generaAnno();
-      await getCategories();
-      setLoading(false);
-    };
-    fetchData();
+    loadData();
   }, []);
 
   return (

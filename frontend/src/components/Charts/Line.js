@@ -8,11 +8,10 @@ const MyLine = ({ data, trigger }) => {
     const [monthlyExpenses, setMonthlyExpenses] = useState({});
     const [monthlyCategoryExpenses, setMonthlyCategoryExpenses] = useState({});
 
-
-    const calculateMonthlyExpenses = () => {
+    console.log(data);
+    const calculateMonthlyExpenses = async () => {
         const monthlyTotal = {};
         const monthlyCategoryTotal = {};
-
         if (data) {
             data.forEach(expense => {
                 const date = new Date(expense.opDate);
@@ -42,8 +41,8 @@ const MyLine = ({ data, trigger }) => {
         };
     }
 
-    // console.log(monthlyExpenses);
-    // console.log(monthlyCategoryExpenses);
+    console.log(monthlyExpenses);
+    console.log(monthlyCategoryExpenses);
     const options = {
         plugins: {
             title: {
