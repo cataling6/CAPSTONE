@@ -4,7 +4,7 @@ import AddExpense from "../AddExpense/AddExpense";
 import EditExpense from "../EditExpense/EditExpense";
 import "./style.css";
 import ShareExpense from "../ShareExpense/ShareExpense";
-function MyModal({ show, setShow, modalOp, element }) {
+function MyModal({ show, setShow, modalOp, element, toast }) {
   let title;
   switch (modalOp) {
     case "add":
@@ -36,7 +36,7 @@ function MyModal({ show, setShow, modalOp, element }) {
           </Modal.Body>
         ) : (
           <Modal.Body>
-            <ShareExpense expense={element} setShow={setShow} />
+            <ShareExpense expense={element} setShow={setShow} toast={toast} />
           </Modal.Body>
         )}
       </Modal>

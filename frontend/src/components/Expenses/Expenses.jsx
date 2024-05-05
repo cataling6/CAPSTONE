@@ -9,6 +9,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare, faTrashCan, faShareNodes } from "@fortawesome/free-solid-svg-icons";
 import { motion } from "framer-motion";
 import Swal from "sweetalert2";
+import { getContrast } from "polished";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import "./style.css";
 
 const Expenses = () => {
@@ -39,6 +42,7 @@ const Expenses = () => {
     setShowModal(true);
     setModalOp("share");
   };
+
   const handleNextPage = () => {
     setCurrentPage(currentPage + 1);
   };
@@ -100,6 +104,43 @@ const Expenses = () => {
     }
   };
 
+  const launchToast = (myEvent) => {
+    if (myEvent.statusCode === 200) {
+      toast.success(myEvent.message, {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+    } else if (myEvent.statusCode === 208) {
+      toast.warn(myEvent.message, {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+    } else {
+      toast.error(myEvent.message, {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+    }
+  };
+
   const verifyError = () => {
     if (error)
       new Swal({
@@ -156,16 +197,21 @@ const Expenses = () => {
               <div>No expenses founded!</div>
             ) : (
               allUserExpenses.expenses.map((expense) => {
+                let colorText = "white";
                 const category = getCategoryById(expense.category);
                 if (!category) return null;
+                const c = getContrast("white", category.color);
+                if (c < 2) {
+                  colorText = "dark";
+                }
                 return (
                   <div className="form-control m-0 p-0 border-0 shadow bg-gradient bg-light" key={expense._id}>
                     <div className="d-flex justify-content-between rounded-top-1 pt-1 px-1" style={{ backgroundColor: category.color }}>
-                      <div className="text-white bold">{category.categoryName.toUpperCase()}</div>
+                      <div className={`text-${colorText} bold`}>{category.categoryName.toUpperCase()}</div>
                       <div className="d-flex gap-2 ">
-                        <FontAwesomeIcon icon={faShareNodes} color="white" className="custom-icon" onClick={() => openShareModal(expense)} />
-                        <FontAwesomeIcon icon={faPenToSquare} color="white" className="custom-icon" onClick={() => openModifyModal(expense._id)} />
-                        <FontAwesomeIcon icon={faTrashCan} color="white" className="custom-icon" onClick={() => verifyDelete(expense._id)} />
+                        <FontAwesomeIcon icon={faShareNodes} color={colorText} className="custom-icon" onClick={() => openShareModal(expense)} />
+                        {/* <FontAwesomeIcon icon={faPenToSquare} color="white" className="custom-icon" onClick={() => openModifyModal(expense._id)} /> */}
+                        <FontAwesomeIcon icon={faTrashCan} color={colorText} className="custom-icon" onClick={() => verifyDelete(expense._id)} />
                       </div>
                     </div>
                     <div className="px-1">
@@ -183,8 +229,9 @@ const Expenses = () => {
             )}
           </div>
         </motion.div>
-        <MyModal show={showModal} setShow={setShowModal} modalOp={modalOp} element={elementForModal} />
+        <MyModal show={showModal} setShow={setShowModal} modalOp={modalOp} element={elementForModal} toast={launchToast} />
       </Container>
+      <ToastContainer />
     </>
   );
 };

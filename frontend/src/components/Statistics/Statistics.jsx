@@ -40,7 +40,7 @@ const Statistics = () => {
 
         break;
       default:
-        delta = 0;
+        delta = 30;
         return;
     }
     setDeltaDay(delta);

@@ -37,7 +37,6 @@ const Configurations = () => {
   return (
     <>
       <Container>
-        <h2>Categories</h2>
         <div className="d-flex justify-content-between ">
           <div>
             <p>Actual Cat</p>

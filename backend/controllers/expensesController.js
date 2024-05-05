@@ -71,6 +71,24 @@ exports.getTotalExpenses = async (req, res) => {
 
     }
 }
+exports.getTotalExpensesForShared = async (req, res) => {
+    const user = req.params.id
+    try {
+        const totalExpenses = await expenseModel.find();
+        res
+            .status(200)
+            .send(totalExpenses)
+    } catch (e) {
+        console.log(e);
+        res
+            .status(500)
+            .send({
+                statusCode: 500,
+                message: "Internal server error"
+            })
+
+    }
+}
 
 exports.getExpensesByDate = async (req, res) => {
     const id = req.params.id

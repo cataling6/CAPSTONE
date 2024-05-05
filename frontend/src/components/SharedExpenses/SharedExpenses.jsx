@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useId } from "react";
 import { Container } from "react-bootstrap";
 import { jwtDecode } from "jwt-decode";
 import Swal from "sweetalert2";
@@ -25,7 +25,7 @@ const SharedExpenses = () => {
         <div className="w-50 container ">
           <div className="d-flex justify-content-center">Shared with me</div>
           <div className="shadow rounded rounded-2 max-height">
-            <div className="row d-flex mt-3 gap-2 justify-content-center ">
+            <div className="row d-flex mt-3 px-3 gap-2 justify-content-center ">
               <UsersProvider>
                 <SharedWithMe />
               </UsersProvider>

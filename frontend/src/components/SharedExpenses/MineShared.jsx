@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useId, useState } from "react";
 import { SharedExpensesCtx } from "../../contexts/sharedExpenses_ctx";
 import { ExpensesCtx } from "../../contexts/expenses_ctx";
 import { CategoryCtx } from "../../contexts/category_ctx";
@@ -6,6 +6,7 @@ import { UsersCtx } from "../../contexts/users_ctx";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import Swal from "sweetalert2";
+import { v4 as uuidv4 } from "uuid";
 const MineShared = () => {
   const { sharedExpenses, getMySharedExpenses, delSharedExpense } = useContext(SharedExpensesCtx);
   const { allUserExpenses, getUserExpenses } = useContext(ExpensesCtx);
@@ -93,7 +94,7 @@ const MineShared = () => {
   //::: END MAP DATI :::
 
   return (
-    <div className=" d-flex flex-column mt-3 mx-3 gap-2">
+    <div className=" d-flex flex-column mt-3 mx-3 gap-2" key={uuidv4()}>
       {payload && payload.length > 0 ? (
         payload.map((myShared) => {
           //map dati
@@ -101,30 +102,30 @@ const MineShared = () => {
           const cat = expense ? findCategoryByExpId(expense.category) : null;
 
           return (
-            <div className="border border-1  rounded-top-2 px-0 shadow ">
+            <div className="border border-1  rounded-top-2 px-0 shadow " key={uuidv4()}>
               {expense && (
-                <>
-                  <div className="d-flex justify-content-between rounded-top-1 pt-1 px-2 m-0 " style={{ backgroundColor: cat.color, color: "white" }}>
-                    <label>Expense Category: {cat.categoryName}</label>
-                    <label>
+                <div key={uuidv4()}>
+                  <div className="d-flex justify-content-between rounded-top-1 pt-1 px-2 m-0 " style={{ backgroundColor: cat.color, color: "white" }} key={uuidv4()}>
+                    <label key={uuidv4()}>Expense Category: {cat.categoryName}</label>
+                    <label key={uuidv4()}>
                       <FontAwesomeIcon icon={faTrashCan} color="white" className="custom-icon" onClick={() => verifyDelete(myShared.expenseId)} />
                     </label>
                   </div>
                   <div className="px-2">
-                    <p>Amount: {expense.amount}</p>
+                    <p key={uuidv4()}>Amount: {expense.amount}</p>
                   </div>
-                </>
+                </div>
               )}
-              <div className="px-2">
-                <p>
+              <div className="px-2" key={uuidv4()}>
+                <span key={uuidv4()}>
                   {myShared &&
                     myShared.userSharedWithId.map((u) => {
                       const users = u ? findUsersSharedWitdh(u) : null;
 
                       return (
                         users && (
-                          <div className="d-flex justify-content-between">
-                            <label>
+                          <div className="d-flex justify-content-between" key={uuidv4()}>
+                            <label key={uuidv4()}>
                               User: {users.firstName} {users.lastName} - {users.email}
                             </label>
                             <label>cancella</label>
@@ -132,7 +133,7 @@ const MineShared = () => {
                         )
                       );
                     })}
-                </p>
+                </span>
               </div>
             </div>
           );
