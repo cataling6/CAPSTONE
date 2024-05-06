@@ -6,7 +6,7 @@ import { CategoryCtx } from "../../contexts/category_ctx";
 import { getContrast } from "polished";
 import Swal from "sweetalert2";
 import { v4 as uuidv4 } from "uuid";
-
+import { motion } from "framer-motion";
 const Configurations = () => {
   const { categories, getCategories, addCategory, deleteCategory } = useContext(CategoryCtx);
   const [formData, setFormData] = useState({});
@@ -32,6 +32,7 @@ const Configurations = () => {
 
   const verifyDelete = (e) => {
     const myElement = e.target.id;
+    const textElement = e.target.innerText;
     const swalWithBootstrapButtons = Swal.mixin({
       customClass: {
         confirmButton: "btn btn-success",
@@ -42,11 +43,11 @@ const Configurations = () => {
 
     swalWithBootstrapButtons
       .fire({
-        title: `<b>Sto cancellando una spesa</b>`,
-        text: "Vuoi davvero cancellare questa spesa?",
+        title: `<b>I'm deleting the category </b>'${textElement}'`,
+        text: "Do you confirm?",
         icon: "question",
         showCancelButton: true,
-        confirmButtonText: "Si!",
+        confirmButtonText: "Yes!",
         cancelButtonText: "No!",
         reverseButtons: true,
         willClose: () => {
@@ -62,12 +63,12 @@ const Configurations = () => {
           }
           swalWithBootstrapButtons.fire({
             title: "Deleted!",
-            text: "Your expenses has been deleted.",
+            text: "Your category has been deleted.",
             icon: "success",
           });
         } else if (result.dismiss === Swal.DismissReason.cancel) {
           swalWithBootstrapButtons.fire({
-            title: "Cancellazione annullata",
+            title: "Operation cancelled! ;)",
             text: "",
             icon: "error",
           });
@@ -83,8 +84,19 @@ const Configurations = () => {
       <Container>
         <div className="d-flex justify-content-between gap-2">
           <div className="w-75">
-            <p>Actual Cat</p>
-            <div className="d-flex gap-1 ">
+            <motion.p
+              initial={{ y: -40 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{
+                type: "spring",
+                damping: 10, // Damping controlla l'ammortizzazione dell'effetto, minore è il valore, maggiore è l'effetto di rimbalzo
+                stiffness: 400, // Stiffness controlla la rigidità dell'effetto, maggiore è il valore, più rapida è l'animazione
+                duration: 1, // Durata dell'animazione in secondi
+              }}
+            >
+              Actual Cat
+            </motion.p>
+            <motion.div className="d-flex gap-1 " initial={{ y: -50, opacity: 0 }} animate={{ y: 20, opacity: 1 }} transition={{ duration: 1, ease: [0.6, -0.05, 0.01, 0.99] }}>
               {categories === "" || categories === null ? (
                 <div className="text-dark">No categories have been configured</div>
               ) : (
@@ -103,11 +115,22 @@ const Configurations = () => {
                   );
                 })
               )}
-            </div>
+            </motion.div>
           </div>
           <div className="w-25">
-            <p>Create new cat</p>
-            <div>
+            <motion.p
+              initial={{ y: -40 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{
+                type: "spring",
+                damping: 10, // Damping controlla l'ammortizzazione dell'effetto, minore è il valore, maggiore è l'effetto di rimbalzo
+                stiffness: 400, // Stiffness controlla la rigidità dell'effetto, maggiore è il valore, più rapida è l'animazione
+                duration: 1, // Durata dell'animazione in secondi
+              }}
+            >
+              Create new cat
+            </motion.p>
+            <motion.div initial={{ y: -50, opacity: 0 }} animate={{ y: 20, opacity: 1 }} transition={{ duration: 1, ease: [0.6, -0.05, 0.01, 0.99] }}>
               <form encType="multipart/form-data" onSubmit={submitNewCategory}>
                 <div className="row">
                   <EditBox name="categoryName" type={"text"} label={"Category Name"} inputId={"cat"} ph={"Category Name"} col={12} mb={2} onChange={handleOnChangeInput} />
@@ -123,7 +146,7 @@ const Configurations = () => {
                   </Button>
                 </div>
               </form>
-            </div>
+            </motion.div>
           </div>
         </div>
       </Container>

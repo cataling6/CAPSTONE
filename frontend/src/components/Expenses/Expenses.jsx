@@ -6,7 +6,7 @@ import MyModal from "../Modal/Modal";
 import { ExpensesCtx } from "../../contexts/expenses_ctx";
 import { CategoryCtx } from "../../contexts/category_ctx";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrashCan, faShareNodes } from "@fortawesome/free-solid-svg-icons";
+import { faTrashCan, faShareNodes, faAnglesLeft, faAnglesRight } from "@fortawesome/free-solid-svg-icons";
 import { motion } from "framer-motion";
 import Swal from "sweetalert2";
 import { getContrast } from "polished";
@@ -168,10 +168,22 @@ const Expenses = () => {
     <>
       <Container>
         <div className="d-flex justify-content-between ">
-          <Menu openAddModal={openAddModal} openModifyModal={openModifyModal} />
+          <motion.div
+            initial={{ y: -40 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{
+              type: "spring",
+              damping: 10, // Damping controlla l'ammortizzazione dell'effetto, minore è il valore, maggiore è l'effetto di rimbalzo
+              stiffness: 400, // Stiffness controlla la rigidità dell'effetto, maggiore è il valore, più rapida è l'animazione
+              duration: 1, // Durata dell'animazione in secondi
+            }}
+          >
+            <Menu openAddModal={openAddModal} openModifyModal={openModifyModal} />
+          </motion.div>
           <motion.div
             className="pagination"
-            animate={{ y: 10, opacity: 1 }}
+            initial={{ y: -40 }}
+            animate={{ y: 0, opacity: 1 }}
             transition={{
               type: "spring",
               damping: 10, // Damping controlla l'ammortizzazione dell'effetto, minore è il valore, maggiore è l'effetto di rimbalzo
@@ -180,12 +192,12 @@ const Expenses = () => {
             }}
           >
             <div className="d-flex justify-content-between align-items-center gap-2 ">
-              <Button onClick={handlePrevPage} disabled={currentPage === 1} size="sm">
-                Pagina precedente
+              <Button onClick={handlePrevPage} disabled={currentPage === 1} variant="outline-primary">
+                <FontAwesomeIcon icon={faAnglesLeft} fontSize={20} />
               </Button>
               <span>Pagina {currentPage}</span>
-              <Button onClick={handleNextPage} disabled={currentPage >= allUserExpenses.totalPages} size="sm">
-                Pagina successiva
+              <Button onClick={handleNextPage} disabled={currentPage >= allUserExpenses.totalPages} variant="outline-primary">
+                <FontAwesomeIcon icon={faAnglesRight} fontSize={20} />
               </Button>
             </div>
           </motion.div>
