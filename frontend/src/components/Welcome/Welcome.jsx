@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Alert from "react-bootstrap/Alert";
 import Button from "react-bootstrap/Button";
-
+import { Link } from "react-router-dom";
 import React from "react";
 import { Container } from "react-bootstrap";
 import { motion } from "framer-motion";
@@ -17,17 +17,16 @@ const Welcome = () => {
       <div>
         <Container>
           <Alert show={show} variant="success">
-            <Alert.Heading>What's up?</Alert.Heading>
-            <p> Hello {decoded.firsName}! Welcome to MyFinance App</p>
+            <Alert.Heading> Hello {decoded.firsName}! Welcome to MyFinance App</Alert.Heading>
+
             <hr />
-            <div className="d-flex justify-content-end">
-              <Button onClick={() => setShow(false)} variant="outline-success">
-                Close me
+            <div className="d-flex justify-content-between">
+              <div>Go to home for some instructions!</div>
+              <Button as={Link} to="/home" onClick={() => setShow(false)} variant="outline-success">
+                Home
               </Button>
             </div>
           </Alert>
-
-          {/* {!show && <Button onClick={() => setShow(true)}>Show Alert</Button>} */}
         </Container>
       </div>
     </motion.main>

@@ -12,7 +12,7 @@ exports.addCategory = async (req, res) => {
             })
     } catch (e) {
         console.log(e);
-        res
+        return res
             .status(500)
             .send({
                 statusCode: 500,

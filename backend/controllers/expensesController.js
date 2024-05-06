@@ -1,5 +1,6 @@
 const moment = require("moment")
 const expenseModel = require('../models/expenses_model')
+const sharedExpense = require('../models/sharedExp_model')
 exports.addExpense = async (req, res) => {
     const newExpense = new expenseModel(req.body)
     try {
@@ -11,8 +12,8 @@ exports.addExpense = async (req, res) => {
                 payload: "Expense saved successfully"
             })
     } catch (e) {
-        console.log(e);
-        res
+
+        return res
             .status(500)
             .send({
                 statusCode: 500,
@@ -53,6 +54,25 @@ exports.getExpenses = async (req, res) => {
 }
 
 exports.getTotalExpenses = async (req, res) => {
+    const user = req.params.id
+    try {
+        const totalExpenses = await expenseModel.find({ userId: user });
+        res
+            .status(200)
+            .send(totalExpenses)
+    } catch (e) {
+        console.log(e);
+        res
+            .status(500)
+            .send({
+                statusCode: 500,
+                message: "Internal server error"
+            })
+
+    }
+}
+exports.getTotalExpensesForShared = async (req, res) => {
+    const user = req.params.id
     try {
         const totalExpenses = await expenseModel.find();
         res
@@ -97,10 +117,14 @@ exports.getExpensesByDate = async (req, res) => {
 exports.deleteExpense = async (req, res) => {
     const id = req.params.id
     try {
+        //cancello anche la shared altrimenti le ma troverei nelle shared
+        const sharedExpToDel = await sharedExpense.findOneAndDelete({ expenseId: id })
         const delExp = await expenseModel.findByIdAndDelete(id);
         if (!delExp) {
             return res.status(404).json({ statusCode: 404, message: "Expense not found." });
         }
+        console.log("My exp: " + delExp);
+        console.log("Shared exp: " + sharedExpToDel);
         res
             .status(200)
             .send({

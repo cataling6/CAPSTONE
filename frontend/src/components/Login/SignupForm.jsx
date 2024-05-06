@@ -3,11 +3,10 @@ import EditBox from "../Editbox/Editbox";
 import AxiosClient from "../../modules/AxiosClient/client";
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-
+import Swal from "sweetalert2";
 const SignupForm = ({ toggleForm }) => {
   const [signupFormData, setSignupFormData] = useState({});
-  const [isCreated, setIsCreated] = useState(false);
-  const [error, setError] = useState();
+
   const client = new AxiosClient();
   const onChangeInput = (e) => {
     const { name, value } = e.target;
@@ -21,14 +20,40 @@ const SignupForm = ({ toggleForm }) => {
   const onSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await client.post("/users/createUser", signupFormData);
+      const res = await client.post("/createUser", signupFormData);
       if (res.statusCode == 201) {
-        setIsCreated(true); //needed for SWAL input
+        verifyCreate(res.payload);
+      } else if (res.statusCode == 208) {
+        verifyError(res.message);
       }
     } catch (e) {
-      setError(e); //needed for SWAL input
+      console.log(e.response.data);
+      verifyError(e.response.data);
     }
   };
+
+  const verifyError = (error) => {
+    new Swal({
+      title: "Generic Error",
+      text: error.errors[0],
+      icon: "error",
+      showLoaderOnConfirm: true,
+    });
+  };
+
+  const verifyCreate = (res) => {
+    new Swal({
+      title: res,
+      text: "Please do login",
+      icon: "success",
+      showLoaderOnConfirm: true,
+      willClose: () => {
+        toggleForm();
+      },
+    });
+  };
+
+  useEffect(() => {}, []);
   return (
     <>
       {/* <motion.div initial={{ y: -20, opacity: 0 }} animate={{ y: 50, opacity: 1 }} transition={{ duration: 1, ease: [0.6, -0.05, 0.01, 0.99] }}> */}
@@ -36,15 +61,13 @@ const SignupForm = ({ toggleForm }) => {
         <div className="login-box">
           <h2>Signup</h2>
           <form>
-            <EditBox name={"firstName"} type={"text"} onChange={onChangeInput} label={"Firstname"} col={12} inputId={"fsn"} customClasses={"user-box"} login={true} />
-            <EditBox name={"lastName"} type={"text"} onChange={onChangeInput} label={"Lastname"} col={12} inputId={"lsn"} customClasses={"user-box"} login={true} />
-            <EditBox name={"email"} type={"mail"} onChange={onChangeInput} label={"E-mail"} col={12} inputId={"eml"} customClasses={"user-box"} login={true} />
-            <EditBox name={"password"} type={"password"} onChange={onChangeInput} label={"Password"} col={12} inputId={"pwd"} customClasses={"user-box"} login={true} />
+            <EditBox name={"firstName"} type={"text"} onChange={onChangeInput} label={"Firstname"} ph={"Firstname"} col={12} inputId={"fsn"} customClasses={"user-box"} login={true} />
+            <EditBox name={"lastName"} type={"text"} onChange={onChangeInput} label={"Lastname"} ph={"Lastname"} col={12} inputId={"lsn"} customClasses={"user-box"} login={true} />
+            <EditBox name={"email"} type={"mail"} onChange={onChangeInput} label={"E-mail"} ph={"E-mail"} col={12} inputId={"eml"} customClasses={"user-box"} login={true} />
+            <EditBox name={"password"} type={"password"} onChange={onChangeInput} label={"Password"} ph={"Password"} col={12} inputId={"pwd"} customClasses={"user-box"} login={true} />
             <div className="d-flex justify-content-between ">
-              <a href="#">Create</a>
-              <a href="#" onClick={() => toggleForm()}>
-                Login
-              </a>
+              <a onClick={onSubmit}>Create</a>
+              <a onClick={() => toggleForm()}>Login</a>
             </div>
           </form>
         </div>

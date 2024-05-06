@@ -5,11 +5,13 @@ import { CategoryCtx } from "../../contexts/category_ctx";
 import { Container } from "react-bootstrap";
 import MyPie from "../Charts/Pie";
 import MyLine from "../Charts/Line";
+import MyBar from "../Charts/Bar";
+import { motion } from "framer-motion";
 
 const moment = require("moment");
 
 const Statistics = () => {
-  const { getExpensesByDate, getExpenses, getTotalExpenses, totalExpenses } = useContext(ExpensesCtx);
+  const { getExpensesByDate, totalExpenses, allUserExpenses, getTotalExpenses } = useContext(ExpensesCtx);
   const { categories, getCategories } = useContext(CategoryCtx);
   const [expensesFiltered, setExpensesFiltered] = useState([]);
   const [loading, setLoading] = useState(true); // Stato di caricamento -> mi servirà per evitasre che il grafico mi crashi se i dati non sono pronti essendo Async -> mi riferisco a expensesFiltered
@@ -40,7 +42,7 @@ const Statistics = () => {
 
         break;
       default:
-        delta = 0;
+        delta = 30;
         return;
     }
     setDeltaDay(delta);
@@ -51,47 +53,68 @@ const Statistics = () => {
 
   const generaAnno = async () => {
     await getTotalExpenses();
-    await setTotal(totalExpenses.totalExpenses);
+    setTotal(totalExpenses);
+  };
+
+  const fetchData = async () => {
+    setLoading(true); // Imposta lo stato di caricamento su true prima di effettuare la richiesta
+    await getExpensesFiltered("month");
+    await generaAnno();
+    await getCategories();
+    setLoading(false);
+  };
+  const loadData = async () => {
+    await generaAnno();
+    await fetchData();
   };
   useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true); // Imposta lo stato di caricamento su true prima di effettuare la richiesta
-      await getExpensesFiltered("today");
-      await generaAnno();
-      await getCategories();
-      setLoading(false);
-    };
-    fetchData();
+    loadData();
   }, []);
 
   return (
     <>
       <Container>
-        <div className="col-lg-6 d-flex gap-2">
+        <motion.div
+          className="col-lg-6 d-flex gap-2"
+          initial={{ y: -40 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{
+            type: "spring",
+            damping: 10, // Damping controlla l'ammortizzazione dell'effetto, minore è il valore, maggiore è l'effetto di rimbalzo
+            stiffness: 400, // Stiffness controlla la rigidità dell'effetto, maggiore è il valore, più rapida è l'animazione
+            duration: 1, // Durata dell'animazione in secondi
+          }}
+        >
           <div className="btn btn-outline-primary" onClick={() => getExpensesFiltered("today")}>
-            Oggi
+            Today
           </div>
           <div className="btn btn-outline-primary" onClick={() => getExpensesFiltered("week")}>
-            Ultima Settimana
+            Last 7 days
           </div>
           <div className="btn btn-outline-primary" onClick={() => getExpensesFiltered("month")}>
-            Ultimi 30 giorni
+            Last 30 days
           </div>
           <div className="btn btn-outline-primary" onClick={generaAnno} id="month">
-            Genera Anno
+            Generate Year
           </div>
-        </div>
+        </motion.div>
       </Container>
 
-      <Container className="d-flex justify-content-between">
-        {loading ? (
-          <div>Caricamento...</div>
-        ) : (
-          <>
-            <MyPie data={expensesFiltered ?? []} categoryData={getCategoryName} deltaDay={deltaDay} />
-            <MyLine data={total} trigger={generaAnno} />
-          </>
-        )}
+      <Container>
+        <motion.div initial={{ y: -50, opacity: 0 }} animate={{ y: 20, opacity: 1 }} transition={{ duration: 1, ease: [0.6, -0.05, 0.01, 0.99] }} className="d-flex justify-content-between">
+          {loading ? (
+            <div>Caricamento...</div>
+          ) : (
+            <>
+              <MyPie data={expensesFiltered ?? []} categoryData={getCategoryName} deltaDay={deltaDay} />
+              <MyLine data={total} trigger={generaAnno} />
+
+              {/* <div>
+              <MyBar data={total} trigger={generaAnno} />
+            </div> */}
+            </>
+          )}
+        </motion.div>
       </Container>
     </>
   );

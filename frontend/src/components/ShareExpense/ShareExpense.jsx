@@ -6,16 +6,16 @@ import { jwtDecode } from "jwt-decode";
 import { SharedExpensesCtx } from "../../contexts/sharedExpenses_ctx";
 const moment = require("moment");
 
-const ShareExpense = ({ expense, setShow }) => {
+const ShareExpense = ({ expense, setShow, toast }) => {
   const { categories } = useContext(CategoryCtx);
   const { shareExpenseWith } = useContext(SharedExpensesCtx);
   const session = localStorage.getItem("authorized_user");
   const decodedSession = jwtDecode(session);
-  moment.locale("it");
   const operationDate = moment(expense.opDate);
   const expCat = categories.find((c) => c._id === expense.category);
   const [formData, setFormData] = useState();
   const [error, setError] = useState(null);
+  moment.locale("it");
 
   const handleOnChangeInput = (e) => {
     const { name, value } = e.target;
@@ -33,8 +33,11 @@ const ShareExpense = ({ expense, setShow }) => {
     };
     e.preventDefault();
     try {
-      await shareExpenseWith(preparedData);
+      const res = await shareExpenseWith(preparedData);
+
+      toast(res);
     } catch (e) {
+      console.log(e.response.status);
       setError(e);
     }
   };
@@ -68,7 +71,7 @@ const ShareExpense = ({ expense, setShow }) => {
         </div>
       </form>
     </>
-  ); /*onChange={handleOnChangeInput} */
+  );
 };
 
 export default ShareExpense;

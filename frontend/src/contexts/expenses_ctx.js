@@ -11,6 +11,7 @@ const ExpensesProvider = ({ children }) => {
     const decodedSession = jwtDecode(session);
     const [allUserExpenses, setAllUserExpenses] = useState([])
     const [totalExpenses, setTotalExpenses] = useState([])
+    const [allExpensesForShared, setAllExpensesForShared] = useState([])
     const [expensesFiltered, setExpensesFiltered] = useState([])
     const client = new AxiosClient();
     const userId = decodedSession.userId;
@@ -29,8 +30,17 @@ const ExpensesProvider = ({ children }) => {
 
     const getTotalExpenses = async () => {
         try {
-            const res = await client.get(`${process.env.REACT_APP_SERVER_BASE_URL}/expenses/getTotalExpenses`)
+            const res = await client.get(`${process.env.REACT_APP_SERVER_BASE_URL}/expenses/getTotalExpenses/${userId}`)
             setTotalExpenses(res)
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+    const getAllExpensesForShared = async () => {
+        try {
+            const res = await client.get(`${process.env.REACT_APP_SERVER_BASE_URL}/expenses/getTotalExpenses/`)
+            setAllExpensesForShared(res)
         } catch (e) {
             console.log(e);
         }
@@ -55,16 +65,17 @@ const ExpensesProvider = ({ children }) => {
             formdata.amount = parseFloat(formdata.amount);
             const res = await client.post(`${process.env.REACT_APP_SERVER_BASE_URL}/expenses/addExpense`, formdata)
             getUserExpenses()
-
+            return res
         } catch (e) {
-            console.log(e);
+            console.error(e.message)
+            return e;
 
         }
     }
 
     const deleteExpenseById = async (id) => {
         try {
-            await client.delete(`/expenses/deleteExpense/${id}`);
+            await client.delete(`${process.env.REACT_APP_SERVER_BASE_URL}/expenses/deleteExpense/${id}`);
             getUserExpenses()
         } catch (e) {
             console.log(e);
@@ -74,7 +85,7 @@ const ExpensesProvider = ({ children }) => {
 
     }, [getUserExpenses])
     return (
-        <ExpensesCtx.Provider value={{ allUserExpenses, totalExpenses, expensesFiltered, getUserExpenses, addExpense, deleteExpenseById, getExpensesByDate, getTotalExpenses }}>
+        <ExpensesCtx.Provider value={{ allUserExpenses, totalExpenses, expensesFiltered, allExpensesForShared, getUserExpenses, addExpense, deleteExpenseById, getExpensesByDate, getTotalExpenses, getAllExpensesForShared }}>
             {children}
         </ExpensesCtx.Provider>
     )

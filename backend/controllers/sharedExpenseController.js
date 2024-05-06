@@ -16,7 +16,6 @@ exports.addSharedExpense = async (req, res) => {
         }
         const expenseToShare = await expenseModel.findById({ _id: req.body.expenseId })
         const checkExpenseToShare = await sharedExpenseModel.findOne({ expenseId: req.body.expenseId })
-
         //questo mi servirà a riga 44 x valutare se spesa già condivisa con utente oppure no
         const checkUserShared = await sharedExpenseModel.findOne({ userSharedWithId: userToBeAdded._id })
 
@@ -24,6 +23,13 @@ exports.addSharedExpense = async (req, res) => {
         if (checkExpenseToShare) {
             if (!checkUserShared) {
                 await sharedExpenseModel.updateOne({ _id: checkExpenseToShare._id }, { $push: { userSharedWithId: userToBeAdded } })
+            } else {
+                return res
+                    .status(208)
+                    .send({
+                        statusCode: 208,
+                        message: "Expense already shared with the user!"
+                    })
             }
         } else {
             const newSharedExpense = new sharedExpenseModel({
@@ -34,21 +40,14 @@ exports.addSharedExpense = async (req, res) => {
             await newSharedExpense.save()
 
         }
-        if (!checkUserShared) {
-            res
-                .status(200)
-                .send({
-                    statusCode: 200,
-                    message: "Expense successfully shared!"
-                })
-        } else {
-            res
-                .status(208)
-                .send({
-                    statusCode: 208,
-                    message: "Expense already shared with the user!"
-                })
-        }
+
+        res
+            .status(200)
+            .send({
+                statusCode: 200,
+                message: "Expense successfully shared!"
+            })
+
     } catch (e) {
         console.log(e);
         res

@@ -21,13 +21,25 @@ const CategoryProvider = ({ children }) => {
         try {
             const res = await client.post(`${process.env.REACT_APP_SERVER_BASE_URL}/expenses/addCategory`, formData)
             getCategories()
+            return res;
+        } catch (e) {
+            return e;
+
+        }
+    }
+
+    const deleteCategory = async (id) => {
+        try {
+            await client.delete(`${process.env.REACT_APP_SERVER_BASE_URL}/expenses/deleteCategory/${id}`)
+            getCategories()
         } catch (e) {
             console.log(e);
         }
     }
 
+
     return (
-        <CategoryCtx.Provider value={{ getCategories, addCategory, categories }}>
+        <CategoryCtx.Provider value={{ getCategories, addCategory, categories, deleteCategory }}>
             {children}
         </CategoryCtx.Provider>
     );

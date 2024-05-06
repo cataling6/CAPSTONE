@@ -1,6 +1,6 @@
 import { Navbar, Nav, NavDropdown, Dropdown } from "react-bootstrap";
 import logoImg from "../../assets/imgs/logo.png";
-import { Link, Router } from "react-router-dom";
+import { Link } from "react-router-dom";
 import moment from "moment";
 import "./style.css";
 import { useState } from "react";
@@ -18,7 +18,6 @@ function MyNavbar() {
 
   const today = () => {
     moment.locale("fr");
-    // let ora = moment().format("LLLL");
     let ora = moment().locale("fr").format("MMMM Do YYYY, h:mm:ss a");
     setOraEsatta(ora);
   };

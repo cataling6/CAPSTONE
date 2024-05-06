@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Pie } from "react-chartjs-2"
 import { Chart as ChartJS, Title, Tooltip, Legend, ArcElement, layouts } from 'chart.js'
-
+import "./style.css"
 ChartJS.register(Title, Tooltip, Legend, ArcElement)
 const MyPie = ({ data, categoryData, deltaDay }) => {
+
 
     let chartTitleText = ""
 
@@ -24,13 +25,13 @@ const MyPie = ({ data, categoryData, deltaDay }) => {
 
     switch (deltaDay) {
         case 0:
-            chartTitleText = "Spese giornaliere"
+            chartTitleText = "Today expenses"
             break;
         case 7:
-            chartTitleText = "Spese settimanali"
+            chartTitleText = "Last 7 days"
             break;
         case 30:
-            chartTitleText = "Spese mensili"
+            chartTitleText = "Last 30 days"
             break;
 
         default:
@@ -55,9 +56,14 @@ const MyPie = ({ data, categoryData, deltaDay }) => {
 
     const options = {
         plugins: {
+            layout: {
+                padding: {
+                    right: "200"
+                }
+            },
             legend: {
                 display: true,
-                position: "left",
+                position: "bottom",
 
             },
             tooltip: {
@@ -79,15 +85,14 @@ const MyPie = ({ data, categoryData, deltaDay }) => {
                 label: "Total euros",
                 data: amounts,
                 backgroundColor: categoryColors,
-                hoverOffset: 10,
+                hoverOffset: 20,
             }
         ]
     }
 
 
     return (
-        <div style={{ width: "600px", height: "400px" }}>
-
+        <div className="chart-pie" >
             <Pie options={options} data={chartData} />
         </div >
     );

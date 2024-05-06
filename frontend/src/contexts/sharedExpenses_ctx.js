@@ -36,8 +36,9 @@ const SharedExpensesProvider = ({ children }) => {
         try {
             const res = await client.post(`${process.env.REACT_APP_SERVER_BASE_URL}/sharedExpense/addSharedExpense`, formdata)
             getMySharedExpenses()
+            return res;
         } catch (e) {
-            console.log();
+            return e.response.data;
         }
     }
 
