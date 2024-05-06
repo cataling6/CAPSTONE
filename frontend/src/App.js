@@ -14,6 +14,7 @@ import Welcome from "./components/Welcome/Welcome";
 import Configurations from "./components/Configurations/Configurations";
 import Statistics from "./components/Statistics/Statistics";
 import SharedExpenses from "./components/SharedExpenses/SharedExpenses";
+import Profile from "./components/Profile/Profile";
 
 
 
@@ -26,12 +27,13 @@ function App() {
         <Routes location={location} key={location.pathname}>
           <Route exact path="/" element={<NotLoggedWelcome />} />
           <Route element={<ProtectRoutes />}>
-            <Route path="/home" element={<Home />} />
-            <Route path="/welcome" element={<Welcome />} />
-            <Route path="/statistics" element={<Statistics />} />
             <Route path="/expenses" element={<Expenses />} />
             <Route path="/expenses/configurations" element={<Configurations />} />
+            <Route path="/home" element={<Home />} />
+            <Route path="/profile" element={<Profile />} />
             <Route path="/sharedExpense" element={<SharedExpenses />} />
+            <Route path="/statistics" element={<Statistics />} />
+            <Route path="/welcome" element={<Welcome />} />
             <Route path="*" element={<NotFound />} />
           </Route>
         </Routes>
