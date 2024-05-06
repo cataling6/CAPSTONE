@@ -15,3 +15,7 @@
 .custom-icon:hover {
   cursor: crosshair;
 }
+
+.max-height {
+  height: calc(100vh - 200px);
+}

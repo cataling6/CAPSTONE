@@ -58,7 +58,7 @@ const Statistics = () => {
 
   const fetchData = async () => {
     setLoading(true); // Imposta lo stato di caricamento su true prima di effettuare la richiesta
-    await getExpensesFiltered("today");
+    await getExpensesFiltered("month");
     await generaAnno();
     await getCategories();
     setLoading(false);
@@ -86,16 +86,16 @@ const Statistics = () => {
           }}
         >
           <div className="btn btn-outline-primary" onClick={() => getExpensesFiltered("today")}>
-            Oggi
+            Today
           </div>
           <div className="btn btn-outline-primary" onClick={() => getExpensesFiltered("week")}>
-            Ultima Settimana
+            Last 7 days
           </div>
           <div className="btn btn-outline-primary" onClick={() => getExpensesFiltered("month")}>
-            Ultimi 30 giorni
+            Last 30 days
           </div>
           <div className="btn btn-outline-primary" onClick={generaAnno} id="month">
-            Genera Anno
+            Generate Year
           </div>
         </motion.div>
       </Container>

@@ -74,6 +74,9 @@ const SharedWithMe = () => {
                   <label className="text-truncate" title={moment(expense.opDate).format("LL")} key={uuidv4()}>
                     Date: {moment(expense.opDate).format("LL")}
                   </label>
+                  <label className="text-truncate" title={p.note} key={uuidv4()}>
+                    Note: {p.note}
+                  </label>
                 </div>
               </div>
             )

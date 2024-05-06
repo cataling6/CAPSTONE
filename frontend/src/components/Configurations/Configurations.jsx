@@ -7,6 +7,8 @@ import { getContrast } from "polished";
 import Swal from "sweetalert2";
 import { v4 as uuidv4 } from "uuid";
 import { motion } from "framer-motion";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 const Configurations = () => {
   const { categories, getCategories, addCategory, deleteCategory } = useContext(CategoryCtx);
   const [formData, setFormData] = useState({});
@@ -16,6 +18,7 @@ const Configurations = () => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
+      color: "#000000", //--->> di default lascio nero
       [name]: value,
     });
   };
@@ -24,9 +27,14 @@ const Configurations = () => {
     e.preventDefault();
 
     try {
-      await addCategory(formData);
+      const res = await addCategory(formData);
+      if (res.statusCode === 201) {
+        launchToast(res);
+      } else if (res.response.data.statusCode === 500) {
+        launchToast(res.response.data);
+      }
     } catch (e) {
-      console.log(e);
+      console.error(e);
     }
   };
 
@@ -76,6 +84,54 @@ const Configurations = () => {
       });
   };
 
+  const launchToast = (myEvent) => {
+    const message = myEvent.message ? myEvent.message : myEvent.payload;
+    if (myEvent.statusCode === 200 || myEvent.statusCode === 201) {
+      toast.success(message, {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+    } else if (myEvent.statusCode === 208) {
+      toast.warn(message, {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+    } else if (myEvent.statusCode === 404) {
+      toast.error(message, {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+    } else if (myEvent.statusCode === 500) {
+      toast.error("Verify data! color is required", {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      });
+    }
+  };
   useEffect(() => {
     getCategories();
   }, [deleted]);
@@ -94,7 +150,7 @@ const Configurations = () => {
                 duration: 1, // Durata dell'animazione in secondi
               }}
             >
-              Actual Cat
+              Available categories
             </motion.p>
             <motion.div className="d-flex gap-1 " initial={{ y: -50, opacity: 0 }} animate={{ y: 20, opacity: 1 }} transition={{ duration: 1, ease: [0.6, -0.05, 0.01, 0.99] }}>
               {categories === "" || categories === null ? (
@@ -146,9 +202,11 @@ const Configurations = () => {
                   </Button>
                 </div>
               </form>
+              <div>By clicking on a category, you will be able to delete it!</div>
             </motion.div>
           </div>
         </div>
+        <ToastContainer />
       </Container>
     </>
   );

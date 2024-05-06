@@ -41,7 +41,7 @@ const Profile = () => {
 
       return await res;
     } catch (e) {
-      console.error(e);
+      throw new Error("Please select a file!");
     }
   };
 
@@ -51,12 +51,11 @@ const Profile = () => {
     e.preventDefault();
 
     try {
-      if (file) {
-        const uploadedFile = await uploadFile(file);
-        bodyToSend = { imgProfile: uploadedFile.source };
-      }
+      const uploadedFile = await uploadFile(file);
+      bodyToSend = { imgProfile: uploadedFile.source };
+
       const res = await client.update(`${process.env.REACT_APP_SERVER_BASE_URL}/updateUser/${userId}`, JSON.stringify(bodyToSend));
-      console.log(res);
+
       if (res.status === 200) {
         verifyUpload(res.data);
       }

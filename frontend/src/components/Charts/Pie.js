@@ -25,13 +25,13 @@ const MyPie = ({ data, categoryData, deltaDay }) => {
 
     switch (deltaDay) {
         case 0:
-            chartTitleText = "Spese giornaliere"
+            chartTitleText = "Today expenses"
             break;
         case 7:
-            chartTitleText = "Spese settimanali"
+            chartTitleText = "Last 7 days"
             break;
         case 30:
-            chartTitleText = "Spese mensili"
+            chartTitleText = "Last 30 days"
             break;
 
         default:

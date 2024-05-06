@@ -12,8 +12,8 @@ exports.addExpense = async (req, res) => {
                 payload: "Expense saved successfully"
             })
     } catch (e) {
-        console.log(e);
-        res
+
+        return res
             .status(500)
             .send({
                 statusCode: 500,

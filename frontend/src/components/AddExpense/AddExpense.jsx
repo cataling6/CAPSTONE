@@ -8,7 +8,7 @@ import { jwtDecode } from "jwt-decode";
 import Swal from "sweetalert2";
 
 import "./style.css";
-const AddExpense = ({ setShow }) => {
+const AddExpense = ({ setShow, toast }) => {
   const { categories, getCategories } = useContext(CategoryCtx);
   const { addExpense } = useContext(ExpensesCtx);
   const [error, setError] = useState(null);
@@ -31,28 +31,29 @@ const AddExpense = ({ setShow }) => {
     };
     e.preventDefault();
     try {
-      await addExpense(preparedData);
+      const res = await addExpense(preparedData);
+      if (res.statusCode === 201) {
+        console.log(res);
+        toast(res);
+      } else {
+        verifyError(res.response.data);
+      }
     } catch (e) {
-      setError(e);
+      console.log(e);
     }
   };
 
-  const verifyError = () => {
-    if (error)
-      new Swal({
-        title: "Errore generico, Ritenta!",
-        text: error.message,
-        icon: "error",
-        showLoaderOnConfirm: true,
-        willClose: () => {
-          setError(false);
-        },
-      });
+  const verifyError = (e) => {
+    new Swal({
+      title: "Verify your data! only descriptions is not required",
+      text: e.message,
+      icon: "error",
+      showLoaderOnConfirm: true,
+    });
   };
 
   useEffect(() => {
     getCategories();
-    verifyError();
   }, [error]);
 
   return (

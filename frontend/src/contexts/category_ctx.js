@@ -19,10 +19,12 @@ const CategoryProvider = ({ children }) => {
 
     const addCategory = async (formData) => {
         try {
-            await client.post(`${process.env.REACT_APP_SERVER_BASE_URL}/expenses/addCategory`, formData)
+            const res = await client.post(`${process.env.REACT_APP_SERVER_BASE_URL}/expenses/addCategory`, formData)
             getCategories()
+            return res;
         } catch (e) {
-            console.log(e);
+            return e;
+
         }
     }
 

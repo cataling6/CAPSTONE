@@ -11,7 +11,5 @@ const Menu = ({ openAddModal, openModifyModal }) => {
     </div>
   );
 };
-// <Nav.Link as={Link} to="/login">
-//   Try it!
-// </Nav.Link>;
+
 export default Menu;

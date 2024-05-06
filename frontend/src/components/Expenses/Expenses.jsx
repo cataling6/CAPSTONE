@@ -20,7 +20,6 @@ const Expenses = () => {
   const { categories, getCategories } = useContext(CategoryCtx);
   const [showModal, setShowModal] = useState(false);
   const [deleted, setDeleted] = useState(false);
-  const [elementToBeDeleted, setElementToBeDeleted] = useState();
   const [error, setError] = useState(false);
   const [elementForModal, setElementForModal] = useState();
   const [modalOp, setModalOp] = useState("");
@@ -57,57 +56,52 @@ const Expenses = () => {
   };
 
   const verifyDelete = (id) => {
-    setDeleted(true);
-    setElementToBeDeleted(id);
-    if (deleted) {
-      const swalWithBootstrapButtons = Swal.mixin({
-        customClass: {
-          confirmButton: "btn btn-success",
-          cancelButton: "btn btn-danger me-2",
-        },
-        buttonsStyling: false,
-      });
+    const swalWithBootstrapButtons = Swal.mixin({
+      customClass: {
+        confirmButton: "btn btn-success",
+        cancelButton: "btn btn-danger me-2",
+      },
+      buttonsStyling: false,
+    });
 
-      swalWithBootstrapButtons
-        .fire({
-          title: `<b>Sto cancellando una spesa</b>`,
-          text: "Vuoi davvero cancellare questa spesa?",
-          icon: "question",
-          showCancelButton: true,
-          confirmButtonText: "Si!",
-          cancelButtonText: "No!",
-          reverseButtons: true,
-          willClose: () => {
-            setDeleted(false);
-          },
-        })
-        .then((result) => {
-          if (result.isConfirmed) {
-            try {
-              deleteExpenseById(elementToBeDeleted);
-            } catch (e) {
-              setError(e);
-              console(e);
-            }
-            swalWithBootstrapButtons.fire({
-              title: "Deleted!",
-              text: "Your expenses has been deleted.",
-              icon: "success",
-            });
-          } else if (result.dismiss === Swal.DismissReason.cancel) {
-            swalWithBootstrapButtons.fire({
-              title: "Cancellazione annullata",
-              text: "",
-              icon: "error",
-            });
+    swalWithBootstrapButtons
+      .fire({
+        title: `<b>Sto cancellando una spesa</b>`,
+        text: "Vuoi davvero cancellare questa spesa?",
+        icon: "question",
+        showCancelButton: true,
+        confirmButtonText: "Si!",
+        cancelButtonText: "No!",
+        reverseButtons: true,
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+          try {
+            deleteExpenseById(id);
+          } catch (e) {
+            setError(e);
+            console(e);
           }
-        });
-    }
+          swalWithBootstrapButtons.fire({
+            title: "Deleted!",
+            text: "Your expenses has been deleted.",
+            icon: "success",
+          });
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+          swalWithBootstrapButtons.fire({
+            title: "Cancellazione annullata",
+            text: "",
+            icon: "error",
+          });
+        }
+      });
   };
 
   const launchToast = (myEvent) => {
-    if (myEvent.statusCode === 200) {
-      toast.success(myEvent.message, {
+    console.log(myEvent);
+    const message = myEvent.message ? myEvent.message : myEvent.payload;
+    if (myEvent.statusCode === 200 || myEvent.statusCode === 201) {
+      toast.success(message, {
         position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,
@@ -118,7 +112,7 @@ const Expenses = () => {
         theme: "colored",
       });
     } else if (myEvent.statusCode === 208) {
-      toast.warn(myEvent.message, {
+      toast.warn(message, {
         position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,
@@ -129,7 +123,7 @@ const Expenses = () => {
         theme: "colored",
       });
     } else if (myEvent.statusCode === 404) {
-      toast.error(myEvent.message, {
+      toast.error(message, {
         position: "top-right",
         autoClose: 3000,
         hideProgressBar: false,
@@ -203,8 +197,8 @@ const Expenses = () => {
             </div>
           </motion.div>
         </div>
-        <motion.div initial={{ y: -50, opacity: 0 }} animate={{ y: 20, opacity: 1 }} transition={{ duration: 1, ease: [0.6, -0.05, 0.01, 0.99] }}>
-          <div className="col-lg-12 d-flex flex-column gap-3">
+        <motion.div initial={{ y: -50, opacity: 0 }} animate={{ y: 20, opacity: 1 }} transition={{ duration: 1, ease: [0.6, -0.05, 0.01, 0.99] }} className="max-height">
+          <div className="col-lg-12 d-flex flex-column gap-3 px-3 ">
             {!allUserExpenses.expenses ? (
               <div>No expenses founded!</div>
             ) : allUserExpenses.expenses.length === 0 ? (

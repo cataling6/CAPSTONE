@@ -4,6 +4,7 @@ import AddExpense from "../AddExpense/AddExpense";
 import EditExpense from "../EditExpense/EditExpense";
 import "./style.css";
 import ShareExpense from "../ShareExpense/ShareExpense";
+
 function MyModal({ show, setShow, modalOp, element, toast }) {
   let title;
   switch (modalOp) {
@@ -28,7 +29,7 @@ function MyModal({ show, setShow, modalOp, element, toast }) {
         </Modal.Header>
         {modalOp === "add" ? (
           <Modal.Body>
-            <AddExpense setShow={setShow} />
+            <AddExpense setShow={setShow} toast={toast} />
           </Modal.Body>
         ) : modalOp === "edit" ? (
           <Modal.Body>

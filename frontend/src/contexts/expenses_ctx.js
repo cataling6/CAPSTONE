@@ -63,11 +63,12 @@ const ExpensesProvider = ({ children }) => {
     const addExpense = async (formdata) => {
         try {
             formdata.amount = parseFloat(formdata.amount);
-            await client.post(`${process.env.REACT_APP_SERVER_BASE_URL}/expenses/addExpense`, formdata)
+            const res = await client.post(`${process.env.REACT_APP_SERVER_BASE_URL}/expenses/addExpense`, formdata)
             getUserExpenses()
-
+            return res
         } catch (e) {
-            console.log(e);
+            console.error(e.message)
+            return e;
 
         }
     }
