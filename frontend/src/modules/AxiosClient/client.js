@@ -33,9 +33,30 @@ class AxiosClient {
         const res = await this.axiosInstance.post(url, payload);
         return res.data;
     }
+    async postFormData(url, formData) {
+        const res = await this.axiosInstance.post(url, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                ...this.axiosInstance.defaults.headers.common
+            }
+        });
+        return res.data;
+    }
+
 
     async update(url, payload, config) {
         return await this.axiosInstance.patch(url, payload, config)
+    }
+
+    async updateFormData(url, formData) {
+        console.log(formData);
+        const res = await this.axiosInstance.patch(url, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                ...this.axiosInstance.defaults.headers.common
+            }
+        });
+
     }
 
     async delete(url, config) {

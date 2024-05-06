@@ -6,10 +6,10 @@ import EditBox from "../Editbox/Editbox";
 import Swal from "sweetalert2";
 import "./style.css";
 import { useNavigate } from "react-router-dom";
+
 const LoginForm = ({ toggleForm }) => {
   const navigate = useNavigate();
   const client = new AxiosClient();
-  const [error, setError] = useState(false);
   const [token, setToken] = useState(false);
   const [loginForm, setLoginForm] = useState({
     email: "",
@@ -25,7 +25,6 @@ const LoginForm = ({ toggleForm }) => {
   };
 
   const onSubmit = async (e) => {
-    console.log("dentor");
     e.preventDefault();
     try {
       const res = await client.post("/login", loginForm);

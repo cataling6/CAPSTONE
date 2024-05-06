@@ -3,6 +3,7 @@ import { SharedExpensesCtx } from "../../contexts/sharedExpenses_ctx";
 import { UsersCtx } from "../../contexts/users_ctx";
 import { ExpensesCtx } from "../../contexts/expenses_ctx";
 import { CategoryCtx } from "../../contexts/category_ctx";
+import { v4 as uuidv4 } from "uuid";
 import moment from "moment";
 
 const SharedWithMe = () => {
@@ -51,7 +52,7 @@ const SharedWithMe = () => {
             user &&
             category &&
             expense && (
-              <div className="border border-1 col-lg-4 col-md-6 col-sm-12 rounded rounded-1 shadow ">
+              <div className="border border-1 col-lg-4 col-md-6 col-sm-12 rounded rounded-1 shadow " key={uuidv4()}>
                 <div className="d-flex flex-column ">
                   <span className="fs-5" htmlFor="1">
                     Owner:
@@ -70,7 +71,7 @@ const SharedWithMe = () => {
                     Category: {category.categoryName}
                   </label>
                   <label>Amount: {expense.amount}€</label>
-                  <label className="text-truncate" title={moment(expense.opDate).format("LL")}>
+                  <label className="text-truncate" title={moment(expense.opDate).format("LL")} key={uuidv4()}>
                     Date: {moment(expense.opDate).format("LL")}
                   </label>
                 </div>

@@ -79,3 +79,26 @@ exports.deleteUserById = async (req, res) => {
 
     }
 }
+
+exports.updateUser = async (req, res) => {
+    const id = req.params.id
+    const fieldsToBeUpdated = {
+        imgProfile: req.body.imgProfile
+    }
+    try {
+        const updateMyUser = await userModel.findByIdAndUpdate(id, fieldsToBeUpdated, { new: true }) //new: true -> restituisce oggetto aggiornato
+        res.status(200)
+            .send({
+                statusCode: 200,
+                payload: 'User updated successfully',
+                user: updateMyUser
+            })
+    } catch (e) {
+        console.error(e);
+        return res.status(500).send({
+            statusCode: 500,
+            message: 'Internal server error'
+        });
+
+    }
+}
