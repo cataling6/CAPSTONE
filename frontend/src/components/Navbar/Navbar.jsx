@@ -18,7 +18,6 @@ function MyNavbar() {
 
   const today = () => {
     moment.locale("fr");
-    // let ora = moment().format("LLLL");
     let ora = moment().locale("fr").format("MMMM Do YYYY, h:mm:ss a");
     setOraEsatta(ora);
   };

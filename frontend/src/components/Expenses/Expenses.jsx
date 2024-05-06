@@ -8,6 +8,7 @@ import { CategoryCtx } from "../../contexts/category_ctx";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan, faShareNodes, faAnglesLeft, faAnglesRight } from "@fortawesome/free-solid-svg-icons";
 import { motion } from "framer-motion";
+
 import Swal from "sweetalert2";
 import { getContrast } from "polished";
 import { ToastContainer, toast } from "react-toastify";

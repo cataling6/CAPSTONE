@@ -22,19 +22,20 @@ const SignupForm = ({ toggleForm }) => {
     try {
       const res = await client.post("/createUser", signupFormData);
       if (res.statusCode == 201) {
-        verifyCreate(res.payload); //needed for SWAL input
+        verifyCreate(res.payload);
       } else if (res.statusCode == 208) {
         verifyError(res.message);
       }
     } catch (e) {
-      verifyError(e);
+      console.log(e.response.data);
+      verifyError(e.response.data);
     }
   };
 
   const verifyError = (error) => {
     new Swal({
       title: "Generic Error",
-      text: error,
+      text: error.errors[0],
       icon: "error",
       showLoaderOnConfirm: true,
     });

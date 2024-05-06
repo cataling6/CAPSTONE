@@ -6,12 +6,3 @@
   height: 200px;
   width: auto;
 }
-
-.profile-img {
-  transform: scale(1);
-  transition: all 1s;
-}
-
-.profile-img:hover {
-  transform: scale(1.3) translate(20px, 0px);
-}

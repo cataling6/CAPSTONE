@@ -40,20 +40,21 @@ exports.createUser = async (req, res) => {
             password: hashedPwd
         });
         const saveUser = newUser.save()
-        res
+        console.log(res);
+        return res
             .status(201)
             .send({
                 statusCode: 201,
                 payload: "User successfully created!"
             })
     } catch (e) {
-        res
+        console.error(e);
+        return res
             .status(500)
-        send({
-            statusCode: 500,
-            message: "Internal server error"
-        })
-        console.log(e);
+            .send({
+                statusCode: 500,
+                message: "Internal server error"
+            })
 
     }
 }
