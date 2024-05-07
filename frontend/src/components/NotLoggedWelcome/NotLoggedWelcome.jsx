@@ -88,7 +88,7 @@ const NotLoggedWelcome = () => {
         </Container>
         
       </motion.main> */}
-      <Container>
+      <Container className=" align-self-center ">
         <div class="fish">
           <figure>
             <motion.img
