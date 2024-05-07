@@ -1,11 +1,11 @@
 .my-box {
-  width: 300px;
   padding: 20px;
   text-align: center;
 }
 
 .my-box img {
-  height: 150px;
+  width: 150px;
+  height: auto;
   object-fit: cover;
   aspect-ratio: 2/1;
   border-radius: 10px;
@@ -19,4 +19,41 @@
 .max-height {
   height: calc(100vh - 120px);
   overflow: hidden;
+}
+
+.fishpics {
+  width: 350px;
+  height: auto;
+  object-fit: cover;
+  aspect-ratio: 2/1;
+  border-radius: 10px;
+}
+.fish figure {
+  display: flex;
+  flex-wrap: wrap;
+}
+.fish figure .text-container {
+  flex: 1;
+  padding: 0 15px;
+}
+.fish figure img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Media query per layout mobile */
+@media (max-width: 768px) {
+  .fish figure {
+    flex-direction: column;
+  }
+  .fish figure .text-container {
+    order: 2; /* Posiziona il text-container sotto l'immagine */
+    padding: 15px 0; /* Aggiungi padding sopra e sotto il text-container */
+    text-align: center;
+  }
+  .fish figure img {
+    max-width: 100%; /* Imposta la larghezza dell'immagine al 100% */
+    height: auto;
+    align-self: center;
+  }
 }
