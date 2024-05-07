@@ -7,6 +7,7 @@ import { useState } from "react";
 const { jwtDecode } = require("jwt-decode");
 function MyNavbar() {
   const [oraEsatta, setOraEsatta] = useState(null);
+  const [expandNavbar, setExpandNavbar] = useState(false);
   const token = localStorage.getItem("authorized_user");
   let decoded = "";
   if (token) decoded = jwtDecode(token);
@@ -21,43 +22,46 @@ function MyNavbar() {
     let ora = moment().locale("fr").format("MMMM Do YYYY, h:mm:ss a");
     setOraEsatta(ora);
   };
+  const closeNavbar = () => {
+    setExpandNavbar(false);
+  };
 
   if (token) setInterval(today, 1000);
 
   return (
     <>
-      <Navbar expand="lg" className="bg-light ps-1 mb-3 shadow" data-bs-theme="light">
-        <Navbar.Brand as={Link} to="/">
+      <Navbar expand="lg" expanded={expandNavbar} onToggle={(expanded) => setExpandNavbar(expanded)} className="bg-light ps-1 mb-3 shadow" data-bs-theme="light">
+        <Navbar.Brand as={Link} to="/" onClick={closeNavbar}>
           <img alt="" src={logoImg} width="30" height="30" className="d-inline-block align-top" /> MyFinance
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link as={Link} to="/home">
+            <Nav.Link as={Link} to="/home" onClick={closeNavbar}>
               Home
             </Nav.Link>
             {token && (
               <>
-                <Nav.Link as={Link} to="/expenses">
+                <Nav.Link as={Link} to="/expenses" onClick={closeNavbar}>
                   Expenses
                 </Nav.Link>
 
-                <Nav.Link as={Link} to="/statistics">
+                <Nav.Link as={Link} to="/statistics" onClick={closeNavbar}>
                   Statistics
                 </Nav.Link>
 
-                <Nav.Link as={Link} to="/sharedExpense">
+                <Nav.Link as={Link} to="/sharedExpense" onClick={closeNavbar}>
                   Shared Expenses
                 </Nav.Link>
 
-                <Nav.Link as={Link} to="/expenses/configurations">
+                <Nav.Link as={Link} to="/expenses/configurations" onClick={closeNavbar}>
                   Configurations
                 </Nav.Link>
               </>
             )}
 
             {!token ? (
-              <Nav.Link as={Link} to="/login">
+              <Nav.Link as={Link} to="/login" onClick={closeNavbar}>
                 Try it!
               </Nav.Link>
             ) : (

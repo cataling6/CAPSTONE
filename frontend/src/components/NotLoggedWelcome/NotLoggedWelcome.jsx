@@ -88,7 +88,7 @@ const NotLoggedWelcome = () => {
         </Container>
         
       </motion.main> */}
-      <Container className=" align-self-center ">
+      <Container className="max-height">
         <div class="fish">
           <figure>
             <motion.img
