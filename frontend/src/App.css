@@ -73,3 +73,12 @@ body {
   scrollbar-color: rgb(146, 146, 146) rgb(255, 255, 255);
   scrollbar-width: thin;
 }
+
+ol li::marker {
+  font-weight: bold;
+  color: #0d6efd;
+}
+
+li {
+  font-weight: 100;
+}

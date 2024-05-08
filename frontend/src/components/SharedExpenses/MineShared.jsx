@@ -125,6 +125,7 @@ const MineShared = () => {
                 </div>
               )}
               <div className="px-2" key={uuidv4()}>
+                <div>Shared with:</div>
                 <span key={uuidv4()}>
                   {myShared &&
                     myShared.userSharedWithId.map((u) => {
@@ -134,9 +135,8 @@ const MineShared = () => {
                         users && (
                           <div className="d-flex justify-content-between" key={uuidv4()}>
                             <label key={uuidv4()}>
-                              User: {users.firstName} {users.lastName} - {users.email}
+                              {users.firstName} {users.lastName} - {users.email}
                             </label>
-                            <label>cancella</label>
                           </div>
                         )
                       );

@@ -110,6 +110,7 @@ const Statistics = () => {
                 <div className="col-12 col-sm-12 col-md-12 col-lg-6">
                   <MyPie data={expensesFiltered ?? []} categoryData={getCategoryName} deltaDay={deltaDay} />
                 </div>
+
                 <div className="col-12 col-sm-12 col-md-12 col-lg-6">
                   <MyLine data={total} trigger={generaAnno} />
                 </div>

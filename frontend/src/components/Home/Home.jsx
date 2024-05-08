@@ -22,7 +22,7 @@ const Home = () => {
             duration: 1, // Durata dell'animazione in secondi
           }}
         >
-          Steps for use of the app:
+          <h5 className="fw-bold text-primary"> Steps for use of the app:</h5>
         </motion.h5>
         <motion.div className="container max-height" initial={{ y: -50, opacity: 0 }} animate={{ y: 20, opacity: 1 }} transition={{ duration: 1, ease: [0.6, -0.05, 0.01, 0.99] }}>
           <div>

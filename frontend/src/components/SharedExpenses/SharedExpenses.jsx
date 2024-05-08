@@ -10,18 +10,18 @@ import { motion } from "framer-motion";
 const SharedExpenses = () => {
   const session = localStorage.getItem("authorized_user");
   const decodedSession = jwtDecode(session);
-  window.addEventListener("resize", function () {
-    const myDiv = document.getElementById("myShared");
-    const myDiv2 = document.getElementById("sharedMe");
-    const windowWidth = this.window.innerWidth;
-    // if (windowWidth < 1000) {
-    //   myDiv.classList.remove("max-height");
-    //   myDiv2.classList.remove("max-height");
-    // } else {
-    //   myDiv.classList.add("max-height");
-    //   myDiv2.classList.add("max-height");
-    // }
-  });
+  // window.addEventListener("resize", function () {
+  //   const myDiv = document.getElementById("myShared");
+  //   const myDiv2 = document.getElementById("sharedMe");
+  //   const windowWidth = this.window.innerWidth;
+  //   // if (windowWidth < 1000) {
+  //   //   myDiv.classList.remove("max-height");
+  //   //   myDiv2.classList.remove("max-height");
+  //   // } else {
+  //   //   myDiv.classList.add("max-height");
+  //   //   myDiv2.classList.add("max-height");
+  //   // }
+  // });
   useEffect(() => {}, []);
   return (
     <Container className="custom-container">
@@ -38,7 +38,7 @@ const SharedExpenses = () => {
               duration: 1, // Durata dell'animazione in secondi
             }}
           >
-            My Shared Expenses
+            <h5 className="fw-bold text-primary">My Shared Expenses</h5>
           </motion.div>
           <motion.div id="myShared" className="rounded rounded-2 max-height" initial={{ y: -50, opacity: 0 }} animate={{ y: 20, opacity: 1 }} transition={{ duration: 1, ease: [0.6, -0.05, 0.01, 0.99] }}>
             <UsersProvider>
@@ -58,7 +58,7 @@ const SharedExpenses = () => {
               duration: 1, // Durata dell'animazione in secondi
             }}
           >
-            Shared with me
+            <h5 className="fw-bold text-primary"> Shared with me</h5>
           </motion.div>
           <motion.div id="sharedMe" className="px-3 rounded rounded-2 max-height" initial={{ y: -50, opacity: 0 }} animate={{ y: 20, opacity: 1 }} transition={{ duration: 1, ease: [0.6, -0.05, 0.01, 0.99] }}>
             <div className="row d-flex mt-3 px-3 gap-2 justify-content-center ">

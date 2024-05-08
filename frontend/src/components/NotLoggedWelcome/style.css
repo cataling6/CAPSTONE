@@ -23,37 +23,37 @@
   scrollbar-width: thin;
 }
 
-.fishpics {
+.pics-welcome {
   width: 350px;
   height: auto;
   object-fit: cover;
   aspect-ratio: 2/1;
   border-radius: 10px;
 }
-.fish figure {
+.my-container figure {
   display: flex;
   flex-wrap: wrap;
 }
-.fish figure .text-container {
+.my-container figure .text-container {
   flex: 1;
   padding: 0 15px;
 }
-.fish figure img {
+.my-container figure img {
   max-width: 100%;
   height: auto;
 }
 
 /* Media query per layout mobile */
 @media (max-width: 768px) {
-  .fish figure {
+  .my-container figure {
     flex-direction: column;
   }
-  .fish figure .text-container {
+  .my-container figure .text-container {
     order: 2; /* Posiziona il text-container sotto l'immagine */
     padding: 15px 0; /* Aggiungi padding sopra e sotto il text-container */
     text-align: center;
   }
-  .fish figure img {
+  .my-container figure img {
     max-width: 100%; /* Imposta la larghezza dell'immagine al 100% */
     height: auto;
     align-self: center;

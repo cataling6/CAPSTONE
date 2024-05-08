@@ -65,7 +65,7 @@ const MyLine = ({ data, trigger }) => {
     }, [trigger])
 
     return (
-        <div className="d-flex align-content-center flex-wrap " style={{ width: "500px", height: "400px" }}>
+        <div className="d-flex align-content-center flex-wrap " style={{ width: "400px", height: "400px" }}>
             <Line data={chartData} options={options} />
         </div>
     );
