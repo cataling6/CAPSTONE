@@ -138,8 +138,8 @@ const Configurations = () => {
   return (
     <>
       <Container>
-        <div className="d-flex justify-content-between gap-2">
-          <div className="w-75">
+        <div className="d-flex flex-column flex-sm-column flex-md-column flex-lg-row justify-content-between ">
+          <div className="col-12 col-sm-12 col-md-12 col-lg-8">
             <motion.p
               initial={{ y: -40 }}
               animate={{ y: 0, opacity: 1 }}
@@ -152,7 +152,7 @@ const Configurations = () => {
             >
               Available categories
             </motion.p>
-            <motion.div className="d-flex gap-1 " initial={{ y: -50, opacity: 0 }} animate={{ y: 20, opacity: 1 }} transition={{ duration: 1, ease: [0.6, -0.05, 0.01, 0.99] }}>
+            <motion.div className="d-flex gap-1  mb-5" initial={{ y: -50, opacity: 0 }} animate={{ y: 20, opacity: 1 }} transition={{ duration: 1, ease: [0.6, -0.05, 0.01, 0.99] }}>
               {categories === "" || categories === null ? (
                 <div className="text-dark">No categories have been configured</div>
               ) : (
@@ -173,7 +173,7 @@ const Configurations = () => {
               )}
             </motion.div>
           </div>
-          <div className="w-25">
+          <div className="col-12 col-sm-12 col-md-12 col-lg-4">
             <motion.p
               initial={{ y: -40 }}
               animate={{ y: 0, opacity: 1 }}
@@ -190,14 +190,14 @@ const Configurations = () => {
               <form encType="multipart/form-data" onSubmit={submitNewCategory}>
                 <div className="row">
                   <EditBox name="categoryName" type={"text"} label={"Category Name"} inputId={"cat"} ph={"Category Name"} col={12} mb={2} onChange={handleOnChangeInput} />
-                  {/* <EditBox name="color" type={"color"} label={"Category Color"} inputId="catCol" col={12} mb={2} onChange={handleOnChangeInput} /> */}
+
                   <div className="col-lg-12">
                     <label>Category Color</label>
                     <input type="color" name="color" className="col-lg-12 form-control" onChange={handleOnChangeInput} />
                   </div>
                 </div>
                 <div className="mt-2 d-flex justify-content-end ">
-                  <Button type="submit" variant="outline-primary">
+                  <Button type="submit" variant="outline-primary col-12 col-sm-12 col-md-12 ">
                     Save
                   </Button>
                 </div>

@@ -64,3 +64,12 @@ body {
   font-weight: 400;
   font-style: italic;
 }
+
+.max-height {
+  height: calc(100vh - 185px);
+  padding-bottom: 5vh;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  scrollbar-color: rgb(146, 146, 146) rgb(255, 255, 255);
+  scrollbar-width: thin;
+}

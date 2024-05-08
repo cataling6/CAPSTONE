@@ -16,9 +16,11 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-.max-height {
+.max-height-not-logged {
   height: calc(100vh - 120px);
-  overflow: hidden;
+  overflow-y: scroll;
+  scrollbar-color: rgb(146, 146, 146) rgb(255, 255, 255);
+  scrollbar-width: thin;
 }
 
 .fishpics {

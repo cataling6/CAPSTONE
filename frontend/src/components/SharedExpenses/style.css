@@ -1,6 +1,7 @@
-.max-height {
-  height: calc(100vh - 180px);
-  overflow-y: scroll;
-  scrollbar-color: rgb(146, 146, 146) rgb(255, 255, 255);
-  scrollbar-width: thin;
+/* //mi modifico la heigt in mase al fatto se  sono mobile o no (do per scontato che sotto i 999px sia tablet / mobile x stare sul sicuro)*/
+@media only screen and (max-width: 999px) {
+  .max-height {
+    height: unset;
+    margin-bottom: 10vh;
+  }
 }
