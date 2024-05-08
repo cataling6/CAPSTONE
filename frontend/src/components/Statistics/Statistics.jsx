@@ -75,7 +75,7 @@ const Statistics = () => {
     <>
       <Container>
         <motion.div
-          className="col-lg-6 d-flex gap-2"
+          className="col-12 col-sm-12 col-md-12 col-lg-6 d-flex gap-2 justify-content-center"
           initial={{ y: -40 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{
@@ -100,14 +100,20 @@ const Statistics = () => {
         </motion.div>
       </Container>
 
-      <Container>
+      <Container className="d-flex justify-content-center">
         <motion.div initial={{ y: -50, opacity: 0 }} animate={{ y: 20, opacity: 1 }} transition={{ duration: 1, ease: [0.6, -0.05, 0.01, 0.99] }} className="d-flex justify-content-between">
           {loading ? (
             <div>Caricamento...</div>
           ) : (
             <>
-              <MyPie data={expensesFiltered ?? []} categoryData={getCategoryName} deltaDay={deltaDay} />
-              <MyLine data={total} trigger={generaAnno} />
+              <div className="d-flex flex-column flex-sm-column flex-md-column flex-lg-row ">
+                <div className="col-12 col-sm-12 col-md-12 col-lg-6">
+                  <MyPie data={expensesFiltered ?? []} categoryData={getCategoryName} deltaDay={deltaDay} />
+                </div>
+                <div className="col-12 col-sm-12 col-md-12 col-lg-6">
+                  <MyLine data={total} trigger={generaAnno} />
+                </div>
+              </div>
 
               {/* <div>
               <MyBar data={total} trigger={generaAnno} />

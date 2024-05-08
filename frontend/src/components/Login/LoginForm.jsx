@@ -58,9 +58,8 @@ const LoginForm = ({ toggleForm }) => {
             <EditBox name={"email"} type={"email"} ph={"E-mail"} onChange={onChangeInput} label={"E-mail"} col={12} inputId={"eml"} customClasses={"user-box"} login={true} />
             <EditBox name={"password"} type={"password"} ph={"Password"} onChange={onChangeInput} label={"Password"} col={12} inputId={"pwd"} customClasses={"user-box"} login={true} />
             <div className="d-flex justify-content-between ">
-              <a onClick={onSubmit}>Login</a>
-
               <a onClick={() => toggleForm()}>Signup</a>
+              <a onClick={onSubmit}>Login</a>
             </div>
           </form>
         </div>

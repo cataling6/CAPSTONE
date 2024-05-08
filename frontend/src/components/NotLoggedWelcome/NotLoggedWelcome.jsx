@@ -88,7 +88,7 @@ const NotLoggedWelcome = () => {
         </Container>
         
       </motion.main> */}
-      <Container className="max-height">
+      <Container className="max-height-not-logged">
         <div class="fish">
           <figure>
             <motion.img

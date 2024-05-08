@@ -69,7 +69,7 @@ function MyNavbar() {
             )}
           </Nav>
           {token ? (
-            <Dropdown>
+            <Dropdown className="d-flex justify-content-between">
               <label>
                 <span>{oraEsatta}</span> {decoded.firsName} {decoded.lastName}
               </label>

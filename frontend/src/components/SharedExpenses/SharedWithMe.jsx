@@ -52,7 +52,7 @@ const SharedWithMe = () => {
             user &&
             category &&
             expense && (
-              <div className="border border-1 col-lg-4 col-md-6 col-sm-12 rounded rounded-1 shadow " key={uuidv4()}>
+              <div className="border border-1 rounded rounded-1 shadow " key={uuidv4()}>
                 <div className="d-flex flex-column ">
                   <span className="fs-5" htmlFor="1">
                     Owner:

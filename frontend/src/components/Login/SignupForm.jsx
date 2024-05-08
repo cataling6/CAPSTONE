@@ -55,10 +55,11 @@ const SignupForm = ({ toggleForm }) => {
 
   useEffect(() => {}, []);
   return (
-    <>
+    <div className="d-flex justify-content-center ">
       {/* <motion.div initial={{ y: -20, opacity: 0 }} animate={{ y: 50, opacity: 1 }} transition={{ duration: 1, ease: [0.6, -0.05, 0.01, 0.99] }}> */}
-      <motion.div initial={{ y: 100, opacity: 0, scale: 0.5 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.8, delay: 0.5, ease: [0, 0.71, 0.2, 1.01] }}>
-        <div className="login-box">
+
+      <motion.div className="d-flex col-12 col-sm-12 col-md-12 align-self-center " initial={{ opacity: 0, scale: 0.5 }} animate={{ y: 70, opacity: 1, scale: 1 }} transition={{ duration: 0.8, delay: 0.5, ease: [0, 0.71, 0.2, 1.01] }}>
+        <div className="login-box ">
           <h2>Signup</h2>
           <form>
             <EditBox name={"firstName"} type={"text"} onChange={onChangeInput} label={"Firstname"} ph={"Firstname"} col={12} inputId={"fsn"} customClasses={"user-box"} login={true} />
@@ -66,13 +67,13 @@ const SignupForm = ({ toggleForm }) => {
             <EditBox name={"email"} type={"mail"} onChange={onChangeInput} label={"E-mail"} ph={"E-mail"} col={12} inputId={"eml"} customClasses={"user-box"} login={true} />
             <EditBox name={"password"} type={"password"} onChange={onChangeInput} label={"Password"} ph={"Password"} col={12} inputId={"pwd"} customClasses={"user-box"} login={true} />
             <div className="d-flex justify-content-between ">
-              <a onClick={onSubmit}>Create</a>
               <a onClick={() => toggleForm()}>Login</a>
+              <a onClick={onSubmit}>Create</a>
             </div>
           </form>
         </div>
       </motion.div>
-    </>
+    </div>
   );
 };
 

@@ -10,12 +10,23 @@ import { motion } from "framer-motion";
 const SharedExpenses = () => {
   const session = localStorage.getItem("authorized_user");
   const decodedSession = jwtDecode(session);
-
+  window.addEventListener("resize", function () {
+    const myDiv = document.getElementById("myShared");
+    const myDiv2 = document.getElementById("sharedMe");
+    const windowWidth = this.window.innerWidth;
+    // if (windowWidth < 1000) {
+    //   myDiv.classList.remove("max-height");
+    //   myDiv2.classList.remove("max-height");
+    // } else {
+    //   myDiv.classList.add("max-height");
+    //   myDiv2.classList.add("max-height");
+    // }
+  });
   useEffect(() => {}, []);
   return (
-    <Container>
-      <div className="d-flex justify-content-between ">
-        <div className="w-50 container ">
+    <Container className="custom-container">
+      <div className="d-flex flex-column flex-sm-column flex-md-column flex-lg-row justify-content-between ">
+        <div className="col-12 col-sm-12 col-md-12 col-lg-6 container ">
           <motion.div
             className="d-flex justify-content-center"
             initial={{ y: -40 }}
@@ -29,13 +40,13 @@ const SharedExpenses = () => {
           >
             My Shared Expenses
           </motion.div>
-          <motion.div className=" rounded rounded-2 max-height" initial={{ y: -50, opacity: 0 }} animate={{ y: 20, opacity: 1 }} transition={{ duration: 1, ease: [0.6, -0.05, 0.01, 0.99] }}>
+          <motion.div id="myShared" className="rounded rounded-2 max-height" initial={{ y: -50, opacity: 0 }} animate={{ y: 20, opacity: 1 }} transition={{ duration: 1, ease: [0.6, -0.05, 0.01, 0.99] }}>
             <UsersProvider>
               <MineShared />
             </UsersProvider>
           </motion.div>
         </div>
-        <div className="w-50 container ">
+        <div className="col-12 col-sm-12 col-md-12 col-lg-6 container ">
           <motion.div
             className="d-flex justify-content-center"
             initial={{ y: -40 }}
@@ -49,7 +60,7 @@ const SharedExpenses = () => {
           >
             Shared with me
           </motion.div>
-          <motion.div className=" rounded rounded-2 max-height" initial={{ y: -50, opacity: 0 }} animate={{ y: 20, opacity: 1 }} transition={{ duration: 1, ease: [0.6, -0.05, 0.01, 0.99] }}>
+          <motion.div id="sharedMe" className="px-3 rounded rounded-2 max-height" initial={{ y: -50, opacity: 0 }} animate={{ y: 20, opacity: 1 }} transition={{ duration: 1, ease: [0.6, -0.05, 0.01, 0.99] }}>
             <div className="row d-flex mt-3 px-3 gap-2 justify-content-center ">
               <UsersProvider>
                 <SharedWithMe />
