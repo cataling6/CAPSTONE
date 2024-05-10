@@ -3,7 +3,7 @@ import { Button, Container } from "react-bootstrap";
 import EditBox from "../Editbox/Editbox";
 import "./style.css";
 import { CategoryCtx } from "../../contexts/category_ctx";
-import { getContrast } from "polished";
+import { getContrast, hideText } from "polished";
 import Swal from "sweetalert2";
 import { v4 as uuidv4 } from "uuid";
 import { motion } from "framer-motion";
@@ -189,12 +189,11 @@ const Configurations = () => {
             <motion.div initial={{ y: -50, opacity: 0 }} animate={{ y: 20, opacity: 1 }} transition={{ duration: 1, ease: [0.6, -0.05, 0.01, 0.99] }}>
               <form encType="multipart/form-data" onSubmit={submitNewCategory}>
                 <div className="row">
-                  <EditBox name="categoryName" type={"text"} label={"Category Name"} inputId={"cat"} ph={"Category Name"} col={12} mb={2} onChange={handleOnChangeInput} />
-
-                  <div className="col-lg-12">
-                    <label>Category Color</label>
-                    <input type="color" name="color" className="col-lg-12 form-control" onChange={handleOnChangeInput} />
+                  <div className="col-lg-12 mb-2 ">
+                    <label htmlFor="colorPicker">Category Color</label>
+                    <input id="colorPicker" type="color" name="color" className="col-lg-12 form-control " onChange={handleOnChangeInput} />
                   </div>
+                  <EditBox name="categoryName" type={"text"} label={"Category Name"} inputId={"cat"} ph={"Category Name"} col={12} mb={2} onChange={handleOnChangeInput} />
                 </div>
                 <div className="mt-2 d-flex justify-content-end ">
                   <Button type="submit" variant="outline-primary col-12 col-sm-12 col-md-12 ">
