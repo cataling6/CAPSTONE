@@ -1,28 +1,35 @@
-import React, { useContext, useEffect, useState } from "react";
 import { Button, Container } from "react-bootstrap";
-import EditBox from "../Editbox/Editbox";
-import "./style.css";
 import { CategoryCtx } from "../../contexts/category_ctx";
-import { getContrast, hideText } from "polished";
-import Swal from "sweetalert2";
+import { getContrast } from "polished";
 import { v4 as uuidv4 } from "uuid";
 import { motion } from "framer-motion";
 import { ToastContainer, toast } from "react-toastify";
+import React, { useContext, useEffect, useState } from "react";
+import Swal from "sweetalert2";
+import EditBox from "../Editbox/Editbox";
+
+import "./style.css";
 import "react-toastify/dist/ReactToastify.css";
+const { jwtDecode } = require("jwt-decode");
+
 const Configurations = () => {
   const { categories, getCategories, addCategory, deleteCategory } = useContext(CategoryCtx);
-  const [formData, setFormData] = useState({});
+  const token = localStorage.getItem("authorized_user");
+  let decoded = "";
+  if (token) decoded = jwtDecode(token);
+  const [formData, setFormData] = useState({ color: "#000000", userId: decoded.userId });
   const [deleted, setDeleted] = useState(false);
 
+  console.log(decoded.userId);
   const handleOnChangeInput = (e) => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
-      color: "#000000", //--->> di default lascio nero
       [name]: value,
     });
   };
 
+  console.log(formData);
   const submitNewCategory = async (e) => {
     e.preventDefault();
 

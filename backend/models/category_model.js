@@ -6,6 +6,11 @@ const CategoryModel = new mongoose.Schema({
         required: true,
         max: 255
     },
+    userId: {
+        type: String,
+        required: true,
+        maxx: 255
+    },
     icon: {
         type: String,
         required: false,

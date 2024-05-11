@@ -5,7 +5,6 @@ import "./style.css"
 ChartJS.register(Title, Tooltip, Legend, ArcElement)
 const MyPie = ({ data, categoryData, deltaDay }) => {
 
-
     let chartTitleText = ""
 
     if (!data || data.length === 0 || !data[0]?.category) {
@@ -38,6 +37,7 @@ const MyPie = ({ data, categoryData, deltaDay }) => {
             break;
     }
 
+    console.log(aggregatedData);
     const categoriesId = aggregatedData.map(({ category }) => category);
 
     //mi genero bg casuali con randomcolor.js
@@ -48,6 +48,7 @@ const MyPie = ({ data, categoryData, deltaDay }) => {
     const categoriesData = categoriesId.map(categoryId => {
         return categoryData(categoryId)
     });
+    console.log(categoriesData);
 
     //mi prendo i nomi
     const categoryNames = categoriesData.map(item => item[0])
