@@ -24,9 +24,9 @@ const EditBox = (props) => {
         {typeControl === "textarea" ? (
           <textarea className={inputClass.length === 0 ? "form-control" : ""} name={props.name} placeholder={props.ph} onChange={handleOnChangeInput} value={props.inputData} rows={40} id={props.inputId} />
         ) : typeControl === "date" ? (
-          <input autoComplete="false" className={inputClass.length === 0 ? `form-control mb-${props.mb}` : inputClass} name={props.name} type={props.type} placeholder={props.ph} onChange={handleOnChangeInput} value={inputValue} id={props.inputId} />
+          <input autoComplete="false" className={inputClass.length === 0 ? `form-control mb-${props.mb}` : inputClass} name={props.name} type={props.type} placeholder={props.ph} onChange={handleOnChangeInput} value={inputValue} id={props.inputId} step="0.01" />
         ) : (
-          <input autoComplete="false" className={inputClass.length === 0 ? `form-control mb-${props.mb}` : inputClass} name={props.name} type={props.type} placeholder={props.ph} onChange={handleOnChangeInput} id={props.inputId} />
+          <input autoComplete="false" className={inputClass.length === 0 ? `form-control mb-${props.mb}` : inputClass} name={props.name} type={props.type} placeholder={props.ph} onChange={handleOnChangeInput} id={props.inputId} step="0.01" />
         )}
         <label htmlFor={props.inputId}>{props.label}</label>
       </div>

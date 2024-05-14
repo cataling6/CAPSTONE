@@ -39,7 +39,7 @@ const MyLine = ({ data, trigger }) => {
         plugins: {
             title: {
                 display: true,
-                text: "Spesa per mese durante l'anno"
+                text: "Monthly expense this year:"
             }
         }
     };

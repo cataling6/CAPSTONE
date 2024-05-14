@@ -66,8 +66,8 @@ const Expenses = () => {
 
     swalWithBootstrapButtons
       .fire({
-        title: `<b>Sto cancellando una spesa</b>`,
-        text: "Vuoi davvero cancellare questa spesa?",
+        title: `<b>I'm deleting an expense</b>`,
+        text: "Do you really want to delete it?",
         icon: "question",
         showCancelButton: true,
         confirmButtonText: "Si!",
@@ -89,7 +89,7 @@ const Expenses = () => {
           });
         } else if (result.dismiss === Swal.DismissReason.cancel) {
           swalWithBootstrapButtons.fire({
-            title: "Cancellazione annullata",
+            title: "Delete cancelled ;)",
             text: "",
             icon: "error",
           });
@@ -98,7 +98,6 @@ const Expenses = () => {
   };
 
   const launchToast = (myEvent) => {
-    console.log(myEvent);
     const message = myEvent.message ? myEvent.message : myEvent.payload;
     if (myEvent.statusCode === 200 || myEvent.statusCode === 201) {
       toast.success(message, {

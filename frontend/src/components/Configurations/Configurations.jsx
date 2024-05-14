@@ -1,24 +1,29 @@
-import React, { useContext, useEffect, useState } from "react";
 import { Button, Container } from "react-bootstrap";
-import EditBox from "../Editbox/Editbox";
-import "./style.css";
 import { CategoryCtx } from "../../contexts/category_ctx";
 import { getContrast } from "polished";
-import Swal from "sweetalert2";
 import { v4 as uuidv4 } from "uuid";
 import { motion } from "framer-motion";
 import { ToastContainer, toast } from "react-toastify";
+import React, { useContext, useEffect, useState } from "react";
+import Swal from "sweetalert2";
+import EditBox from "../Editbox/Editbox";
+
+import "./style.css";
 import "react-toastify/dist/ReactToastify.css";
+const { jwtDecode } = require("jwt-decode");
+
 const Configurations = () => {
   const { categories, getCategories, addCategory, deleteCategory } = useContext(CategoryCtx);
-  const [formData, setFormData] = useState({});
+  const token = localStorage.getItem("authorized_user");
+  let decoded = "";
+  if (token) decoded = jwtDecode(token);
+  const [formData, setFormData] = useState({ color: "#000000", userId: decoded.userId });
   const [deleted, setDeleted] = useState(false);
 
   const handleOnChangeInput = (e) => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
-      color: "#000000", //--->> di default lascio nero
       [name]: value,
     });
   };
@@ -28,8 +33,11 @@ const Configurations = () => {
 
     try {
       const res = await addCategory(formData);
+      console.log(res.statusCode);
       if (res.statusCode === 201) {
         launchToast(res);
+        document.getElementById("cat").value = null;
+        document.getElementById("colorPicker").value = null;
       } else if (res.response.data.statusCode === 500) {
         launchToast(res.response.data);
       }
@@ -189,12 +197,11 @@ const Configurations = () => {
             <motion.div initial={{ y: -50, opacity: 0 }} animate={{ y: 20, opacity: 1 }} transition={{ duration: 1, ease: [0.6, -0.05, 0.01, 0.99] }}>
               <form encType="multipart/form-data" onSubmit={submitNewCategory}>
                 <div className="row">
-                  <EditBox name="categoryName" type={"text"} label={"Category Name"} inputId={"cat"} ph={"Category Name"} col={12} mb={2} onChange={handleOnChangeInput} />
-
-                  <div className="col-lg-12">
-                    <label>Category Color</label>
-                    <input type="color" name="color" className="col-lg-12 form-control" onChange={handleOnChangeInput} />
+                  <div className="col-lg-12 mb-2 ">
+                    <label htmlFor="colorPicker">Category Color</label>
+                    <input id="colorPicker" type="color" name="color" className="col-lg-12 form-control " onChange={handleOnChangeInput} />
                   </div>
+                  <EditBox name="categoryName" type={"text"} label={"Category Name"} inputId={"cat"} ph={"Category Name"} col={12} mb={2} onChange={handleOnChangeInput} />
                 </div>
                 <div className="mt-2 d-flex justify-content-end ">
                   <Button type="submit" variant="outline-primary col-12 col-sm-12 col-md-12 ">
