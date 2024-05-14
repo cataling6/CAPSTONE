@@ -71,7 +71,7 @@ function MyNavbar() {
           {token ? (
             <Dropdown className="d-flex justify-content-between">
               <label className="d-flex align-items-center">
-                <span>{oraEsatta}</span> {decoded.firsName} {decoded.lastName}
+                <span>{oraEsatta} </span> {". "} {decoded.firsName} {decoded.lastName}
               </label>
               <Dropdown.Toggle style={{ backgroundColor: "transparent", border: "none" }} id="dropdown-basic">
                 <img className="rounded rounded-circle menu-img" src={decoded.imgProfile}></img>

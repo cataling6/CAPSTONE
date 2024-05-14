@@ -20,7 +20,6 @@ const Configurations = () => {
   const [formData, setFormData] = useState({ color: "#000000", userId: decoded.userId });
   const [deleted, setDeleted] = useState(false);
 
-  console.log(decoded.userId);
   const handleOnChangeInput = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -29,14 +28,16 @@ const Configurations = () => {
     });
   };
 
-  console.log(formData);
   const submitNewCategory = async (e) => {
     e.preventDefault();
 
     try {
       const res = await addCategory(formData);
+      console.log(res.statusCode);
       if (res.statusCode === 201) {
         launchToast(res);
+        document.getElementById("cat").value = null;
+        document.getElementById("colorPicker").value = null;
       } else if (res.response.data.statusCode === 500) {
         launchToast(res.response.data);
       }

@@ -45,16 +45,16 @@ const ShareExpense = ({ expense, setShow, toast }) => {
     <>
       <div className="d-flex justify-content-between">
         <div className="d-flex justify-content-between mb-2">
-          <span>Data Operazione: </span>
+          <span>Operation Date: </span>
           <label> {operationDate.format("LL")}</label>
         </div>
         <div>
-          <span>Costo: </span>
+          <span>Amount: </span>
           <label>{expense.amount}</label>€
         </div>
       </div>
       <div className="mb-2">
-        <span>Categoria: </span>
+        <span>Category: </span>
         <label>{expCat.categoryName}</label>
       </div>
 

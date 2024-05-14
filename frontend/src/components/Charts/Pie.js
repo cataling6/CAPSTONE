@@ -51,7 +51,7 @@ const MyPie = ({ data, categoryData, deltaDay }) => {
     console.log(categoriesData);
 
     //mi prendo i nomi
-    const categoryNames = categoriesData.map(item => item[0])
+    const categoryNames = categoriesData.map(item => item[0].toUpperCase())
     //mi prendo i colori
     const categoryColors = categoriesData.map(item => item[1])
 

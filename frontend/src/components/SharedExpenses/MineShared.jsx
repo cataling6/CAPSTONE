@@ -10,11 +10,11 @@ import { v4 as uuidv4 } from "uuid";
 import { getContrast } from "polished";
 const MineShared = () => {
   const { sharedExpenses, getMySharedExpenses, delSharedExpense } = useContext(SharedExpensesCtx);
-  const { allUserExpenses, getUserExpenses } = useContext(ExpensesCtx);
+  const { getTotalExpenses, totalExpenses } = useContext(ExpensesCtx);
   const { categories, getCategories } = useContext(CategoryCtx);
   const { users, getUsers } = useContext(UsersCtx);
   const { payload } = sharedExpenses;
-  const { expenses } = allUserExpenses;
+  const expenses = totalExpenses;
   const [deleted, setDeleted] = useState(false);
   const [elementToBeDeleted, setElementToBeDeleted] = useState("");
   const [error, setError] = useState(false);
@@ -22,7 +22,7 @@ const MineShared = () => {
   const loadData = async () => {
     await getMySharedExpenses();
     await getCategories();
-    await getUserExpenses();
+    await getTotalExpenses();
     await getUsers();
   };
 
@@ -92,19 +92,26 @@ const MineShared = () => {
   const findUsersSharedWitdh = (userId) => {
     return users ? users.find((u) => u._id === userId) : null;
   };
+  console.log(payload);
   //::: END MAP DATI :::
 
   return (
     <div className=" d-flex flex-column mt-3 mx-3 gap-2" key={uuidv4()}>
       {payload && payload.length > 0 ? (
         payload.map((myShared) => {
+          let expense;
+          expense = null;
           let colorText = "white";
           let myColor = "white";
           //map dati
-          const expense = myShared ? findExpenseById(myShared.expenseId) : null;
+          //console.log("myshared: ", myShared);
+          expense = myShared ? findExpenseById(myShared.expenseId) : null;
+
+          // expense = findExpenseById("6640e940e2fdf691b48a8b46");
+          console.log(expense);
+          //console.log("my exp: ", expense);
           const cat = expense ? findCategoryByExpId(expense.category) : null;
           myColor = cat ? cat.color : "white";
-
           const c = getContrast("white", myColor);
           if (c < 2) {
             colorText = "black";
@@ -114,7 +121,7 @@ const MineShared = () => {
               {expense && cat && (
                 <div key={uuidv4()}>
                   <div className="d-flex justify-content-between rounded-top-1 pt-1 px-2 m-0 " style={{ backgroundColor: cat.color, color: colorText }} key={uuidv4()}>
-                    <label key={uuidv4()}>Expense Category: {cat.categoryName}</label>
+                    <label key={uuidv4()}>Expense Category: {cat.categoryName.toUpperCase()}</label>
                     <label key={uuidv4()}>
                       <FontAwesomeIcon icon={faTrashCan} color={colorText} className="custom-icon" onClick={() => verifyDelete(myShared.expenseId)} />
                     </label>
