@@ -37,11 +37,11 @@ function MyNavbar() {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link as={Link} to="/home" onClick={closeNavbar}>
-              Home
-            </Nav.Link>
             {token && (
               <>
+                <Nav.Link as={Link} to="/home" onClick={closeNavbar}>
+                  Home
+                </Nav.Link>
                 <Nav.Link as={Link} to="/expenses" onClick={closeNavbar}>
                   Expenses
                 </Nav.Link>
@@ -59,15 +59,14 @@ function MyNavbar() {
                 </Nav.Link>
               </>
             )}
-
-            {!token ? (
-              <Nav.Link as={Link} to="/login" onClick={closeNavbar}>
-                Try it!
-              </Nav.Link>
-            ) : (
-              ""
-            )}
           </Nav>
+          {!token ? (
+            <Nav.Link as={Link} to="/login" onClick={closeNavbar} className="d-flex me-3">
+              Try it!
+            </Nav.Link>
+          ) : (
+            ""
+          )}
           {token ? (
             <Dropdown className="d-flex justify-content-between">
               <label className="d-flex align-items-center">
