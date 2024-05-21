@@ -92,7 +92,7 @@ const MineShared = () => {
   const findUsersSharedWitdh = (userId) => {
     return users ? users.find((u) => u._id === userId) : null;
   };
-  console.log(payload);
+
   //::: END MAP DATI :::
 
   return (

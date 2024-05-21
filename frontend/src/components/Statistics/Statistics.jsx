@@ -20,7 +20,7 @@ const Statistics = () => {
 
   const getCategoryName = (categoryId) => {
     const c = categories.find((category) => category._id === categoryId);
-    console.log(c);
+
     return c ? [c.categoryName, c.color] : "aa";
   };
 
