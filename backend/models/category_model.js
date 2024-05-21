@@ -20,6 +20,11 @@ const CategoryModel = new mongoose.Schema({
         type: String,
         required: true,
         max: 255
+    },
+    deleted: {
+        type: Boolean,
+        required: false,
+        default: false
     }
 }, { timestamps: true, strict: true });
 

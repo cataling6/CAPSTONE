@@ -20,7 +20,8 @@ const Statistics = () => {
 
   const getCategoryName = (categoryId) => {
     const c = categories.find((category) => category._id === categoryId);
-    return c ? [c.categoryName, c.color] : null;
+    console.log(c);
+    return c ? [c.categoryName, c.color] : "aa";
   };
 
   const getExpensesFiltered = async (data) => {

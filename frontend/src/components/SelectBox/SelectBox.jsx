@@ -10,7 +10,11 @@ const SelectBox = (props) => {
           Select element
         </option>
         {categories.map((cat) => {
-          return <option value={cat._id}>{cat.categoryName.toLowerCase().charAt(0).toUpperCase() + cat.categoryName.slice(1)}</option>;
+          return (
+            <option hidden={cat.deleted} value={cat._id}>
+              {cat.categoryName.toLowerCase().charAt(0).toUpperCase() + cat.categoryName.slice(1)}
+            </option>
+          );
         })}
       </select>
     </div>

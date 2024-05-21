@@ -214,7 +214,10 @@ const Expenses = () => {
                 return (
                   <div className="form-control m-0 p-0 border-0 shadow bg-gradient bg-light" key={expense._id}>
                     <div className="d-flex justify-content-between rounded-top-1 pt-1 px-1" style={{ backgroundColor: category.color }}>
-                      <div className={`text-${colorText} bold`}>{category.categoryName.toUpperCase()}</div>
+                      <div className={`text-${colorText} bold`}>
+                        {category.categoryName.toUpperCase()}
+                        {category.deleted ? " (category deleted)" : ""}
+                      </div>
                       <div className="d-flex gap-2 ">
                         <FontAwesomeIcon icon={faShareNodes} color={colorText} className="custom-icon" onClick={() => openShareModal(expense)} />
                         {/* <FontAwesomeIcon icon={faPenToSquare} color="white" className="custom-icon" onClick={() => openModifyModal(expense._id)} /> */}

@@ -33,8 +33,9 @@ const Configurations = () => {
 
     try {
       const res = await addCategory(formData);
-      console.log(res.statusCode);
+
       if (res.statusCode === 201) {
+        console.log(res);
         launchToast(res);
         document.getElementById("cat").value = null;
         document.getElementById("colorPicker").value = null;
@@ -140,8 +141,13 @@ const Configurations = () => {
       });
     }
   };
+
+  const loadData = async () => {
+    await getCategories();
+  };
+
   useEffect(() => {
-    getCategories();
+    loadData();
   }, [deleted]);
   return (
     <>
@@ -172,7 +178,7 @@ const Configurations = () => {
                   }
                   return (
                     <div key={uuidv4()}>
-                      <span id={cat._id} style={{ backgroundColor: `${cat.color}`, color: colorText }} className="rounded rounded-5 px-2  my-1 border border-1 border-black " onClick={verifyDelete}>
+                      <span hidden={cat.deleted} id={cat._id} style={{ backgroundColor: `${cat.color}`, color: colorText }} className="rounded rounded-5 px-2  my-1 border border-1 border-black " onClick={verifyDelete}>
                         {cat.categoryName.toUpperCase()}
                       </span>
                     </div>
