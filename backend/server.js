@@ -12,6 +12,7 @@ const loginRoute = require('./routes/login')
 const expenseRoute = require('./routes/expenses')
 const categoryRoute = require('./routes/categories')
 const sharedExpenseRoute = require('./routes/sharedExpenses')
+const cronjobRoute = require('./routes/cronjobs')
 //routes:::end
 //middlewares:::BEGIN
 const logger = require('../backend/middlewares/logger')
@@ -28,6 +29,7 @@ app.use('/uploads', express.static(path.join(__dirname, './uploads')));
 app.use(logger)
 app.use('/', usersRoute);
 app.use('/', loginRoute);
+app.use('/', cronjobRoute);
 app.use('/expenses/', expenseRoute);
 app.use('/sharedExpense/', sharedExpenseRoute)
 app.use('/expenses/', categoryRoute);

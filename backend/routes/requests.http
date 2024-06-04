@@ -56,3 +56,6 @@ Content-Type: application/json
 }
 ###
 DELETE http://localhost:3030/expenses/deleteExpense/6626b0caa72f06cdbf23df7a
+###
+get http://localhost:3030/getCronjobs
+ 
