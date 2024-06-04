@@ -24,13 +24,7 @@ class AxiosClient {
     }
 
     async get(url, config) {
-        const res = await this.axiosInstance.get(url, {
-            ...config,
-            headers: {
-                ...config.headers,
-                'Authorization': `Bearer $`
-            }
-        })
+        const res = await this.axiosInstance.get(url, config)
         return res.data
     }
 
