@@ -11,7 +11,7 @@ class AxiosClient {
             headers: {
                 Accept: 'application/json',
                 'Content-Type': 'application/json',
-                "authorization": AxiosClient.token
+                'Authorization': AxiosClient.token
             }
         })
     }
@@ -24,6 +24,7 @@ class AxiosClient {
     }
 
     async get(url, config) {
+        console.log(AxiosClient.token);
         const res = await this.axiosInstance.get(url, config)
         return res.data
     }
