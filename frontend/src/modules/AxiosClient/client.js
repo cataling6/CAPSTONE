@@ -11,7 +11,7 @@ class AxiosClient {
             headers: {
                 Accept: 'application/json',
                 'Content-Type': 'application/json',
-                Authorization: AxiosClient.token
+                'Authorization': AxiosClient.token
             }
         })
     }
