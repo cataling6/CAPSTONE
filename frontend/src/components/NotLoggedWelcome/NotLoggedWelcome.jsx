@@ -89,10 +89,10 @@ const NotLoggedWelcome = () => {
         
       </motion.main> */}
       <Container className="max-height-not-logged">
-        <div class="my-container">
+        <div className="my-container">
           <figure>
             <motion.img
-              class="pics-welcome"
+              className="pics-welcome"
               src={img1}
               initial={{ opacity: 0, scale: 0.5 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -107,18 +107,18 @@ const NotLoggedWelcome = () => {
                 },
               }}
             />
-            <motion.div class="text-container" initial={{ y: -20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 1.0, ease: [0.9, -0.05, 0.01, 0.99] }}>
+            <motion.div className="text-container" initial={{ y: -20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 1.0, ease: [0.9, -0.05, 0.01, 0.99] }}>
               <h3 className="fw-bold text-primary">Unlock Savings with Me!</h3>
               <span>Get ready to supercharge your savings journey with me! 🌟 Whether it's budgeting tips, savvy shopping strategies, or financial hacks, I've got you covered. Let's unlock the secrets to saving smarter together!</span>
             </motion.div>
           </figure>
           <figure>
-            <motion.div class="text-container" initial={{ y: -20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 1.0, ease: [0.9, -0.05, 0.01, 0.99] }}>
+            <motion.div className="text-container" initial={{ y: -20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 1.0, ease: [0.9, -0.05, 0.01, 0.99] }}>
               <h3 className="fw-bold text-primary d-flex justify-content-end ">Cut Costs, Grow Savings!</h3>
-              <span class="d-flex text-end ">Experience the power of financial freedom! 💸 I'll show you how to trim expenses and watch your savings soar. Let's turn your financial goals into reality, one dollar at a time!</span>
+              <span className="d-flex text-end ">Experience the power of financial freedom! 💸 I'll show you how to trim expenses and watch your savings soar. Let's turn your financial goals into reality, one dollar at a time!</span>
             </motion.div>
             <motion.img
-              class="pics-welcome"
+              className="pics-welcome"
               src={img2}
               initial={{ opacity: 0, scale: 0.5 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -136,7 +136,7 @@ const NotLoggedWelcome = () => {
           </figure>
           <figure>
             <motion.img
-              class="pics-welcome"
+              className="pics-welcome"
               src={img3}
               initial={{ opacity: 0, scale: 0.5 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -151,7 +151,7 @@ const NotLoggedWelcome = () => {
                 },
               }}
             />
-            <motion.div class="text-container" initial={{ y: -20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 1.0, ease: [0.9, -0.05, 0.01, 0.99] }}>
+            <motion.div className="text-container" initial={{ y: -20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 1.0, ease: [0.9, -0.05, 0.01, 0.99] }}>
               <h3 className="fw-bold text-primary">Save Big with Me!</h3>
               <span>Join me to unlock unbeatable savings! 💰 With savvy tips and tricks, I'll help you keep more money in your pocket effortlessly. Let's make saving simple and rewarding!</span>
             </motion.div>
