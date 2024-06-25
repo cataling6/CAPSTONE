@@ -24,6 +24,7 @@ const Expenses = () => {
   const [elementForModal, setElementForModal] = useState();
   const [modalOp, setModalOp] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
+  const [loading, setLoading] = useState(true);
 
   // const openModal = () => setShowModal(true);
 
@@ -150,8 +151,10 @@ const Expenses = () => {
 
   useEffect(() => {
     try {
+      setLoading(true);
       getCategories();
       getUserExpenses(currentPage);
+      setLoading(false);
     } catch (e) {
       setError(e);
       verifyError(e);
@@ -198,7 +201,9 @@ const Expenses = () => {
         </div>
         <motion.div initial={{ y: -50, opacity: 0 }} animate={{ y: 20, opacity: 1 }} transition={{ duration: 1, ease: [0.6, -0.05, 0.01, 0.99] }} className="max-height">
           <div className="col-lg-12 d-flex flex-column gap-3 px-3 ">
-            {!allUserExpenses.expenses ? (
+            {loading ? (
+              <div>Caricamento...</div>
+            ) : !allUserExpenses.expenses ? (
               <div>No expenses founded!</div>
             ) : allUserExpenses.expenses.length === 0 ? (
               <div>No expenses founded!</div>

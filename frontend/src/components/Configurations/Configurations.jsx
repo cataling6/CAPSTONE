@@ -19,6 +19,7 @@ const Configurations = () => {
   if (token) decoded = jwtDecode(token);
   const [formData, setFormData] = useState({ color: "#000000", userId: decoded.userId });
   const [deleted, setDeleted] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const handleOnChangeInput = (e) => {
     const { name, value } = e.target;
@@ -143,7 +144,9 @@ const Configurations = () => {
   };
 
   const loadData = async () => {
+    setLoading(true);
     await getCategories();
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -167,7 +170,9 @@ const Configurations = () => {
               <h5 className=" fw-bold text-primary">Available categories</h5>
             </motion.p>
             <motion.div className="d-flex gap-1 flex-wrap mb-5" initial={{ y: -50, opacity: 0 }} animate={{ y: 20, opacity: 1 }} transition={{ duration: 1, ease: [0.6, -0.05, 0.01, 0.99] }}>
-              {categories === "" || categories === null ? (
+              {loading ? (
+                <div>Caricamento...</div>
+              ) : categories === "" || categories === null ? (
                 <div className="text-dark">No categories have been configured</div>
               ) : (
                 categories.map((cat) => {
