@@ -12,7 +12,7 @@ class AxiosClient {
             headers: {
                 Accept: 'application/json',
                 'Content-Type': 'application/json',
-                'Authorization': AxiosClient.token ? `Bearer ${AxiosClient.token}` : ''
+                Authorization: AxiosClient.token ? `${AxiosClient.token}` : ''
             }
         });
     }
