@@ -7,7 +7,7 @@ const verified = require('../middlewares/verifyToken')
 const verifyBody = require('../middlewares/validateUser')
 
 router.get('/getUsers', verified, userController.getUsers)
-router.post('/createUser', verified, verifyBody, (req, res, next) => {
+router.post('/createUser', verifyBody, (req, res, next) => {
     // controllo se ci sono errori di validazione che mi sono settato nel validateUsers.js
     if (req.validationErrors && req.validationErrors.length > 0) {
         return res.status(400).json({ errors: req.validationErrors });
