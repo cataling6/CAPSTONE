@@ -17,7 +17,7 @@ const Configurations = () => {
   const token = localStorage.getItem("authorized_user");
   let decoded = "";
   if (token) decoded = jwtDecode(token);
-  const [formData, setFormData] = useState({ color: "#000000", userId: decoded.userId });
+  const [formData, setFormData] = useState({ color: "#000000", userId: decoded.userId, owner: decoded.userId });
   const [deleted, setDeleted] = useState(false);
   const [loading, setLoading] = useState(true);
 
@@ -25,7 +25,7 @@ const Configurations = () => {
     const { name, value } = e.target;
     setFormData({
       ...formData,
-      [name]: value,
+      [name]: value
     });
   };
 
@@ -36,7 +36,6 @@ const Configurations = () => {
       const res = await addCategory(formData);
 
       if (res.statusCode === 201) {
-        console.log(res);
         launchToast(res);
         document.getElementById("cat").value = null;
         document.getElementById("colorPicker").value = null;
@@ -182,8 +181,9 @@ const Configurations = () => {
                     colorText = "black";
                   }
                   return (
-                    <div key={uuidv4()}>
-                      <span hidden={cat.deleted} id={cat._id} style={{ backgroundColor: `${cat.color}`, color: colorText }} className="rounded rounded-5 px-2  my-1 border border-1 border-black " onClick={verifyDelete}>
+
+                    <div key={uuidv4()} hidden={cat.deleted === true || !(cat.owner === decoded.userId || cat.owner === "default")} >
+                      <span id={cat._id} style={{ backgroundColor: `${cat.color}`, color: colorText }} className="rounded rounded-5 px-2  my-1 border border-1 border-black " onClick={verifyDelete}>
                         {cat.categoryName.toUpperCase()}
                       </span>
                     </div>

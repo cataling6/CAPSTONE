@@ -31,7 +31,7 @@ Content-Type: application/json
 ###
 GET http://localhost:3030/expenses/getCategories
 ###
-DELETE http://localhost:3030/expenses/deleteCategory/6624f9dc3fac85accfbba713
+DELETE http://localhost:3030/expenses/deleteCategory/66c8bc217790343c20c9bede
 ###
 POST http://localhost:3030/expenses/addExpense
 Content-Type: application/json

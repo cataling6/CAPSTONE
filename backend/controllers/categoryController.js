@@ -44,14 +44,14 @@ exports.deleteCategory = async (req, res) => {
     const id = req.params.id
 
     try {
-        const delCat = await categoryModel.findByIdAndUpdate(
-            id,
+        const delCat = await categoryModel.findOneAndUpdate(
+            { _id: id, owner: { $ne: "default" } },
             { deleted: true }
         );
         if (!delCat) {
             return res.status(404).send({
                 statusCode: 404,
-                message: "Category not found!"
+                message: "Category not found or you're trying to delete default category!"
             });
         }
         res

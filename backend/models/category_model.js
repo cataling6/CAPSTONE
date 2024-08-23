@@ -25,6 +25,10 @@ const CategoryModel = new mongoose.Schema({
         type: Boolean,
         required: false,
         default: false
+    },
+    owner: {
+        type: String,
+        default: "default"
     }
 }, { timestamps: true, strict: true });
 

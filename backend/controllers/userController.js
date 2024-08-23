@@ -40,7 +40,7 @@ exports.createUser = async (req, res) => {
             password: hashedPwd
         });
         const saveUser = newUser.save()
-        console.log(res);
+
         return res
             .status(201)
             .send({
