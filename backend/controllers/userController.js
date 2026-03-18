@@ -25,6 +25,7 @@ exports.createUser = async (req, res) => {
         const hashedPwd = await bcrypt.hash(req.body.password, salt)
         const verifyUser = await userModel.findOne({ email: req.body.email })
         //verifico prima se esiste già un utente o meno, se si, gli restituisco il messaggi oaltrimenti procedo
+
         if (verifyUser) {
             return res
                 .status(208)
@@ -39,7 +40,9 @@ exports.createUser = async (req, res) => {
             email: req.body.email,
             password: hashedPwd
         });
-        const saveUser = newUser.save()
+
+        console.log(newUser);
+        const saveUser = await newUser.save()
 
         return res
             .status(201)

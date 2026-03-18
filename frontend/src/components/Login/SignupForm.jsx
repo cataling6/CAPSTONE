@@ -20,7 +20,7 @@ const SignupForm = ({ toggleForm }) => {
   const onSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await client.post("/createUser", signupFormData);
+      const res = await client.postWithoutAuth("/createUser", signupFormData);
       if (res.statusCode == 201) {
         verifyCreate(res.payload);
       } else if (res.statusCode == 208) {

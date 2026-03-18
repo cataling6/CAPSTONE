@@ -44,6 +44,11 @@ class AxiosClient {
         return res.data;
     }
 
+    async postWithoutAuth(url, payload) {
+        const res = await this.axiosInstance.post(url, payload);
+        return res.data;
+    }
+
     async postFormData(url, formData) {
         this.setHeaders({ 'Authorization': this.getToken() });
         //console.log("POST FormData Token:", this.axiosInstance.defaults.headers.common['Authorization']); // Log del token per POST FormData
